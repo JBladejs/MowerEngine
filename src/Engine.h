@@ -12,8 +12,8 @@ private:
     SDL_Window* window;
     SDL_GLContext context;
 
-    double screenWidth;
-    double screenHeight;
+    int screenWidth;
+    int screenHeight;
     bool running;
     int exitCode;
 

@@ -11,8 +11,8 @@
 Engine::Engine() {
     window = nullptr;
     context = nullptr;
-    screenWidth = 640.0;
-    screenHeight = 480.0;
+    screenWidth = 1280;
+    screenHeight = 720;
     exitCode = -1;
     running = false;
 }
