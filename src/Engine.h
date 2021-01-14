@@ -6,7 +6,7 @@
 #define MOWERENGINE_ENGINE_H
 
 #include <SDL2/SDL_video.h>
-#include "InputProcessor.h"
+#include "input/InputProcessor.h"
 
 namespace MowerEngine {
 
