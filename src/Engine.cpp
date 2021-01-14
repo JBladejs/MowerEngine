@@ -7,10 +7,15 @@
 #include<SDL2/SDL.h>
 #include<GL/gl.h>
 #include<GL/glu.h>
+#include <iostream>
+
+using namespace MowerEngine;
+using namespace std;
 
 Engine::Engine() {
     window = nullptr;
     context = nullptr;
+    inputProcessor = nullptr;
     screenWidth = 1280;
     screenHeight = 720;
     exitCode = -1;
@@ -21,7 +26,7 @@ void Engine::initGL() const {
     glClearColor(0.0, 0.0, 0.0, 1.0);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluPerspective(45,screenWidth / screenHeight,1.0,500.0);
+    gluPerspective(45,(double) screenWidth / screenHeight,1.0,500.0);
     glMatrixMode(GL_MODELVIEW);
     glEnable(GL_DEPTH_TEST);
 }
@@ -39,19 +44,12 @@ void Engine::initSDL() {
 void Engine::start() {
     initSDL();
     initGL();
+    inputProcessor = new InputProcessor();
     running = true;
 
-    SDL_Event event;
     while (running) {
-        while (SDL_PollEvent(&event))
-        {
-            if (event.type == SDL_QUIT) {
-                running = false;
-                break;
-            }
-        }
-
-        SDL_GL_SwapWindow(window);
+        update();
+        render();
     }
     quit();
 }
@@ -60,14 +58,36 @@ void Engine::quit() {
     SDL_DestroyWindow(window);
     window = nullptr;
     context = nullptr;
+    inputProcessor = nullptr;
     SDL_Quit();
     exitCode = 0;
+}
+
+Engine::~Engine() {
+    quit();
 }
 
 int Engine::getExitCode() const {
     return exitCode;
 }
 
-void Engine::gameLoop() {
+void Engine::update() {
+    SDL_Event event;
+    while (SDL_PollEvent(&event))
+    {
+        if (event.type == SDL_QUIT) {
+            running = false;
+            break;
+        } else inputProcessor->processInput(event);
+    }
 
+    while (inputProcessor->hasProcessedKeys()) {
+        cout << inputProcessor->getProcessedKeys() << endl;
+    }
+
+    inputProcessor->endProcessing();
+}
+
+void Engine::render() {
+    SDL_GL_SwapWindow(window);
 }

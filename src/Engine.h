@@ -6,26 +6,42 @@
 #define MOWERENGINE_ENGINE_H
 
 #include <SDL2/SDL_video.h>
+#include "InputProcessor.h"
 
-class Engine {
-private:
-    SDL_Window* window;
-    SDL_GLContext context;
+namespace MowerEngine {
 
-    int screenWidth;
-    int screenHeight;
-    bool running;
-    int exitCode;
+    class Engine {
+    private:
+        SDL_Window *window;
+        SDL_GLContext context;
 
-    void initGL() const;
-    void initSDL();
-    void gameLoop();
-    void quit();
-public:
-    Engine();
-    void start();
-    int getExitCode() const;
-};
+        InputProcessor *inputProcessor;
+
+        int screenWidth;
+        int screenHeight;
+        bool running;
+        int exitCode;
+
+        void initGL() const;
+
+        void initSDL();
+
+        void update();
+
+        void render();
+
+        void quit();
+
+    public:
+        Engine();
+        ~Engine();
+
+        void start();
+
+        int getExitCode() const;
+    };
+
+}
 
 
 #endif //MOWERENGINE_ENGINE_H
