@@ -17,8 +17,8 @@ namespace MowerEngine {
 
         InputProcessor *inputProcessor;
 
-        int screenWidth;
-        int screenHeight;
+        float screenWidth;
+        float screenHeight;
         bool running;
         int exitCode;
 

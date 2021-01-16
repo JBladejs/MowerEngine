@@ -12,7 +12,7 @@ namespace MowerEngine {
         float halfSizeX, halfSizeY;
     public:
         Rectangle(float x, float y, float sizeX, float sizeY);
-        void render();
+        void render() const;
     };
 }
 

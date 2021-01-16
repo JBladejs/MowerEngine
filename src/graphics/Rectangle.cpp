@@ -8,11 +8,13 @@
 using namespace MowerEngine;
 
 Rectangle::Rectangle(float x, float y, float sizeX, float sizeY) {
+    this->x = x;
+    this->y = y;
     halfSizeX = sizeX * 0.5f;
     halfSizeY = sizeY * 0.5f;
 }
 
-void Rectangle::render() {
+void Rectangle::render() const {
     glColor3ub(255, 0, 0);
     glBegin(GL_QUADS);
     glVertex2f(x - halfSizeX, y - halfSizeY);

@@ -19,8 +19,8 @@ Engine::Engine() {
     window = nullptr;
     context = nullptr;
     inputProcessor = nullptr;
-    screenWidth = 1280;
-    screenHeight = 720;
+    screenWidth = 1280.0f;
+    screenHeight = 720.0f;
     exitCode = -1;
     running = false;
 }
@@ -29,10 +29,10 @@ void Engine::initGL() const {
     glClearColor(0.0, 0.0, 0.0, 1.0);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluPerspective(45,(double) screenWidth / screenHeight,1.0,500.0);
+    glOrtho( 0.0, screenWidth, screenHeight, 0.0, 1.0, -1.0 );
     glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
     glEnable(GL_DEPTH_TEST);
-    glMatrixMode(GL_PROJECTION);
 //    TODO: Find out the difference between matrix modes
 }
 
@@ -52,7 +52,7 @@ void Engine::start() {
     inputProcessor = new InputProcessor();
     running = true;
 
-    testRect = new Rectangle(0.0f, 0.0f, 50.0f, 50.0f);
+    testRect = new Rectangle(500.0f, 500.0f, 50.0f, 50.0f);
 
     while (running) {
         render();
