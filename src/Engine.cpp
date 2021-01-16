@@ -91,7 +91,22 @@ void Engine::update() {
     }
 
     while (inputProcessor->hasProcessedKeys()) {
-        cout << inputProcessor->getProcessedKeys() << endl;
+        switch (inputProcessor->getProcessedKeys()) {
+            case SDLK_w:
+                testRect->setY(testRect->getY() - 5);
+                break;
+            case SDLK_s:
+                testRect->setY(testRect->getY() + 5);
+                break;
+            case SDLK_a:
+                testRect->setX(testRect->getX() - 5);
+                break;
+            case SDLK_d:
+                testRect->setX(testRect->getX() + 5);
+                break;
+            default:
+                break;
+        }
     }
 
     inputProcessor->endProcessing();
