@@ -3,6 +3,7 @@
 //
 
 #include "Engine.h"
+#include "graphics/Rectangle.h"
 
 #include<SDL2/SDL.h>
 #include<GL/gl.h>
@@ -11,6 +12,8 @@
 
 using namespace MowerEngine;
 using namespace std;
+
+MowerEngine::Rectangle *testRect = nullptr;
 
 Engine::Engine() {
     window = nullptr;
@@ -29,6 +32,8 @@ void Engine::initGL() const {
     gluPerspective(45,(double) screenWidth / screenHeight,1.0,500.0);
     glMatrixMode(GL_MODELVIEW);
     glEnable(GL_DEPTH_TEST);
+    glMatrixMode(GL_PROJECTION);
+//    TODO: Find out the difference between matrix modes
 }
 
 void Engine::initSDL() {
@@ -47,9 +52,11 @@ void Engine::start() {
     inputProcessor = new InputProcessor();
     running = true;
 
+    testRect = new Rectangle(0.0f, 0.0f, 50.0f, 50.0f);
+
     while (running) {
-        update();
         render();
+        update();
     }
     quit();
 }
@@ -64,6 +71,8 @@ void Engine::quit() {
 }
 
 Engine::~Engine() {
+    delete testRect;
+    testRect = nullptr;
     quit();
 }
 
@@ -86,8 +95,12 @@ void Engine::update() {
     }
 
     inputProcessor->endProcessing();
+    SDL_GL_SwapWindow(window);
 }
 
 void Engine::render() {
-    SDL_GL_SwapWindow(window);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glLoadIdentity(); //TODO: Check functionality of this
+    testRect->render();
+    glFlush();
 }
