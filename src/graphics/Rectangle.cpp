@@ -15,11 +15,30 @@ Rectangle::Rectangle(float x, float y, float sizeX, float sizeY) {
 }
 
 void Rectangle::render() const {
-    glColor3ub(255, 0, 0);
     glBegin(GL_QUADS);
+    glColor3ub(255, 51, 0);
     glVertex2f(x - halfSizeX, y - halfSizeY);
+    glColor3ub(255, 255, 102);
     glVertex2f(x + halfSizeX, y - halfSizeY);
+    glColor3ub(0, 153, 0);
     glVertex2f(x + halfSizeX, y + halfSizeY);
+    glColor3ub(0, 255, 204);
     glVertex2f(x - halfSizeX, y + halfSizeY);
     glEnd();
+}
+
+float MowerEngine::Rectangle::getX() const {
+    return x;
+}
+
+float MowerEngine::Rectangle::getY() const {
+    return y;
+}
+
+void MowerEngine::Rectangle::setX(float x) {
+    this->x = x;
+}
+
+void MowerEngine::Rectangle::setY(float y) {
+    this->y = y;
 }

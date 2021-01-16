@@ -13,6 +13,10 @@ namespace MowerEngine {
     public:
         Rectangle(float x, float y, float sizeX, float sizeY);
         void render() const;
+        float getX() const;
+        float getY() const;
+        void setX(float x);
+        void setY(float y);
     };
 }
 
