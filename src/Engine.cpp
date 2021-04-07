@@ -33,6 +33,7 @@ void Engine::initGL() const {
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     glEnable(GL_DEPTH_TEST);
+    //TODO: Add error checking
 //    TODO: Find out the difference between matrix modes
 }
 
@@ -46,6 +47,7 @@ void Engine::initSDL() {
                               SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
     context = SDL_GL_CreateContext(window);
     SDL_GL_SetSwapInterval(1);
+    //TODO: Add error checking
 }
 
 void Engine::start() {
