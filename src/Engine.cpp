@@ -26,10 +26,10 @@ Engine::Engine() {
 }
 
 void Engine::initGL() const {
-    glClearColor(0.0, 0.0, 0.0, 1.0);
+    glClearColor(0.f, 0.f, 0.f, 1.f);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glOrtho( 0.0, screenWidth, screenHeight, 0.0, 1.0, -1.0 );
+    glOrtho( 0.f, screenWidth, screenHeight, 0.f, 1.f, -1.f );
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     glEnable(GL_DEPTH_TEST);
@@ -54,7 +54,7 @@ void Engine::start() {
     inputProcessor = new InputProcessor();
     running = true;
 
-    testRect = new Rectangle(500.0f, 500.0f, 50.0f, 50.0f);
+    testRect = new Rectangle(500.f, 500.f, 50.f, 50.f);
 
     while (running) {
         render();
