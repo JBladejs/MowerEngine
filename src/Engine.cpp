@@ -26,6 +26,7 @@ Engine::Engine() {
 }
 
 void Engine::initGL() const {
+    //TODO: implement viewports
     glClearColor(0.f, 0.f, 0.f, 1.f);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
