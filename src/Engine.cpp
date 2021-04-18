@@ -115,7 +115,10 @@ void Engine::update() {
 
 void Engine::render() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glEnable(GL_TEXTURE_2D);
     glLoadIdentity(); //TODO: Check functionality of this
     testRect->render();
+    //TODO: find out about glFlush
     glFlush();
+    glDisable(GL_TEXTURE_2D);
 }

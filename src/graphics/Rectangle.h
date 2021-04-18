@@ -5,14 +5,17 @@
 #ifndef MOWERENGINE_RECTANGLE_H
 #define MOWERENGINE_RECTANGLE_H
 
+#include "Texture.h"
+
 namespace MowerEngine {
     class Rectangle {
     private:
         float x, y;
+        Texture texture;
         float halfSizeX, halfSizeY;
     public:
         Rectangle(float x, float y, float sizeX, float sizeY);
-        void render() const;
+        void render();
         float getX() const;
         float getY() const;
         void setX(float x);
