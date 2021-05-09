@@ -26,15 +26,13 @@ Engine::Engine() {
 }
 
 void Engine::initGL() const {
-    //TODO: implement viewports
-    glClearColor(0.f, 0.f, 0.f, 1.f);
+    glClearColor(0.0, 0.0, 0.0, 1.0);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glOrtho( 0.f, screenWidth, screenHeight, 0.f, 1.f, -1.f );
+    glOrtho( 0.0, screenWidth, screenHeight, 0.0, 1.0, -1.0 );
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     glEnable(GL_DEPTH_TEST);
-    //TODO: Add error checking
 //    TODO: Find out the difference between matrix modes
 }
 
@@ -43,12 +41,9 @@ void Engine::initSDL() {
     SDL_GL_SetAttribute( SDL_GL_CONTEXT_MAJOR_VERSION, 2 );
     SDL_GL_SetAttribute( SDL_GL_CONTEXT_MINOR_VERSION, 1 );
 
-    window = SDL_CreateWindow("Mower Pre-Alpha", SDL_WINDOWPOS_UNDEFINED,
-                              SDL_WINDOWPOS_UNDEFINED, screenWidth, screenHeight,
-                              SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
+    window = SDL_CreateWindow("Mower Pre-Alpha", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, screenWidth, screenHeight, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
     context = SDL_GL_CreateContext(window);
     SDL_GL_SetSwapInterval(1);
-    //TODO: Add error checking
 }
 
 void Engine::start() {
@@ -57,7 +52,7 @@ void Engine::start() {
     inputProcessor = new InputProcessor();
     running = true;
 
-    testRect = new Rectangle(500.f, 500.f, 50.f, 50.f);
+    testRect = new Rectangle(500.0f, 500.0f, 50.0f, 50.0f);
 
     while (running) {
         render();
