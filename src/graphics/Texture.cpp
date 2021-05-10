@@ -8,7 +8,8 @@ void Texture::makeCheckImage() {
     unsigned int i, j, c;
     for (i = 0; i < textureHeight; i++) {
         for (j = 0; j < textureWidth; j++) {
-            //TODO: simplify this
+            //TODO: debug
+            //TODO: simplify
             c = (~(i & 0x8) ^ ~(j & 0x8)) * 255;
             checkImage[i][j][0] = (GLubyte) c;
             checkImage[i][j][1] = (GLubyte) 0;
