@@ -19,8 +19,9 @@ Engine::Engine() {
     window = nullptr;
     context = nullptr;
     inputProcessor = nullptr;
-    screenWidth = 1280.0f;
-    screenHeight = 720.0f;
+    //TODO: make it not hardcoded
+    screenWidth = 800.f;
+    screenHeight = 600.f;
     exitCode = -1;
     running = false;
 }
