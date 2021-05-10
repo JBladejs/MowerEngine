@@ -1,4 +1,3 @@
-#include<SDL2/SDL.h>
 #include "Engine.h"
 
 using namespace MowerEngine;

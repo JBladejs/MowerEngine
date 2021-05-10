@@ -12,10 +12,10 @@
 
 class Texture {
 private:
-    GLuint texName{};
+    GLuint textureID;
     GLubyte checkImage[textureHeight][textureWidth][4]{};
     void makeCheckImage();
-    void freeTexture();
+    void free();
 public:
     Texture();
     ~Texture();

@@ -28,7 +28,7 @@ namespace MowerEngine {
 
         void update();
 
-        void render();
+        static void render();
 
         void quit();
 

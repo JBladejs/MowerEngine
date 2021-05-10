@@ -19,23 +19,29 @@ void Texture::makeCheckImage() {
 }
 
 Texture::Texture() {
-    makeCheckImage();
-    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-    glGenTextures(1, &texName);
-    glBindTexture(GL_TEXTURE_2D, texName);
+    textureID = 0;
 
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    makeCheckImage();
+//    TODO: do some research about this line:
+//    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+    glGenTextures(1, &textureID);
+//    TODO: find if this need its own method
+    bind();
+
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, textureWidth,
+                 textureHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE,
+                 checkImage);
+
+//    TODO: find out about this
+//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,
                     GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,
                     GL_NEAREST);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, textureWidth,
-                 textureHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE,
-                 checkImage);
 }
 
-void Texture::freeTexture() {
+void Texture::free() {
 
 }
 
@@ -44,5 +50,5 @@ Texture::~Texture() {
 }
 
 void Texture::bind() {
-    glBindTexture(GL_TEXTURE_2D, texName);
+    glBindTexture(GL_TEXTURE_2D, textureID);
 }
