@@ -20,7 +20,7 @@ Engine::Engine() {
     context = nullptr;
     inputProcessor = nullptr;
     //TODO: make it not hardcoded
-    screenWidth = 800.f;
+    screenWidth = 600.f;
     screenHeight = 600.f;
     exitCode = -1;
     running = false;
@@ -53,7 +53,7 @@ void Engine::start() {
     inputProcessor = new InputProcessor();
     running = true;
 
-    testRect = new Rectangle(500.0f, 500.0f, 50.0f, 50.0f);
+    testRect = new Rectangle(500.0f, 500.0f, 64.0f, 64.0f);
 
     while (running) {
         render();
