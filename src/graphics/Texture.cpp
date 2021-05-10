@@ -6,8 +6,8 @@
 
 void Texture::makeCheckImage() {
     unsigned int i, j, c;
-    for (i = 0; i < checkImageHeight; i++) {
-        for (j = 0; j < checkImageWidth; j++) {
+    for (i = 0; i < textureHeight; i++) {
+        for (j = 0; j < textureWidth; j++) {
             //TODO: simplify this
             c = (~(i & 0x8) ^ ~(j & 0x8)) * 255;
             checkImage[i][j][0] = (GLubyte) c;
@@ -30,9 +30,13 @@ Texture::Texture() {
                     GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,
                     GL_NEAREST);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, checkImageWidth,
-                 checkImageHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE,
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, textureWidth,
+                 textureHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE,
                  checkImage);
+}
+
+void Texture::freeTexture() {
+
 }
 
 Texture::~Texture() {

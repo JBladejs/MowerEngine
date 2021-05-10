@@ -5,17 +5,17 @@
 #ifndef MOWERENGINE_TEXTURE_H
 #define MOWERENGINE_TEXTURE_H
 
-#define checkImageWidth 64
-#define checkImageHeight 64
+#define textureWidth 64
+#define textureHeight 64
 
 #include<GL/glu.h>
 
 class Texture {
 private:
     GLuint texName{};
-    GLubyte checkImage[checkImageHeight][checkImageWidth][4]{};
+    GLubyte checkImage[textureHeight][textureWidth][4]{};
     void makeCheckImage();
-
+    void freeTexture();
 public:
     Texture();
     ~Texture();
