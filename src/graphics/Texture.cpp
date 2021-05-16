@@ -46,7 +46,11 @@ Texture::Texture() {
 }
 
 void Texture::free() {
-
+    unbind();
+    if (textureID != 0) {
+        glDeleteTextures(1, &textureID);
+        textureID = 0;
+    }
 }
 
 Texture::~Texture() {
