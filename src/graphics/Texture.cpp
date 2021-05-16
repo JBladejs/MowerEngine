@@ -42,6 +42,8 @@ Texture::Texture() {
                     GL_NEAREST);
 
     unbind();
+
+    //TODO: add error checking
 }
 
 void Texture::free() {
