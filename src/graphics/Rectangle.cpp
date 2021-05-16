@@ -12,7 +12,7 @@ Rectangle::Rectangle(float x, float y, float sizeX, float sizeY) {
     this->y = y;
     halfSizeX = sizeX * 0.5f;
     halfSizeY = sizeY * 0.5f;
-    texture = new Texture();
+    texture = TextureManager::makeCheckTexture(sizeX, sizeY);
 }
 
 void Rectangle::render() {

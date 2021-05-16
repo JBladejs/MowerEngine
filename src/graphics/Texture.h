@@ -5,19 +5,15 @@
 #ifndef MOWERENGINE_TEXTURE_H
 #define MOWERENGINE_TEXTURE_H
 
-#define textureWidth 64
-#define textureHeight 64
-
 #include<GL/glu.h>
 
 class Texture {
 private:
+    int textureWidth, textureHeight;
     GLuint textureID;
-    GLubyte checkImage[textureHeight][textureWidth][4]{};
-    void makeCheckImage();
     void free();
 public:
-    Texture();
+    Texture(GLuint* pixels, int width, int height);
     ~Texture();
     void bind() const;
     static void unbind() ;

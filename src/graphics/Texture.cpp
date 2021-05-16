@@ -6,23 +6,9 @@
 
 #include <iostream>
 
-void Texture::makeCheckImage() {
-    unsigned int i, j, c;
-    for (i = 0; i < textureHeight; i++) {
-        for (j = 0; j < textureWidth; j++) {
-            c = ((i & 0x8) ^ (j & 0x8)) * 255;
-            checkImage[i][j][0] = (GLubyte) c;
-            checkImage[i][j][1] = (GLubyte) 0;
-            checkImage[i][j][2] = (GLubyte) c;
-            checkImage[i][j][3] = (GLubyte) 255;
-        }
-    }
-}
-
-Texture::Texture() {
+Texture::Texture(GLuint *pixels, int width, int height): textureWidth(width), textureHeight(height) {
     textureID = 0;
 
-    makeCheckImage();
 //    TODO: do some research about this line:
 //    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
     glGenTextures(1, &textureID);
@@ -31,7 +17,7 @@ Texture::Texture() {
 
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, textureWidth,
                  textureHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE,
-                 checkImage);
+                 pixels);
 
 //    TODO: find out about this
 //    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
