@@ -19,7 +19,8 @@ private:
 public:
     Texture();
     ~Texture();
-    void bind();
+    void bind() const;
+    static void unbind() ;
 };
 
 

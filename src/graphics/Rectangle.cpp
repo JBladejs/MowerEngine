@@ -27,6 +27,7 @@ void Rectangle::render() {
 //    glColor3ub(0, 255, 204);
     glTexCoord2f(0.f, 1.f); glVertex2f(x - halfSizeX, y + halfSizeY);
     glEnd();
+    texture.unbind();
 }
 
 float MowerEngine::Rectangle::getX() const {

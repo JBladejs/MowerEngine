@@ -28,7 +28,7 @@ Texture::Texture() {
 //    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
     glGenTextures(1, &textureID);
 //    TODO: find if this need its own method
-    glBindTexture(GL_TEXTURE_2D, textureID);
+    bind();
 
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, textureWidth,
                  textureHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE,
@@ -42,7 +42,7 @@ Texture::Texture() {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,
                     GL_NEAREST);
 
-    glBindTexture(GL_TEXTURE_2D, 0);
+    unbind();
 }
 
 void Texture::free() {
@@ -50,9 +50,14 @@ void Texture::free() {
 }
 
 Texture::~Texture() {
-    //TODO: implement this
+    free();
 }
 
-void Texture::bind() {
+void Texture::bind() const {
     glBindTexture(GL_TEXTURE_2D, textureID);
+}
+
+//TODO: move to a class managing textures
+void Texture::unbind() {
+    glBindTexture(GL_TEXTURE_2D, 0);
 }
