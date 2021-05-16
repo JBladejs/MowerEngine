@@ -11,7 +11,6 @@ void Texture::makeCheckImage() {
     for (i = 0; i < textureHeight; i++) {
         for (j = 0; j < textureWidth; j++) {
             c = ((i & 0x8) ^ (j & 0x8)) * 255;
-            std::cout << i << "-" << j << ": " << c << std::endl;
             checkImage[i][j][0] = (GLubyte) c;
             checkImage[i][j][1] = (GLubyte) 0;
             checkImage[i][j][2] = (GLubyte) c;
