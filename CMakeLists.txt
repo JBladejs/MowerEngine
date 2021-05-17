@@ -5,6 +5,8 @@ set(CMAKE_CXX_STANDARD 14)
 
 find_package(SDL2 REQUIRED)
 file(GLOB SOURCE "src/*.cpp" "src/*/*.cpp" "src/*/*/*.cpp")
+#TODO: make it so the files are copied on assets change
+file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
 
 add_executable(MowerEngine ${SOURCE} src/Object2D.cpp src/Object2D.h src/graphics/Rectangle.cpp src/graphics/Rectangle.h src/graphics/Texture.cpp src/graphics/Texture.h src/graphics/TextureManager.cpp src/graphics/TextureManager.h)
 
