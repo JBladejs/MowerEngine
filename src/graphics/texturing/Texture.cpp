@@ -53,3 +53,16 @@ void Texture::bind() const {
 void Texture::unbind() {
     glBindTexture(GL_TEXTURE_2D, 0);
 }
+
+void Texture::render(float x, float y, float width, float height) {
+    glLoadIdentity();
+    glTranslatef(x, y, 0.f);
+    bind();
+    glBegin(GL_QUADS);
+        glTexCoord2f(0.f, 0.f); glVertex2f(0.f, 0.f);
+        glTexCoord2f(1.f, 0.f); glVertex2f(width, 0.f);
+        glTexCoord2f(1.f, 1.f); glVertex2f(width, height);
+        glTexCoord2f(0.f, 1.f); glVertex2f(0.f, height);
+    glEnd();
+    unbind();
+}

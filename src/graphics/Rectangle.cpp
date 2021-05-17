@@ -7,26 +7,14 @@
 
 using namespace MowerEngine;
 
-Rectangle::Rectangle(float x, float y, float sizeX, float sizeY) {
-    this->x = x;
-    this->y = y;
-    halfSizeX = sizeX * 0.5f;
-    halfSizeY = sizeY * 0.5f;
+Rectangle::Rectangle(float x, float y, float sizeX, float sizeY) : x(x), y(y), sizeX(sizeX), sizeY(sizeY) {
 //    texture = TextureManager::makeCheckTexture(sizeX, sizeY);
     texture = TextureManager::loadTextureFromFile("assets/crate.jpg");
 }
 
 void Rectangle::render() {
     //Remove previous transformations
-    glLoadIdentity();
-    texture->bind();
-    glBegin(GL_QUADS);
-    glTexCoord2f(0.f, 0.f); glVertex2f(x - halfSizeX, y - halfSizeY);
-    glTexCoord2f(1.f, 0.f); glVertex2f(x + halfSizeX, y - halfSizeY);
-    glTexCoord2f(1.f, 1.f); glVertex2f(x + halfSizeX, y + halfSizeY);
-    glTexCoord2f(0.f, 1.f); glVertex2f(x - halfSizeX, y + halfSizeY);
-    glEnd();
-    Texture::unbind();
+    texture->render(x, y, sizeX, sizeY);
 }
 
 float MowerEngine::Rectangle::getX() const {

@@ -12,8 +12,8 @@ namespace MowerEngine {
     class Rectangle {
     private:
         float x, y;
+        float sizeX, sizeY;
         Texture* texture;
-        float halfSizeX, halfSizeY;
     public:
         Rectangle(float x, float y, float sizeX, float sizeY);
         ~Rectangle();
