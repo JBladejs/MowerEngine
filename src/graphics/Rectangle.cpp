@@ -17,6 +17,8 @@ Rectangle::Rectangle(float x, float y, float sizeX, float sizeY) {
 }
 
 void Rectangle::render() {
+    //Remove previous transformations
+    glLoadIdentity();
     texture->bind();
     glBegin(GL_QUADS);
     glTexCoord2f(0.f, 0.f); glVertex2f(x - halfSizeX, y - halfSizeY);
