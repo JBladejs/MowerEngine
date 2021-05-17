@@ -5,7 +5,7 @@
 #ifndef MOWERENGINE_RECTANGLE_H
 #define MOWERENGINE_RECTANGLE_H
 
-#include "TextureManager.h"
+#include "texturing/TextureManager.h"
 
 namespace MowerEngine {
     class Rectangle {
