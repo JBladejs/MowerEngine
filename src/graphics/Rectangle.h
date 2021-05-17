@@ -6,6 +6,7 @@
 #define MOWERENGINE_RECTANGLE_H
 
 #include "texturing/TextureManager.h"
+//TODO: change the name of this class
 
 namespace MowerEngine {
     class Rectangle {
