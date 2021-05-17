@@ -7,14 +7,15 @@
 
 #include<SDL2/SDL.h>
 #include<GL/gl.h>
-#include<GL/glu.h>
-#include <iostream>
+#include <IL/il.h>
+#include <IL/ilu.h>
 
 using namespace MowerEngine;
 using namespace std;
 
 MowerEngine::Rectangle *testRect = nullptr;
 
+//TODO: Add error checking
 Engine::Engine() {
     window = nullptr;
     context = nullptr;
@@ -35,6 +36,8 @@ void Engine::initGL() const {
     glLoadIdentity();
     glEnable(GL_DEPTH_TEST);
 //    TODO: Find out the difference between matrix modes
+    ilInit();
+    ilClearColour(255, 255, 255, 000);
 }
 
 void Engine::initSDL() {

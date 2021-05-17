@@ -3,6 +3,7 @@
 //
 
 #include "TextureManager.h"
+#include <IL/il.h>
 
 Texture* TextureManager::makeCheckTexture(int width, int height) {
     GLuint checkImage[width * height];
@@ -18,4 +19,30 @@ Texture* TextureManager::makeCheckTexture(int width, int height) {
         }
     }
     return new Texture(checkImage, width, height);
+}
+
+//TODO: store textures and return them instead of loading again
+Texture *TextureManager::loadTextureFromFile(const std::string& path) {
+    Texture* texture = nullptr;
+    bool loaded = false;
+    ILuint imgID = 0;
+    ilGenImages(1, &imgID);
+    ilBindImage(imgID);
+    ILboolean success = ilLoadImage(path.c_str());
+    if (success == IL_TRUE) {
+        //Convert image to RGBA format
+        success = ilConvertImage(IL_RGBA, IL_UNSIGNED_BYTE);
+        if (success == IL_TRUE) {
+            //TODO: check if the texture was loaded
+            loaded = true;
+            texture = new Texture((GLuint*) ilGetData(), ilGetInteger(IL_IMAGE_WIDTH), ilGetInteger(IL_IMAGE_HEIGHT));
+        }
+        //Delete file from memory
+        ilDeleteImages(1, &imgID);
+    }
+
+    if (!loaded) {
+        texture = makeCheckTexture(64, 64);
+    }
+    return texture;
 }

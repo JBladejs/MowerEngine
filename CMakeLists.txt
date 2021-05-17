@@ -4,6 +4,7 @@ project(MowerEngine)
 set(CMAKE_CXX_STANDARD 14)
 
 find_package(SDL2 REQUIRED)
+find_package(DevIL REQUIRED)
 file(GLOB SOURCE "src/*.cpp" "src/*/*.cpp" "src/*/*/*.cpp")
 #TODO: make it so the files are copied on assets change
 file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
@@ -12,7 +13,12 @@ add_executable(MowerEngine ${SOURCE} src/Object2D.cpp src/Object2D.h src/graphic
 
 #TODO: make it more platform independent
 IF (WIN32)
-    target_link_libraries(MowerEngine mingw32 SDL2::SDL2main SDL2::SDL2 opengl32 glu32 DevIL ilu -mconsole -mwindows)
+    target_link_libraries(MowerEngine mingw32 SDL2::SDL2main SDL2::SDL2 opengl32 glu32 ${IL_LIBRARIES} ${ILU_LIBRARIES} -mconsole -mwindows)
 ELSE()
-    target_link_libraries(MowerEngine SDL2::SDL2main SDL2::SDL2 GL GLU DevIL ilu)
+    target_link_libraries(MowerEngine SDL2::SDL2main SDL2::SDL2 GL GLU ${IL_LIBRARIES} ${ILU_LIBRARIES})
 ENDIF()
+
+include_directories(
+        ${SDL2_INCLUDE_DIR}
+        ${IL_INCLUDE_DIR}
+)

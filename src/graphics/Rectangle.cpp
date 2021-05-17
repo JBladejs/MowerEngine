@@ -12,7 +12,8 @@ Rectangle::Rectangle(float x, float y, float sizeX, float sizeY) {
     this->y = y;
     halfSizeX = sizeX * 0.5f;
     halfSizeY = sizeY * 0.5f;
-    texture = TextureManager::makeCheckTexture(sizeX, sizeY);
+//    texture = TextureManager::makeCheckTexture(sizeX, sizeY);
+    texture = TextureManager::loadTextureFromFile("assets/crate.jpg");
 }
 
 void Rectangle::render() {

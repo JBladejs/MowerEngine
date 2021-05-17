@@ -6,6 +6,7 @@
 
 #include <iostream>
 
+//TODO: move it to another method, returning bool
 Texture::Texture(GLuint *pixels, int width, int height): textureWidth(width), textureHeight(height) {
     textureID = 0;
 
