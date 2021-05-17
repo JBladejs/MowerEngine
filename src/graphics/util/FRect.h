@@ -14,5 +14,4 @@ struct FRect {
     GLFloat h;
 };
 
-
 #endif //MOWERENGINE_FRECT_H
