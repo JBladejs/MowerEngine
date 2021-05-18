@@ -16,7 +16,7 @@ Rectangle::Rectangle(float x, float y, float sizeX, float sizeY) : x(x), y(y), s
 void Rectangle::render() {
 //    texture->render(x, y, sizeX, sizeY);
     animation->render(x, y, sizeX, sizeY);
-//    animation->nextFrame();
+    animation->nextFrame();
 }
 
 float MowerEngine::Rectangle::getX() const {
@@ -40,8 +40,4 @@ Rectangle::~Rectangle() {
 //    texture = nullptr;
     delete animation;
     animation = nullptr;
-}
-
-void Rectangle::debug() {
-    animation->nextFrame();
 }

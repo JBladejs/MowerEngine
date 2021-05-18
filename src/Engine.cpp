@@ -108,9 +108,6 @@ void Engine::update() {
             case SDLK_d:
                 testRect->setX(testRect->getX() + 5);
                 break;
-            case SDLK_SPACE:
-                testRect->debug();
-                break;
             default:
                 break;
         }

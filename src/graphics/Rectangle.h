@@ -19,7 +19,6 @@ namespace MowerEngine {
         Rectangle(float x, float y, float sizeX, float sizeY);
         ~Rectangle();
         void render();
-        void debug();
         float getX() const;
         float getY() const;
         void setX(float x);
