@@ -16,10 +16,9 @@ void Animation::nextFrame() {
     frame = (frame + 1) % frames;
 }
 
-//TODO: fix columns and rows (animation order)
 void Animation::render(float x, float y, float width, float height) {
-    int column = frame / rows;
-    int row = frame % rows;
+    int row = frame / columns;
+    int column = frame % columns;
 
     FRect clip = FRect();
     clip.x = (float) column * frameWidth;
