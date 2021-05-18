@@ -46,3 +46,29 @@ Texture *TextureManager::loadTextureFromFile(const std::string& path) {
     }
     return texture;
 }
+
+//TODO: remove code duplication
+//TODO: ensure encapsulation between texture and animation
+Animation *TextureManager::loadSpriteSheetFromFile(const std::string &path, int columns, int rows) {
+    Animation* texture = nullptr;
+    bool loaded = false;
+    ILuint imgID = 0;
+    ilGenImages(1, &imgID);
+    ilBindImage(imgID);
+    ILboolean success = ilLoadImage(path.c_str());
+    if (success == IL_TRUE) {
+        //Convert image to RGBA format
+        success = ilConvertImage(IL_RGBA, IL_UNSIGNED_BYTE);
+        if (success == IL_TRUE) {
+            //TODO: check if the texture was loaded
+            loaded = true;
+            texture = new Animation((GLuint*) ilGetData(), ilGetInteger(IL_IMAGE_WIDTH), ilGetInteger(IL_IMAGE_HEIGHT), columns, rows);
+        }
+        //Delete file from memory
+        ilDeleteImages(1, &imgID);
+    }
+    //TODO: add some kind of exception
+    return texture;
+}
+
+

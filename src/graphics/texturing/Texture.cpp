@@ -49,20 +49,38 @@ void Texture::bind() const {
     glBindTexture(GL_TEXTURE_2D, textureID);
 }
 
-//TODO: move to a class managing textures
 void Texture::unbind() {
     glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void Texture::render(float x, float y, float width, float height) {
-    glLoadIdentity();
-    glTranslatef(x, y, 0.f);
-    bind();
-    glBegin(GL_QUADS);
-        glTexCoord2f(0.f, 0.f); glVertex2f(0.f, 0.f);
-        glTexCoord2f(1.f, 0.f); glVertex2f(width, 0.f);
-        glTexCoord2f(1.f, 1.f); glVertex2f(width, height);
-        glTexCoord2f(0.f, 1.f); glVertex2f(0.f, height);
-    glEnd();
-    unbind();
+void Texture::render(float x, float y, float width, float height, FRect* clip) {
+    if (textureID != 0) {
+        float texL = 0.f;
+        float texR = 1.f;
+        float texT = 0.f;
+        float texB = 1.f;
+
+        if (clip != nullptr) {
+//            texL = clip->x / textureWidth;
+//            texT = clip->y / textureHeight;
+//            texR = (clip->x + clip->w) / textureWidth;
+//            texB = (clip->y + clip->h) / textureHeight;
+            texL = clip->x;
+            texT = clip->y;
+            texR = clip->x + clip->w;
+            texB = clip->y + clip->h;
+        }
+
+        //Remove previous transformations
+        glLoadIdentity();
+        glTranslatef(x, y, 0.f);
+        bind();
+        glBegin(GL_QUADS);
+            glTexCoord2f(texL, texT); glVertex2f(0.f, 0.f);
+            glTexCoord2f(texR, texT); glVertex2f(width, 0.f);
+            glTexCoord2f(texR, texB); glVertex2f(width, height);
+            glTexCoord2f(texL, texB); glVertex2f(0.f, height);
+        glEnd();
+        unbind();
+    }
 }

@@ -8,10 +8,10 @@
 #include<GL/glu.h>
 
 struct FRect {
-    GLFloat x;
-    GLFloat y;
-    GLFloat w;
-    GLFloat h;
+    GLfloat x;
+    GLfloat y;
+    GLfloat w;
+    GLfloat h;
 };
 
 #endif //MOWERENGINE_FRECT_H
