@@ -14,14 +14,14 @@ Animation::Animation(GLuint *pixels, int width, int height, int columns, int row
     //TODO: get that value from the engine instead of using 60
     //TODO: make that calculation every frame (based on delta time) for frame independence
     //TODO: get rid of that division
-    skip = 60.f / (float) speed;
+    skip = (float) speed / 60.f;
 
 }
 
 //TODO: move this to render after adding delta time
 void Animation::nextFrame() {
     real_frame = (real_frame + 1) % 60;
-    frame = (int) ((float) real_frame / skip);
+    frame = (int) ((float) real_frame * skip);
 }
 
 void Animation::render(float x, float y, float width, float height) {
