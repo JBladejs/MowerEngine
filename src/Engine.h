@@ -8,6 +8,7 @@
 #include <SDL2/SDL_video.h>
 #include "input/InputProcessor.h"
 
+//TODO: make it more static
 namespace MowerEngine {
 
     class Engine {

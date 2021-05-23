@@ -9,11 +9,14 @@
 #include<GL/gl.h>
 #include <IL/il.h>
 #include <IL/ilu.h>
+#include <chrono>
+#include <iostream>
 
 using namespace MowerEngine;
 using namespace std;
 
 MowerEngine::Rectangle *testRect = nullptr;
+//auto last_time = std::chrono::high_resolution_clock::now();
 
 //TODO: Add error checking
 Engine::Engine() {
@@ -117,7 +120,13 @@ void Engine::update() {
     SDL_GL_SwapWindow(window);
 }
 
+//TODO: add delta time as argument of render to make it framerate independent
 void Engine::render() {
+//    May be useful later
+//    auto time = last_time;
+//    last_time = std::chrono::high_resolution_clock::now();
+//    std::chrono::duration<double> elapsed = last_time - time;
+//    std::cout << 1.0 / elapsed.count() << std::endl;
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glEnable(GL_TEXTURE_2D);
     glLoadIdentity(); //TODO: Check functionality of this

@@ -10,7 +10,7 @@ using namespace MowerEngine;
 Rectangle::Rectangle(float x, float y, float sizeX, float sizeY) : x(x), y(y), sizeX(sizeX), sizeY(sizeY) {
 //    texture = TextureManager::makeCheckTexture(sizeX, sizeY);
 //    texture = TextureManager::loadTextureFromFile("assets/crate.jpg");
-    animation = TextureManager::loadSpriteSheetFromFile("assets/spaceship.png", 2, 2);
+    animation = TextureManager::loadSpriteSheetFromFile("assets/running.png", 8, 1, 15);
 }
 
 void Rectangle::render() {
