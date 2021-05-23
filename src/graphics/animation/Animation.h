@@ -8,6 +8,7 @@
 
 #include "../texturing/Texture.h"
 
+//TODO: Make this use Texture as a class member, not as a parent
 class Animation: public Texture {
 private:
     int columns;
