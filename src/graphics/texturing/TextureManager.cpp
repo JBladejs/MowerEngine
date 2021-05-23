@@ -49,7 +49,7 @@ Texture *TextureManager::loadTextureFromFile(const std::string& path) {
 
 //TODO: remove code duplication
 //TODO: ensure encapsulation between texture and animation
-Animation *TextureManager::loadSpriteSheetFromFile(const std::string &path, int columns, int rows, int speed) {
+Animation *TextureManager::loadSpriteSheetFromFile(const std::string &path, int columns, int rows, int fps) {
     Animation* texture = nullptr;
     bool loaded = false;
     ILuint imgID = 0;
@@ -62,7 +62,7 @@ Animation *TextureManager::loadSpriteSheetFromFile(const std::string &path, int 
         if (success == IL_TRUE) {
             //TODO: check if the texture was loaded
             loaded = true;
-            texture = new Animation((GLuint*) ilGetData(), ilGetInteger(IL_IMAGE_WIDTH), ilGetInteger(IL_IMAGE_HEIGHT), columns, rows, speed);
+            texture = new Animation((GLuint*) ilGetData(), ilGetInteger(IL_IMAGE_WIDTH), ilGetInteger(IL_IMAGE_HEIGHT), columns, rows, fps);
         }
         //Delete file from memory
         ilDeleteImages(1, &imgID);
