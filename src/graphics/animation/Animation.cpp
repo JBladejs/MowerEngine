@@ -27,5 +27,5 @@ void Animation::render(float x, float y, float width, float height) {
     clip.h = frameHeight;
 
     Texture::render(x, y, width, height, &clip);
-    std::cout << frame << std::endl;
+//    std::cout << frame << std::endl;
 }

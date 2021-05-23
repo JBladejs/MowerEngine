@@ -17,6 +17,8 @@ private:
     float frameWidth;
     float frameHeight;
 public:
+//    TODO: add speed control
+//    TODO: add skipped frames
     Animation(GLuint* pixels, int width, int height, int columns, int rows);
     ~Animation() = default;
     void nextFrame();
