@@ -11,6 +11,7 @@
 
 class TextureManager {
 public:
+    static GLuint* makeCheckImage(int width, int height);
     static Texture* makeCheckTexture(int width, int height);
     //TODO: use these in texture and animation constructors (so you can just use a constructor instead of calling these functions)
     static Texture* loadTextureFromFile(const std::string& path);

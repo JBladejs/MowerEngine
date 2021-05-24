@@ -5,6 +5,22 @@
 #include "TextureManager.h"
 #include <IL/il.h>
 
+GLuint* TextureManager::makeCheckImage(int width, int height) {
+    auto* checkImage = (GLuint*) malloc(width * height * sizeof(GLuint));
+    unsigned int i, j, c;
+    for (i = 0; i < height; i++) {
+        for (j = 0; j < width; j++) {
+            auto* colors = (GLubyte*)&checkImage[i * width + j];
+            c = ((i & 0x8) ^ (j & 0x8)) * 255;
+            colors[0] = (GLubyte) c;
+            colors[1] = (GLubyte) 0;
+            colors[2] = (GLubyte) c;
+            colors[3] = (GLubyte) 255;
+        }
+    }
+    return checkImage;
+}
+
 Texture* TextureManager::makeCheckTexture(int width, int height) {
     GLuint checkImage[width * height];
     unsigned int i, j, c;
@@ -66,6 +82,12 @@ Animation *TextureManager::loadSpriteSheetFromFile(const std::string &path, int 
         }
         //Delete file from memory
         ilDeleteImages(1, &imgID);
+    }
+
+    if (!loaded) {
+        auto* checkImage = makeCheckImage(64, 64);
+        texture = new Animation(checkImage, 64, 64, 1, 1, fps);
+        delete[] checkImage;
     }
     //TODO: add some kind of exception
     return texture;
