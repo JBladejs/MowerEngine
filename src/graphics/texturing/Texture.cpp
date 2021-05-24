@@ -72,7 +72,7 @@ void Texture::render(float x, float y, float width, float height, FRect* clip) {
         }
 
         //Remove previous transformations
-        glLoadIdentity();
+//        glLoadIdentity();
         glTranslatef(x, y, 0.f);
         bind();
         glBegin(GL_QUADS);

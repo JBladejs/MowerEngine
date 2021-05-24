@@ -7,6 +7,7 @@
 
 #include <SDL2/SDL_video.h>
 #include "input/InputProcessor.h"
+#include "objects/Camera.h"
 
 //TODO: make it more static
 namespace MowerEngine {
@@ -16,6 +17,7 @@ namespace MowerEngine {
         SDL_Window *window;
         SDL_GLContext context;
 
+        Camera* camera;
         InputProcessor *inputProcessor;
 
         float screenWidth;
@@ -29,7 +31,7 @@ namespace MowerEngine {
 
         void update();
 
-        static void render();
+        void render();
 
         void quit();
 

@@ -20,6 +20,7 @@ MowerEngine::Rectangle *testRect = nullptr;
 
 //TODO: Add error checking
 Engine::Engine() {
+    camera = new Camera();
     window = nullptr;
     context = nullptr;
     inputProcessor = nullptr;
@@ -72,6 +73,9 @@ void Engine::quit() {
     SDL_DestroyWindow(window);
     window = nullptr;
     context = nullptr;
+    delete camera;
+    camera = nullptr;
+    delete inputProcessor;
     inputProcessor = nullptr;
     SDL_Quit();
     exitCode = 0;
@@ -111,6 +115,18 @@ void Engine::update() {
             case SDLK_d:
                 testRect->setX(testRect->getX() + 5);
                 break;
+            case SDLK_UP:
+                camera->setY(camera->getY() - 2.5f);
+                break;
+            case SDLK_DOWN:
+                camera->setY(camera->getY() + 2.5f);
+                break;
+            case SDLK_LEFT:
+                camera->setX(camera->getX() - 2.5f);
+                break;
+            case SDLK_RIGHT:
+                camera->setX(camera->getX() + 2.5f);
+                break;
             default:
                 break;
         }
@@ -130,6 +146,8 @@ void Engine::render() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glEnable(GL_TEXTURE_2D);
     glLoadIdentity(); //TODO: Check functionality of this
+    glTranslatef(-camera->getX(), -camera->getY(), -camera->getZ());
+    std::cout << camera->getX() << " " << camera->getY() << std::endl;
     testRect->render();
     //TODO: find out about glFlush
     glFlush();
