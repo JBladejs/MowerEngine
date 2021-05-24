@@ -9,8 +9,9 @@
 #include "../texturing/Texture.h"
 
 //TODO: Make this use Texture as a class member, not as a parent
-class Animation: public Texture {
+class Animation {
 private:
+    Texture* texture;
     int columns;
     int rows;
     int frame;
@@ -23,12 +24,13 @@ public:
 //    TODO: add skipped sprite spaces
 //    TODO: consider making fps a float
     Animation(GLuint* pixels, int width, int height, int columns, int rows, int fps = 60);
-    ~Animation() = default;
+    ~Animation();
     void nextFrame();
     void render(float x, float y, float width, float height);
     void render(float x, float y, float scale = 1.f) {
-        render(x, y, (float) textureWidth * scale, (float) textureHeight * scale);
+        render(x, y, (float) texture->textureWidth * scale, (float) texture->textureHeight * scale);
     }
+    Texture* getTexture();
 };
 
 
