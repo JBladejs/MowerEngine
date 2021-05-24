@@ -14,7 +14,7 @@ Animation::Animation(GLuint *pixels, int width, int height, int columns, int row
     frame_height = 1.f / (float) rows;
     //TODO: get that value from the engine instead of using 60
     //TODO: make that calculation every frame (based on delta time) for frame independence
-    skip = (float) speed * 0.016666f;
+    skip = (float) speed * 0.0166666f;
 }
 
 //TODO: move this to render after adding delta time
