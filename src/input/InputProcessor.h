@@ -9,6 +9,7 @@
 #include <vector>
 
 namespace MowerEngine {
+    //TODO: make it more static
 
     struct Position2D {
         int x;
@@ -48,7 +49,7 @@ namespace MowerEngine {
 
         void endProcessing();
 
-        Position2D getMouseCoordinates();
+        static Position2D getMouseCoordinates();
     };
 }
 
