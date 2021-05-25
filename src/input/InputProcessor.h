@@ -48,7 +48,7 @@ namespace MowerEngine {
 
         void endProcessing();
 
-        Position2Df getMouseCoordinates();
+        Position2D getMouseCoordinates();
     };
 }
 
