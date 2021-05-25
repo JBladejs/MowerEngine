@@ -10,50 +10,67 @@
 using namespace MowerEngine;
 
 InputProcessor::InputProcessor() {
-    i = 0;
+    keyboard_i = 0;
+    mouse_i = 0;
 
     mousePos.x = 0;
     mousePos.y = 0;
     mouseDrag.x = 0;
     mouseDrag.y = 0;
-
+    //TODO: make this work for any button/key
     leftButtonPressed = false;
 }
 
 void InputProcessor::processInput(SDL_Event input) {
     switch (input.type) {
         case SDL_KEYDOWN: {
-            if (!MowerEngine::vector_contains(pressedKeys, input.key.keysym.sym))
-                pressedKeys.push_back(input.key.keysym.sym);
+            if (!MowerEngine::vector_contains(pressed_keyboard_keys, input.key.keysym.sym))
+                pressed_keyboard_keys.push_back(input.key.keysym.sym);
             break;
         }
         case SDL_KEYUP: {
-            auto iter = std::find(pressedKeys.begin(), pressedKeys.end(), input.key.keysym.sym);
-            if (iter != pressedKeys.end()) pressedKeys.erase(iter);
+            auto iter = std::find(pressed_keyboard_keys.begin(), pressed_keyboard_keys.end(), input.key.keysym.sym);
+            if (iter != pressed_keyboard_keys.end()) pressed_keyboard_keys.erase(iter);
             break;
         }
         case SDL_MOUSEBUTTONDOWN: {
-            if (input.button.button == SDL_BUTTON_LEFT && !leftButtonPressed){
-                leftButtonPressed = true;
-                SDL_GetMouseState(&(mousePos.x), &(mousePos.y));
-                mouseDrag.x = mousePos.x;
-                mouseDrag.y = mousePos.y;
-            }
+            if (!MowerEngine::vector_contains(pressed_mouse_buttons, input.button.button))
+                pressed_mouse_buttons.push_back(input.button.button);
             break;
         }
         case SDL_MOUSEBUTTONUP: {
-            if (input.button.button == SDL_BUTTON_LEFT) leftButtonPressed = false;
+            auto iter = std::find(pressed_mouse_buttons.begin(), pressed_mouse_buttons.end(), input.button.button);
+            if (iter != pressed_mouse_buttons.end()) pressed_mouse_buttons.erase(iter);
             break;
         }
-        case SDL_MOUSEMOTION: {
-            SDL_GetMouseState(&(mouseDrag.x), &(mouseDrag.y));
-            break;
-        }
+
+        //TODO: refactor this
+//        case SDL_MOUSEBUTTONDOWN: {
+//            if (input.button.button == SDL_BUTTON_LEFT && !leftButtonPressed){
+//                leftButtonPressed = true;
+//                SDL_GetMouseState(&(mousePos.x), &(mousePos.y));
+//                mouseDrag.x = mousePos.x;
+//                mouseDrag.y = mousePos.y;
+//            }
+//            break;
+//        }
+//        case SDL_MOUSEBUTTONUP: {
+//            if (input.button.button == SDL_BUTTON_LEFT) leftButtonPressed = false;
+//            break;
+//        }
+//        case SDL_MOUSEMOTION: {
+//            SDL_GetMouseState(&(mouseDrag.x), &(mouseDrag.y));
+//            break;
+//        }
     }
 }
 
-SDL_Keycode InputProcessor::getProcessedKeys() {
-    return pressedKeys[i++];
+SDL_Keycode InputProcessor::getKeyboardInput() {
+    return pressed_keyboard_keys[keyboard_i++];
+}
+
+unsigned char InputProcessor::getMouseButtonInput() {
+    return pressed_mouse_buttons[mouse_i++];
 }
 
 Position2Df InputProcessor::getMouseDrag() {
@@ -65,8 +82,12 @@ Position2Df InputProcessor::getMouseDrag() {
     return drag;
 }
 
-bool InputProcessor::hasProcessedKeys() {
-    return !pressedKeys.empty() && i != pressedKeys.size();
+bool InputProcessor::hasProcessedKeyboardInput() {
+    return !pressed_keyboard_keys.empty() && keyboard_i != pressed_keyboard_keys.size();
+}
+
+bool InputProcessor::hasProcessedMouseButtonInput() {
+    return !pressed_mouse_buttons.empty() && mouse_i != pressed_mouse_buttons.size();
 }
 
 bool InputProcessor::isMouseDragged() {
@@ -74,7 +95,8 @@ bool InputProcessor::isMouseDragged() {
 }
 
 void InputProcessor::endProcessing() {
-    i = 0;
+    keyboard_i = 0;
+    mouse_i = 0;
 }
 
 Position2Df InputProcessor::getMouseCoordinates() {

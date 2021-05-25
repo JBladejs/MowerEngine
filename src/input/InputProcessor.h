@@ -22,21 +22,27 @@ namespace MowerEngine {
 
     class InputProcessor {
     private:
-        std::vector<SDL_Keycode> pressedKeys;
+        //TODO: use more controlled data types (like uint32)
+        int keyboard_i;
+        int mouse_i;
+        std::vector<SDL_Keycode> pressed_keyboard_keys;
+        std::vector<unsigned char> pressed_mouse_buttons;
         bool leftButtonPressed;
         Position2D mousePos{};
         Position2D mouseDrag{};
-        int i;
     public:
         InputProcessor();
 
         void processInput(SDL_Event input);
 
-        SDL_Keycode getProcessedKeys();
+        SDL_Keycode getKeyboardInput();
+        unsigned char getMouseButtonInput();
 
         Position2Df getMouseDrag();
 
-        bool hasProcessedKeys();
+        bool hasProcessedKeyboardInput();
+
+        bool hasProcessedMouseButtonInput();
 
         bool isMouseDragged();
 

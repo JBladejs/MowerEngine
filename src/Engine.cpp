@@ -101,8 +101,8 @@ void Engine::update() {
         } else inputProcessor->processInput(event);
     }
 
-    while (inputProcessor->hasProcessedKeys()) {
-        switch (inputProcessor->getProcessedKeys()) {
+    while (inputProcessor->hasProcessedKeyboardInput()) {
+        switch (inputProcessor->getKeyboardInput()) {
             case SDLK_w:
                 testRect->setY(testRect->getY() - 5);
                 break;
@@ -132,6 +132,10 @@ void Engine::update() {
         }
     }
 
+    while (inputProcessor->hasProcessedMouseButtonInput()) {
+        std::cout << (int) inputProcessor->getMouseButtonInput() << std::endl;
+    }
+
     inputProcessor->endProcessing();
     SDL_GL_SwapWindow(window);
 }
@@ -147,7 +151,6 @@ void Engine::render() {
     glEnable(GL_TEXTURE_2D);
     glLoadIdentity(); //TODO: Check functionality of this
     glTranslatef(-camera->getX(), -camera->getY(), -camera->getZ());
-    std::cout << camera->getX() << " " << camera->getY() << std::endl;
     testRect->render();
     //TODO: find out about glFlush
     glFlush();
