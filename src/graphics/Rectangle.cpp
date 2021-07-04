@@ -10,13 +10,15 @@ using namespace MowerEngine;
 Rectangle::Rectangle(float x, float y, float sizeX, float sizeY) : x(x), y(y), sizeX(sizeX), sizeY(sizeY) {
 //    texture = TextureManager::makeCheckTexture(sizeX, sizeY);
 //    texture = TextureManager::loadTextureFromFile("assets/crate.jpg");
-    animation = TextureManager::loadSpriteSheetFromFile("assets/running.png", 8, 1, 12);
+//    animation = TextureManager::loadSpriteSheetFromFile("assets/running.png", 8, 1, 12);
+    texture = TextureManager::loadTextureFromFile("assets/opengl.png");
 }
 
 void Rectangle::render() {
 //    texture->render(x, y, sizeX, sizeY);
-    animation->render(x, y, sizeX, sizeY);
-    animation->nextFrame();
+    texture->render(x, y);
+//    animation->render(x, y, sizeX, sizeY);
+//    animation->nextFrame();
 }
 
 float MowerEngine::Rectangle::getX() const {
@@ -36,8 +38,8 @@ void MowerEngine::Rectangle::setY(float y) {
 }
 
 Rectangle::~Rectangle() {
-//    delete texture;
-//    texture = nullptr;
-    delete animation;
-    animation = nullptr;
+    delete texture;
+    texture = nullptr;
+//    delete animation;
+//    animation = nullptr;
 }

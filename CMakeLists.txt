@@ -5,11 +5,12 @@ set(CMAKE_CXX_STANDARD 14)
 
 find_package(SDL2 REQUIRED)
 find_package(DevIL REQUIRED)
-file(GLOB SOURCE "src/*.cpp" "src/*/*.cpp" "src/*/*/*.cpp")
+file(GLOB SOURCE "src/*.cpp" "src/*/*.cpp" "src/*/*/*.cpp" "src/*/*/*/*.cpp")
+file(GLOB HEADERS "src/*.h" "src/*/*.h" "src/*/*/*.h" "src/*/*/*/*.h")
 #TODO: make it so the files are copied on assets change
 file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
 
-add_executable(MowerEngine ${SOURCE} src/Object2D.cpp src/Object2D.h src/graphics/Rectangle.cpp src/graphics/Rectangle.h src/graphics/texturing/Texture.cpp src/graphics/texturing/Texture.h src/graphics/texturing/TextureManager.cpp src/graphics/texturing/TextureManager.h src/graphics/animation/Animation.cpp src/graphics/animation/Animation.h src/objects/Camera.cpp src/objects/Camera.h)
+add_executable(MowerEngine ${SOURCE} ${HEADERS})
 
 #TODO: make it more platform independent
 IF (WIN32)

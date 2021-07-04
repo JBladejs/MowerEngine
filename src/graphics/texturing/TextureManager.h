@@ -10,6 +10,9 @@
 #include <string>
 
 class TextureManager {
+private:
+    //TODO: move to a different file
+    static GLuint power_of_two(GLuint num);
 public:
     static GLuint* makeCheckImage(int width, int height);
     static Texture* makeCheckTexture(int width, int height);

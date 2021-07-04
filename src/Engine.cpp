@@ -136,7 +136,7 @@ void Engine::update() {
 //        std::cout << (int) inputProcessor->getMouseButtonInput() << std::endl;
 //    }
 
-    std::cout << inputProcessor->getMouseCoordinates().x << " " << inputProcessor->getMouseCoordinates().y << std::endl;
+//    std::cout << inputProcessor->getMouseCoordinates().x << " " << inputProcessor->getMouseCoordinates().y << std::endl;
 
     inputProcessor->endProcessing();
     SDL_GL_SwapWindow(window);

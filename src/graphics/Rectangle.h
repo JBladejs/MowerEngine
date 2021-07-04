@@ -13,8 +13,8 @@ namespace MowerEngine {
     private:
         float x, y;
         float sizeX, sizeY;
-//        Texture* texture;
-        Animation* animation;
+        Texture* texture;
+//        Animation* animation;
     public:
         Rectangle(float x, float y, float sizeX, float sizeY);
         ~Rectangle();

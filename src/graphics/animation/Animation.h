@@ -23,12 +23,12 @@ private:
 public:
 //    TODO: add skipped sprite spaces
 //    TODO: consider making fps a float
-    Animation(GLuint* pixels, int width, int height, int columns, int rows, int fps = 60);
+    Animation(GLuint *pixels, int texWidth, int texHeight, int imgWidth, int imgHeight, int columns, int rows, int speed);
     ~Animation();
     void nextFrame();
     void render(float x, float y, float width, float height);
     void render(float x, float y, float scale = 1.f) {
-        render(x, y, (float) texture->textureWidth * scale, (float) texture->textureHeight * scale);
+        render(x, y, (float) texture->imageWidth * scale, (float) texture->imageHeight * scale);
     }
     Texture* getTexture();
 };

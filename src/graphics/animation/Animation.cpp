@@ -5,8 +5,8 @@
 #include <iostream>
 #include "Animation.h"
 
-Animation::Animation(GLuint *pixels, int width, int height, int columns, int rows, int speed) : columns(columns), rows(rows) {
-    texture = new Texture(pixels, width, height);
+Animation::Animation(GLuint *pixels, int texWidth, int texHeight, int imgWidth, int imgHeight, int columns, int rows, int speed) : columns(columns), rows(rows) {
+    texture = new Texture(pixels, texWidth, texHeight, imgWidth, imgHeight);
     frame = 0;
     real_frame = 0;
     frames = columns * rows;

@@ -7,7 +7,8 @@
 #include <iostream>
 //TODO: make another class representing visual texture (not a direct representation of loaded image)
 //TODO: move "constructor" to another method, returning bool
-Texture::Texture(GLuint *pixels, int width, int height): textureWidth(width), textureHeight(height) {
+//TODO: add non-power-of-two textures
+Texture::Texture(GLuint *pixels, int texWidth, int texHeight, int imgWidth, int imgHeight): textureWidth(texWidth), textureHeight(texHeight), imageHeight(imgHeight), imageWidth(imgWidth) {
     textureID = 0;
 
 //    TODO: do some research about this line:
@@ -53,12 +54,15 @@ void Texture::unbind() {
     glBindTexture(GL_TEXTURE_2D, 0);
 }
 
+
 void Texture::render(float x, float y, float width, float height, FRect* clip) {
+    std::cout << width << " " << height << " " << textureWidth << " " << textureHeight << std::endl;
     if (textureID != 0) {
+        //TODO: use GL data types
         float texL = 0.f;
-        float texR = 1.f;
+        float texR = (float) imageWidth / (float) textureWidth;
         float texT = 0.f;
-        float texB = 1.f;
+        float texB = (float) imageHeight / (float) textureHeight;
 
         if (clip != nullptr) {
 //            texL = clip->x / textureWidth;
