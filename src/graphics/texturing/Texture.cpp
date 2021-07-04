@@ -5,8 +5,8 @@
 #include "Texture.h"
 
 #include <iostream>
-
-//TODO: move it to another method, returning bool
+//TODO: make another class representing visual texture (not a direct representation of loaded image)
+//TODO: move "constructor" to another method, returning bool
 Texture::Texture(GLuint *pixels, int width, int height): textureWidth(width), textureHeight(height) {
     textureID = 0;
 
