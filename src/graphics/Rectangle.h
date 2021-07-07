@@ -5,18 +5,19 @@
 #ifndef MOWERENGINE_RECTANGLE_H
 #define MOWERENGINE_RECTANGLE_H
 
-#include "texturing/TextureManager.h"
+#include "texturing/memory/TextureManager.h"
 //TODO: change the name of this class
 
 namespace MowerEngine {
     class Rectangle {
     private:
         float x, y;
-        float sizeX, sizeY;
-        Texture* texture;
+        float width, height;
+        Image* image;
+//        Texture* texture;
 //        Animation* animation;
     public:
-        Rectangle(float x, float y, float sizeX, float sizeY);
+        Rectangle(float x, float y, float width, float height);
         ~Rectangle();
         void render();
         float getX() const;

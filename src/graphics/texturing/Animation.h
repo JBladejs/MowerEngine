@@ -6,12 +6,13 @@
 #define MOWERENGINE_ANIMATION_H
 
 
-#include "../texturing/Texture.h"
+#include "memory/Texture.h"
+#include "Image.h"
 
 //TODO: Make this use Texture as a class member, not as a parent
-class Animation {
+class Animation: public Image {
 private:
-    Texture* texture;
+    typedef Image super;
     int columns;
     int rows;
     int frame;
@@ -24,13 +25,10 @@ public:
 //    TODO: add skipped sprite spaces
 //    TODO: consider making fps a float
     Animation(GLuint *pixels, int texWidth, int texHeight, int imgWidth, int imgHeight, int columns, int rows, int speed);
-    ~Animation();
-    void nextFrame();
-    void render(float x, float y, float width, float height);
-    void render(float x, float y, float scale = 1.f) {
-        render(x, y, (float) texture->imageWidth * scale, (float) texture->imageHeight * scale);
-    }
-    Texture* getTexture();
+    void update() override;
+    void render(float x, float y) override;
+    void render(float x, float y, float scale) override;
+    void render(float x, float y, float width, float height) override;
 };
 
 

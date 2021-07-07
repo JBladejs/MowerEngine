@@ -3,7 +3,7 @@
 //
 
 #include "TextureManager.h"
-#include "../../util/misc_functions.h"
+#include "../../../util/misc_functions.h"
 #include <IL/il.h>
 #include <IL/ilu.h>
 

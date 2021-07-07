@@ -6,7 +6,7 @@
 #define MOWERENGINE_TEXTURE_H
 
 #include<GL/glu.h>
-#include "../util/FRect.h"
+#include "../../util/FRect.h"
 
 class Texture {
 private:

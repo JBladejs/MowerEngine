@@ -56,9 +56,9 @@ void Texture::unbind() {
 
 
 void Texture::render(float x, float y, float width, float height, FRect* clip) {
-    std::cout << width << " " << height << " " << textureWidth << " " << textureHeight << std::endl;
     if (textureID != 0) {
         //TODO: use GL data types
+        //TODO: use constant image to texture proportions
         float texL = 0.f;
         float texR = (float) imageWidth / (float) textureWidth;
         float texT = 0.f;
@@ -69,10 +69,10 @@ void Texture::render(float x, float y, float width, float height, FRect* clip) {
 //            texT = clip->y / textureHeight;
 //            texR = (clip->x + clip->w) / textureWidth;
 //            texB = (clip->y + clip->h) / textureHeight;
-            texL = clip->x;
-            texT = clip->y;
-            texR = clip->x + clip->w;
-            texB = clip->y + clip->h;
+            texL = clip->x * (float) imageWidth / (float) textureWidth;
+            texT = clip->y * (float) imageHeight / (float) textureHeight;
+            texR = (clip->x + clip->w) * (float) imageWidth / (float) textureWidth;
+            texB = (clip->y + clip->h) * (float) imageHeight / (float) textureHeight;
         }
 
         //Remove previous transformations

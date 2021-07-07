@@ -4,21 +4,17 @@
 
 #include <GL/gl.h>
 #include "Rectangle.h"
+#include "texturing/Sprite.h"
 
 using namespace MowerEngine;
 
-Rectangle::Rectangle(float x, float y, float sizeX, float sizeY) : x(x), y(y), sizeX(sizeX), sizeY(sizeY) {
-//    texture = TextureManager::makeCheckTexture(sizeX, sizeY);
-//    texture = TextureManager::loadTextureFromFile("assets/crate.jpg");
-//    animation = TextureManager::loadSpriteSheetFromFile("assets/running.png", 8, 1, 12);
-    texture = TextureManager::loadTextureFromFile("assets/opengl.png");
+Rectangle::Rectangle(float x, float y, float width, float height) : x(x), y(y), width(width), height(height) {
+    image = new Sprite("assets/crate.jpg");
 }
 
 void Rectangle::render() {
-//    texture->render(x, y, sizeX, sizeY);
-    texture->render(x, y);
-//    animation->render(x, y, sizeX, sizeY);
-//    animation->nextFrame();
+    image->update();
+    image->render(x, y);
 }
 
 float MowerEngine::Rectangle::getX() const {
@@ -38,8 +34,10 @@ void MowerEngine::Rectangle::setY(float y) {
 }
 
 Rectangle::~Rectangle() {
-    delete texture;
-    texture = nullptr;
+    delete image;
+    image = nullptr;
+//    delete texture;
+//    texture = nullptr;
 //    delete animation;
 //    animation = nullptr;
 }

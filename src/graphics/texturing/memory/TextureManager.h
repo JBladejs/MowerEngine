@@ -6,7 +6,7 @@
 #define MOWERENGINE_TEXTUREMANAGER_H
 
 //TODO: clean up imports
-#include "../animation/Animation.h"
+#include "../Animation.h"
 #include <string>
 
 class TextureManager {

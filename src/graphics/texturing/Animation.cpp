@@ -5,20 +5,20 @@
 #include <iostream>
 #include "Animation.h"
 
-Animation::Animation(GLuint *pixels, int texWidth, int texHeight, int imgWidth, int imgHeight, int columns, int rows, int speed) : columns(columns), rows(rows) {
-    texture = new Texture(pixels, texWidth, texHeight, imgWidth, imgHeight);
+Animation::Animation(GLuint *pixels, int texWidth, int texHeight, int imgWidth, int imgHeight, int columns, int rows, int speed)
+    : super(new Texture(pixels, texWidth, texHeight, imgWidth, imgHeight)), columns(columns), rows(rows) {
     frame = 0;
     real_frame = 0;
     frames = columns * rows;
     frame_width = 1.f / (float) columns;
     frame_height = 1.f / (float) rows;
     //TODO: get that value from the engine instead of using 60
-    //TODO: make that calculation every frame (based on delta time) for frame independence
+    //TODO: make that calculation every frame (based on delta time) for framerate independence
     skip = (float) speed * 0.0166666f;
 }
 
 //TODO: move this to render after adding delta time
-void Animation::nextFrame() {
+void Animation::update() {
     real_frame = (real_frame + 1) % 60;
     frame = (int) ((float) real_frame * skip) % frames;
 }
@@ -34,14 +34,12 @@ void Animation::render(float x, float y, float width, float height) {
     clip.h = frame_height;
 
     texture->render(x, y, width, height, &clip);
-//    std::cout << frame << std::endl;
 }
 
-Texture *Animation::getTexture() {
-    return texture;
+void Animation::render(float x, float y, float scale) {
+    render(x, y, (float) texture->imageWidth * scale, (float) texture->imageHeight * scale);
 }
 
-Animation::~Animation() {
-    delete texture;
-    texture = nullptr;
+void Animation::render(float x, float y) {
+    render(x, y, 1.f);
 }
