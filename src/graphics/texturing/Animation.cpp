@@ -2,7 +2,6 @@
 // Created by goon on 18.05.2021.
 //
 
-#include <iostream>
 #include "Animation.h"
 #include "memory/TextureManager.h"
 

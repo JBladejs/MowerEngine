@@ -12,7 +12,6 @@ using namespace MowerEngine;
 InputProcessor::InputProcessor() {
     keyboard_i = 0;
     mouse_i = 0;
-
     mousePos.x = 0;
     mousePos.y = 0;
     mouseDrag.x = 0;
@@ -71,7 +70,7 @@ bool InputProcessor::hasProcessedMouseButtonInput() {
     return !pressed_mouse_buttons.empty() && mouse_i != pressed_mouse_buttons.size();
 }
 
-bool InputProcessor::isMouseDragged() {
+bool InputProcessor::isMouseDragged() const {
     return leftButtonPressed;
 }
 
@@ -84,8 +83,4 @@ Position2D InputProcessor::getMouseCoordinates() {
     Position2D coordinates = Position2D();
     SDL_GetMouseState(&(coordinates.x), &(coordinates.y));
     return coordinates;
-//    Position2Df coordinates = Position2Df();
-//    coordinates.x = ((float) mouseDrag.x - 320.0f) / 320.0f * 2.75f;
-//    coordinates.y = -((float) mouseDrag.y - 240.0f) / 240.0f * 2.0625f;
-//    return coordinates;
 }

@@ -15,17 +15,11 @@ namespace MowerEngine {
         Image *image;
     public:
         TestObject(float x, float y, float width, float height);
-
         ~TestObject();
-
         void render();
-
         float getX() const;
-
-        float getY() const;
-
         void setX(float x);
-
+        float getY() const;
         void setY(float y);
     };
 }

@@ -9,14 +9,13 @@
 #include <vector>
 //TODO: add util header
 //TODO: find a way to make separate it into header and source
-namespace MowerEngine {
-    template<typename T>
-    bool vector_contains(std::vector<T> vector, T element) {
-        if (find(vector.begin(), vector.end(), element) != vector.end())
-            return true;
-        else
-            return false;
-    }
+template<typename T>
+bool vector_contains(std::vector<T> vector, T element) {
+    if (find(vector.begin(), vector.end(), element) != vector.end())
+        return true;
+    else
+        return false;
 }
+
 
 #endif //MOWERENGINE_MISC_FUNCTIONS_H

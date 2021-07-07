@@ -7,20 +7,18 @@
 #include <IL/il.h>
 #include <IL/ilu.h>
 
-GLuint *TextureManager::makeCheckImage(int width, int height) {
-    auto *checkImage = (GLuint *) malloc(width * height * sizeof(GLuint));
-    unsigned int i, j, c;
-    for (i = 0; i < height; i++) {
-        for (j = 0; j < width; j++) {
-            auto *colors = (GLubyte *) &checkImage[i * width + j];
-            c = ((i & 0x8) ^ (j & 0x8)) * 255;
-            colors[0] = (GLubyte) c;
-            colors[1] = (GLubyte) 0;
-            colors[2] = (GLubyte) c;
-            colors[3] = (GLubyte) 255;
-        }
+//TODO: fit new textures in free spaces
+GLuint TextureManager::power_of_two(GLuint num) {
+    if (num != 0) {
+        num--;
+        num |= (num >> 1);
+        num |= (num >> 2);
+        num |= (num >> 4);
+        num |= (num >> 8);
+        num |= (num >> 16);
+        num++;
     }
-    return checkImage;
+    return num;
 }
 
 Texture *TextureManager::makeCheckTexture(int width, int height) {
@@ -79,20 +77,6 @@ Texture *TextureManager::loadTextureFromFile(const std::string &path) {
         texture = makeCheckTexture(64, 64);
     }
     return texture;
-}
-
-//TODO: fit new textures in free spaces
-GLuint TextureManager::power_of_two(GLuint num) {
-    if (num != 0) {
-        num--;
-        num |= (num >> 1);
-        num |= (num >> 2);
-        num |= (num >> 4);
-        num |= (num >> 8);
-        num |= (num >> 16);
-        num++;
-    }
-    return num;
 }
 
 

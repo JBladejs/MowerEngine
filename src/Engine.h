@@ -21,24 +21,15 @@ namespace MowerEngine {
         float screenHeight;
         bool running;
         int exitCode;
-
         void initGL() const;
-
         void initSDL();
-
         void update();
-
         void render();
-
         void quit();
-
     public:
         Engine();
-
         ~Engine();
-
         void start();
-
         int getExitCode() const;
     };
 }

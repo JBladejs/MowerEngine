@@ -14,19 +14,12 @@ private:
     float z;
 public:
     Camera();
-
     ~Camera() = default;
-
     float getX() const;
-
     void setX(float value);
-
     float getY() const;
-
     void setY(float value);
-
     float getZ() const;
-
     void setZ(float value);
 };
 
