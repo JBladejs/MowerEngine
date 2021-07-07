@@ -35,7 +35,7 @@ Texture *TextureManager::makeCheckTexture(int width, int height) {
         }
     }
     auto *texture = new Texture();
-    texture->load(checkImage, width, height, width, height);
+    texture->loadPixels(checkImage, width, height, width, height);
     return texture;
 }
 
@@ -66,8 +66,9 @@ Texture *TextureManager::loadTextureFromFile(const std::string &path) {
                 iluEnlargeCanvas((int) texWidth, (int) texHeight, 1);
             }
             texture = new Texture();
-            texture->load((GLuint *) ilGetData(), ilGetInteger(IL_IMAGE_WIDTH), ilGetInteger(IL_IMAGE_HEIGHT), imgWidth,
-                          imgHeight);
+            texture->loadPixels((GLuint *) ilGetData(), ilGetInteger(IL_IMAGE_WIDTH), ilGetInteger(IL_IMAGE_HEIGHT),
+                                (int) imgWidth,
+                                (int) imgHeight);
         }
         //Delete file from memory
         ilDeleteImages(1, &imgID);

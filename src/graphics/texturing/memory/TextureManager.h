@@ -12,6 +12,7 @@ class TextureManager {
 private:
     //TODO: move to a different file
     static GLuint power_of_two(GLuint num);
+
 public:
     static Texture *makeCheckTexture(int width, int height);
     static Texture *loadTextureFromFile(const std::string &path);
