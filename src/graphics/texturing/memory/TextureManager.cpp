@@ -51,7 +51,6 @@ Texture *TextureManager::loadTextureFromFile(const std::string& path) {
         //Convert image to RGBA format
         success = ilConvertImage(IL_RGBA, IL_UNSIGNED_BYTE);
         if (success == IL_TRUE) {
-            //TODO: check if the texture was loaded
             loaded = true;
             auto imgWidth = (GLuint) ilGetInteger(IL_IMAGE_WIDTH);
             auto imgHeight = (GLuint) ilGetInteger(IL_IMAGE_HEIGHT);

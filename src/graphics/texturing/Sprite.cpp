@@ -14,7 +14,7 @@ void Sprite::render(float x, float y, float width, float height) {
 }
 
 void Sprite::render(float x, float y, float scale) {
-    render(x, y, scale * (float) texture->imageWidth, scale * (float) texture->imageHeight);
+    render(x, y, scale * (float) texture->getImageWidth(), scale * (float) texture->getImageHeight());
 }
 
 void Sprite::render(float x, float y) {

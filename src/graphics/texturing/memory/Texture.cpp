@@ -5,16 +5,11 @@
 #include "Texture.h"
 
 #include <iostream>
-//TODO: make another class representing visual texture (not a direct representation of loaded image)
 //TODO: move "constructor" to another method, returning bool
-//TODO: add non-power-of-two textures
 Texture::Texture(GLuint *pixels, int texWidth, int texHeight, int imgWidth, int imgHeight): textureWidth(texWidth), textureHeight(texHeight), imageHeight(imgHeight), imageWidth(imgWidth) {
     textureID = 0;
 
-//    TODO: do some research about this line:
-//    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
     glGenTextures(1, &textureID);
-//    TODO: find if this need its own method
     bind();
 
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, textureWidth,
@@ -87,4 +82,20 @@ void Texture::render(float x, float y, float width, float height, FRect* clip) {
         glEnd();
         unbind();
     }
+}
+
+GLuint Texture::getTextureHeight() const {
+    return textureHeight;
+}
+
+GLuint Texture::getImageWidth() const {
+    return imageWidth;
+}
+
+GLuint Texture::getImageHeight() const {
+    return imageHeight;
+}
+
+GLuint Texture::getTextureWidth() const {
+    return textureWidth;
 }

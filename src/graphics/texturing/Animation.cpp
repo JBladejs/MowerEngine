@@ -37,7 +37,7 @@ void Animation::render(float x, float y, float width, float height) {
 }
 
 void Animation::render(float x, float y, float scale) {
-    render(x, y, (float) texture->imageWidth * scale, (float) texture->imageHeight * scale);
+    render(x, y, (float) texture->getImageWidth() * scale, (float) texture->getImageHeight() * scale);
 }
 
 void Animation::render(float x, float y) {
