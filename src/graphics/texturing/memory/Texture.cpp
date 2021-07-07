@@ -57,7 +57,7 @@ bool Texture::load(GLuint *pixels, int texWidth, int texHeight, int imgWidth, in
 }
 
 
-void Texture::render(float x, float y, float width, float height, FRect* clip) {
+void Texture::render(float x, float y, float width, float height, FRect *clip) {
     if (textureID != 0) {
         //TODO: use GL data types
         //TODO: use constant image to texture proportions
@@ -78,10 +78,14 @@ void Texture::render(float x, float y, float width, float height, FRect* clip) {
         glTranslatef(x, y, 0.f);
         bind();
         glBegin(GL_QUADS);
-            glTexCoord2f(texL, texT); glVertex2f(0.f, 0.f);
-            glTexCoord2f(texR, texT); glVertex2f(width, 0.f);
-            glTexCoord2f(texR, texB); glVertex2f(width, height);
-            glTexCoord2f(texL, texB); glVertex2f(0.f, height);
+        glTexCoord2f(texL, texT);
+        glVertex2f(0.f, 0.f);
+        glTexCoord2f(texR, texT);
+        glVertex2f(width, 0.f);
+        glTexCoord2f(texR, texB);
+        glVertex2f(width, height);
+        glTexCoord2f(texL, texB);
+        glVertex2f(0.f, height);
         glEnd();
         unbind();
     }

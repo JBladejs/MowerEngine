@@ -10,7 +10,7 @@
 //TODO: add util header
 //TODO: find a way to make separate it into header and source
 namespace MowerEngine {
-    template <typename T>
+    template<typename T>
     bool vector_contains(std::vector<T> vector, T element) {
         if (find(vector.begin(), vector.end(), element) != vector.end())
             return true;

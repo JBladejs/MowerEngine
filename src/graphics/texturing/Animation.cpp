@@ -6,8 +6,8 @@
 #include "Animation.h"
 #include "memory/TextureManager.h"
 
-Animation::Animation(const std::string& path, int columns, int rows, int speed)
-    : super(TextureManager::loadTextureFromFile(path)), columns(columns), rows(rows) {
+Animation::Animation(const std::string &path, int columns, int rows, int speed)
+        : super(TextureManager::loadTextureFromFile(path)), columns(columns), rows(rows) {
     frame = 0;
     real_frame = 0;
     frames = columns * rows;

@@ -35,7 +35,7 @@ void Engine::initGL() const {
     glClearColor(0.0, 0.0, 0.0, 1.0);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glOrtho( 0.0, screenWidth, screenHeight, 0.0, 1.0, -1.0 );
+    glOrtho(0.0, screenWidth, screenHeight, 0.0, 1.0, -1.0);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     glEnable(GL_DEPTH_TEST);
@@ -46,10 +46,11 @@ void Engine::initGL() const {
 
 void Engine::initSDL() {
     SDL_Init(SDL_INIT_EVERYTHING);
-    SDL_GL_SetAttribute( SDL_GL_CONTEXT_MAJOR_VERSION, 2 );
-    SDL_GL_SetAttribute( SDL_GL_CONTEXT_MINOR_VERSION, 1 );
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
 
-    window = SDL_CreateWindow("Mower Pre-Alpha", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, screenWidth, screenHeight, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
+    window = SDL_CreateWindow("Mower Pre-Alpha", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, screenWidth,
+                              screenHeight, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
     context = SDL_GL_CreateContext(window);
     SDL_GL_SetSwapInterval(1);
 }
@@ -93,8 +94,7 @@ int Engine::getExitCode() const {
 
 void Engine::update() {
     SDL_Event event;
-    while (SDL_PollEvent(&event))
-    {
+    while (SDL_PollEvent(&event)) {
         if (event.type == SDL_QUIT) {
             running = false;
             break;

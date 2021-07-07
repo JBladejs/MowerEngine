@@ -9,14 +9,20 @@
 
 class Image {
 protected:
-    Texture* texture;
+    Texture *texture;
 public:
-    explicit Image(Texture* texture): texture(texture) {};
+    explicit Image(Texture *texture) : texture(texture) {};
+
     virtual ~Image();
-    Texture* getTexture();
+
+    Texture *getTexture();
+
     virtual void update() = 0;
+
     virtual void render(float x, float y) = 0;
+
     virtual void render(float x, float y, float scale) = 0;
+
     virtual void render(float x, float y, float width, float height) = 0;
 };
 

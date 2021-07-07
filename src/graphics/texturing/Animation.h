@@ -10,7 +10,7 @@
 #include "Image.h"
 #include <string>
 
-class Animation: public Image {
+class Animation : public Image {
 private:
     typedef Image super;
     int columns;
@@ -24,10 +24,14 @@ private:
 public:
 //    TODO: add skipped sprite spaces
 //    TODO: consider making fps a float
-    Animation(const std::string& path, int columns, int rows, int speed);
+    Animation(const std::string &path, int columns, int rows, int speed);
+
     void update() override;
+
     void render(float x, float y) override;
+
     void render(float x, float y, float scale) override;
+
     void render(float x, float y, float width, float height) override;
 };
 

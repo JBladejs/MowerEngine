@@ -7,12 +7,12 @@
 #include <IL/il.h>
 #include <IL/ilu.h>
 
-GLuint* TextureManager::makeCheckImage(int width, int height) {
-    auto* checkImage = (GLuint*) malloc(width * height * sizeof(GLuint));
+GLuint *TextureManager::makeCheckImage(int width, int height) {
+    auto *checkImage = (GLuint *) malloc(width * height * sizeof(GLuint));
     unsigned int i, j, c;
     for (i = 0; i < height; i++) {
         for (j = 0; j < width; j++) {
-            auto* colors = (GLubyte*)&checkImage[i * width + j];
+            auto *colors = (GLubyte *) &checkImage[i * width + j];
             c = ((i & 0x8) ^ (j & 0x8)) * 255;
             colors[0] = (GLubyte) c;
             colors[1] = (GLubyte) 0;
@@ -23,12 +23,12 @@ GLuint* TextureManager::makeCheckImage(int width, int height) {
     return checkImage;
 }
 
-Texture* TextureManager::makeCheckTexture(int width, int height) {
+Texture *TextureManager::makeCheckTexture(int width, int height) {
     GLuint checkImage[width * height];
     unsigned int i, j, c;
     for (i = 0; i < height; i++) {
         for (j = 0; j < width; j++) {
-            auto* colors = (GLubyte*)&checkImage[i * width + j];
+            auto *colors = (GLubyte *) &checkImage[i * width + j];
             c = ((i & 0x8) ^ (j & 0x8)) * 255;
             colors[0] = (GLubyte) c;
             colors[1] = (GLubyte) 0;
@@ -36,14 +36,14 @@ Texture* TextureManager::makeCheckTexture(int width, int height) {
             colors[3] = (GLubyte) 255;
         }
     }
-    auto* texture = new Texture();
+    auto *texture = new Texture();
     texture->load(checkImage, width, height, width, height);
     return texture;
 }
 
 //TODO: store textures and return them instead of loading again
-Texture *TextureManager::loadTextureFromFile(const std::string& path) {
-    Texture* texture = nullptr;
+Texture *TextureManager::loadTextureFromFile(const std::string &path) {
+    Texture *texture = nullptr;
     bool loaded = false;
     ILuint imgID = 0;
     ilGenImages(1, &imgID);
@@ -68,7 +68,8 @@ Texture *TextureManager::loadTextureFromFile(const std::string& path) {
                 iluEnlargeCanvas((int) texWidth, (int) texHeight, 1);
             }
             texture = new Texture();
-            texture->load((GLuint*) ilGetData(), ilGetInteger(IL_IMAGE_WIDTH), ilGetInteger(IL_IMAGE_HEIGHT), imgWidth, imgHeight);
+            texture->load((GLuint *) ilGetData(), ilGetInteger(IL_IMAGE_WIDTH), ilGetInteger(IL_IMAGE_HEIGHT), imgWidth,
+                          imgHeight);
         }
         //Delete file from memory
         ilDeleteImages(1, &imgID);

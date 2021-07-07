@@ -15,21 +15,30 @@ namespace MowerEngine {
     private:
         SDL_Window *window;
         SDL_GLContext context;
-        Camera* camera;
+        Camera *camera;
         InputProcessor *inputProcessor;
         float screenWidth;
         float screenHeight;
         bool running;
         int exitCode;
+
         void initGL() const;
+
         void initSDL();
+
         void update();
+
         void render();
+
         void quit();
+
     public:
         Engine();
+
         ~Engine();
+
         void start();
+
         int getExitCode() const;
     };
 }

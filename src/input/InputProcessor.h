@@ -37,6 +37,7 @@ namespace MowerEngine {
         void processInput(SDL_Event input);
 
         SDL_Keycode getKeyboardInput();
+
         unsigned char getMouseButtonInput();
 
         Position2Df getMouseDrag();
