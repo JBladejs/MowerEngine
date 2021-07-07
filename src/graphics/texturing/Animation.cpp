@@ -4,9 +4,10 @@
 
 #include <iostream>
 #include "Animation.h"
+#include "memory/TextureManager.h"
 
-Animation::Animation(GLuint *pixels, int texWidth, int texHeight, int imgWidth, int imgHeight, int columns, int rows, int speed)
-    : super(new Texture(pixels, texWidth, texHeight, imgWidth, imgHeight)), columns(columns), rows(rows) {
+Animation::Animation(const std::string& path, int columns, int rows, int speed)
+    : super(TextureManager::loadTextureFromFile(path)), columns(columns), rows(rows) {
     frame = 0;
     real_frame = 0;
     frames = columns * rows;

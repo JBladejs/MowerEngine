@@ -8,6 +8,7 @@
 
 #include "memory/Texture.h"
 #include "Image.h"
+#include <string>
 
 //TODO: Make this use Texture as a class member, not as a parent
 class Animation: public Image {
@@ -24,7 +25,7 @@ private:
 public:
 //    TODO: add skipped sprite spaces
 //    TODO: consider making fps a float
-    Animation(GLuint *pixels, int texWidth, int texHeight, int imgWidth, int imgHeight, int columns, int rows, int speed);
+    Animation(const std::string& path, int columns, int rows, int speed);
     void update() override;
     void render(float x, float y) override;
     void render(float x, float y, float scale) override;

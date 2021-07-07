@@ -5,15 +5,42 @@
 #include "Texture.h"
 
 #include <iostream>
-//TODO: move "constructor" to another method, returning bool
-Texture::Texture(GLuint *pixels, int texWidth, int texHeight, int imgWidth, int imgHeight): textureWidth(texWidth), textureHeight(texHeight), imageHeight(imgHeight), imageWidth(imgWidth) {
+
+Texture::Texture() {
     textureID = 0;
+    textureWidth = textureHeight = 0.f;
+    imageWidth = imageHeight = 0.f;
+}
+
+void Texture::bind() const {
+    glBindTexture(GL_TEXTURE_2D, textureID);
+}
+
+void Texture::unbind() {
+    glBindTexture(GL_TEXTURE_2D, 0);
+}
+
+void Texture::free() {
+    unbind();
+    if (textureID != 0) {
+        glDeleteTextures(1, &textureID);
+        textureID = 0;
+    }
+}
+
+bool Texture::load(GLuint *pixels, int texWidth, int texHeight, int imgWidth, int imgHeight) {
+    free();
+    textureID = 0;
+    textureWidth = texWidth;
+    textureHeight = texHeight;
+    imageWidth = imgWidth;
+    imageHeight = imgHeight;
 
     glGenTextures(1, &textureID);
     bind();
 
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, textureWidth,
-                 textureHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE,
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, (GLsizei) textureWidth,
+                 (GLsizei) textureHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE,
                  pixels);
 
 //    TODO: find out about this
@@ -29,26 +56,6 @@ Texture::Texture(GLuint *pixels, int texWidth, int texHeight, int imgWidth, int 
     //TODO: add error checking
 }
 
-void Texture::free() {
-    unbind();
-    if (textureID != 0) {
-        glDeleteTextures(1, &textureID);
-        textureID = 0;
-    }
-}
-
-Texture::~Texture() {
-    free();
-}
-
-void Texture::bind() const {
-    glBindTexture(GL_TEXTURE_2D, textureID);
-}
-
-void Texture::unbind() {
-    glBindTexture(GL_TEXTURE_2D, 0);
-}
-
 
 void Texture::render(float x, float y, float width, float height, FRect* clip) {
     if (textureID != 0) {
@@ -60,10 +67,6 @@ void Texture::render(float x, float y, float width, float height, FRect* clip) {
         float texB = (float) imageHeight / (float) textureHeight;
 
         if (clip != nullptr) {
-//            texL = clip->x / textureWidth;
-//            texT = clip->y / textureHeight;
-//            texR = (clip->x + clip->w) / textureWidth;
-//            texB = (clip->y + clip->h) / textureHeight;
             texL = clip->x * (float) imageWidth / (float) textureWidth;
             texT = clip->y * (float) imageHeight / (float) textureHeight;
             texR = (clip->x + clip->w) * (float) imageWidth / (float) textureWidth;
@@ -84,6 +87,22 @@ void Texture::render(float x, float y, float width, float height, FRect* clip) {
     }
 }
 
+void Texture::render(float x, float y, float scale, FRect *clip) {
+    render(x, y, (float) imageWidth * scale, (float) imageHeight * scale, clip);
+}
+
+Texture::~Texture() {
+    free();
+}
+
+GLuint Texture::getTextureId() const {
+    return textureID;
+}
+
+GLuint Texture::getTextureWidth() const {
+    return textureWidth;
+}
+
 GLuint Texture::getTextureHeight() const {
     return textureHeight;
 }
@@ -94,8 +113,4 @@ GLuint Texture::getImageWidth() const {
 
 GLuint Texture::getImageHeight() const {
     return imageHeight;
-}
-
-GLuint Texture::getTextureWidth() const {
-    return textureWidth;
 }

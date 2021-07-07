@@ -11,18 +11,20 @@
 class Texture {
 private:
     GLuint textureID;
-    GLuint imageWidth, imageHeight;
+private:
     GLuint textureWidth, textureHeight;
-    void free();
+    GLuint imageWidth, imageHeight;
     void bind() const;
     static void unbind();
 public:
-    Texture(GLuint *pixels, int texWidth, int texHeight, int imgWidth, int imgHeight);
+    Texture();
     ~Texture();
+    void free();
+    //TODO: change singed int to unsigned
+    bool load(GLuint *pixels, int texWidth, int texHeight, int imgWidth, int imgHeight);
     void render(float x, float y, float width, float height, FRect* clip = nullptr);
-    void render(float x, float y, float scale = 1.f, FRect* clip = nullptr) {
-        render(x, y, (float) imageWidth * scale, (float) imageHeight * scale, clip);
-    }
+    void render(float x, float y, float scale = 1.f, FRect* clip = nullptr);
+    GLuint getTextureId() const;
     GLuint getTextureWidth() const;
     GLuint getTextureHeight() const;
     GLuint getImageWidth() const;

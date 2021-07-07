@@ -36,7 +36,9 @@ Texture* TextureManager::makeCheckTexture(int width, int height) {
             colors[3] = (GLubyte) 255;
         }
     }
-    return new Texture(checkImage, width, height, width, height);
+    auto* texture = new Texture();
+    texture->load(checkImage, width, height, width, height);
+    return texture;
 }
 
 //TODO: store textures and return them instead of loading again
@@ -65,7 +67,8 @@ Texture *TextureManager::loadTextureFromFile(const std::string& path) {
                 //Resize texture
                 iluEnlargeCanvas((int) texWidth, (int) texHeight, 1);
             }
-            texture = new Texture((GLuint*) ilGetData(), ilGetInteger(IL_IMAGE_WIDTH), ilGetInteger(IL_IMAGE_HEIGHT), imgWidth, imgHeight);
+            texture = new Texture();
+            texture->load((GLuint*) ilGetData(), ilGetInteger(IL_IMAGE_WIDTH), ilGetInteger(IL_IMAGE_HEIGHT), imgWidth, imgHeight);
         }
         //Delete file from memory
         ilDeleteImages(1, &imgID);
@@ -77,49 +80,7 @@ Texture *TextureManager::loadTextureFromFile(const std::string& path) {
     return texture;
 }
 
-//TODO: remove code duplication
-//TODO: ensure encapsulation between texture and animation
-Animation *TextureManager::loadSpriteSheetFromFile(const std::string &path, int columns, int rows, int fps) {
-    Animation* texture = nullptr;
-    bool loaded = false;
-    ILuint imgID = 0;
-    ilGenImages(1, &imgID);
-    ilBindImage(imgID);
-    ILboolean success = ilLoadImage(path.c_str());
-    if (success == IL_TRUE) {
-        //Convert image to RGBA format
-        success = ilConvertImage(IL_RGBA, IL_UNSIGNED_BYTE);
-        if (success == IL_TRUE) {
-            //TODO: check if the texture was loaded
-            loaded = true;
-            auto imgWidth = (GLuint) ilGetInteger(IL_IMAGE_WIDTH);
-            auto imgHeight = (GLuint) ilGetInteger(IL_IMAGE_HEIGHT);
-
-            auto texWidth = power_of_two(imgWidth);
-            auto texHeight = power_of_two(imgHeight);
-
-            //If image is the wrong size
-            if (imgWidth != texWidth || imgHeight != texHeight) {
-                //Place image on the top left of a texture
-                iluImageParameter(ILU_PLACEMENT, ILU_UPPER_LEFT);
-                //Resize texture
-                iluEnlargeCanvas((int) texWidth, (int) texHeight, 1);
-            }
-            texture = new Animation((GLuint*) ilGetData(), ilGetInteger(IL_IMAGE_WIDTH), ilGetInteger(IL_IMAGE_HEIGHT), imgWidth, imgHeight, columns, rows, fps);
-        }
-        //Delete file from memory
-        ilDeleteImages(1, &imgID);
-    }
-
-    if (!loaded) {
-        auto* checkImage = makeCheckImage(64, 64);
-        texture = new Animation(checkImage, 64, 64, 64, 64,1, 1, fps);
-        delete[] checkImage;
-    }
-    //TODO: add some kind of exception
-    return texture;
-}
-
+//TODO: fit new textures in free spaces
 GLuint TextureManager::power_of_two(GLuint num) {
     if (num != 0) {
         num--;
