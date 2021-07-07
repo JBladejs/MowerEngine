@@ -12,7 +12,7 @@ struct Color {
     float r;
     float b;
     float g;
-    explicit Color(uint16_t colorHex);
+    explicit Color(uint32_t colorHex);
 };
 
 

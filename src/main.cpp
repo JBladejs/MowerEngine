@@ -1,4 +1,6 @@
+#include <iostream>
 #include "Engine.h"
+#include "graphics/Color.h"
 
 using namespace MowerEngine;
 
