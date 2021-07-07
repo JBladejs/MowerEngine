@@ -2,7 +2,6 @@
 // Created by JJBla on 1/16/2021.
 //
 
-#include <GL/gl.h>
 #include "Rectangle.h"
 #include "texturing/Sprite.h"
 
@@ -36,8 +35,4 @@ void MowerEngine::Rectangle::setY(float y) {
 Rectangle::~Rectangle() {
     delete image;
     image = nullptr;
-//    delete texture;
-//    texture = nullptr;
-//    delete animation;
-//    animation = nullptr;
 }

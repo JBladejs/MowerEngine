@@ -14,8 +14,6 @@ namespace MowerEngine {
         float x, y;
         float width, height;
         Image* image;
-//        Texture* texture;
-//        Animation* animation;
     public:
         Rectangle(float x, float y, float width, float height);
         ~Rectangle();
@@ -26,6 +24,5 @@ namespace MowerEngine {
         void setY(float y);
     };
 }
-
 
 #endif //MOWERENGINE_RECTANGLE_H
