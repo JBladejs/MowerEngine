@@ -7,8 +7,6 @@
 #include "InputProcessor.h"
 #include "../util/misc_functions.h"
 
-using namespace MowerEngine;
-
 InputProcessor::InputProcessor() {
     keyboard_i = 0;
     mouse_i = 0;
@@ -23,7 +21,7 @@ InputProcessor::InputProcessor() {
 void InputProcessor::processInput(SDL_Event input) {
     switch (input.type) {
         case SDL_KEYDOWN: {
-            if (!MowerEngine::vector_contains(pressed_keyboard_keys, input.key.keysym.sym))
+            if (vector_contains(pressed_keyboard_keys, input.key.keysym.sym))
                 pressed_keyboard_keys.push_back(input.key.keysym.sym);
             break;
         }
@@ -33,7 +31,7 @@ void InputProcessor::processInput(SDL_Event input) {
             break;
         }
         case SDL_MOUSEBUTTONDOWN: {
-            if (!MowerEngine::vector_contains(pressed_mouse_buttons, input.button.button))
+            if (vector_contains(pressed_mouse_buttons, input.button.button))
                 pressed_mouse_buttons.push_back(input.button.button);
             break;
         }
