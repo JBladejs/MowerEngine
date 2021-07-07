@@ -43,25 +43,6 @@ void InputProcessor::processInput(SDL_Event input) {
             if (iter != pressed_mouse_buttons.end()) pressed_mouse_buttons.erase(iter);
             break;
         }
-
-        //TODO: refactor this
-//        case SDL_MOUSEBUTTONDOWN: {
-//            if (input.button.button == SDL_BUTTON_LEFT && !leftButtonPressed){
-//                leftButtonPressed = true;
-//                SDL_GetMouseState(&(mousePos.x), &(mousePos.y));
-//                mouseDrag.x = mousePos.x;
-//                mouseDrag.y = mousePos.y;
-//            }
-//            break;
-//        }
-//        case SDL_MOUSEBUTTONUP: {
-//            if (input.button.button == SDL_BUTTON_LEFT) leftButtonPressed = false;
-//            break;
-//        }
-//        case SDL_MOUSEMOTION: {
-//            SDL_GetMouseState(&(mouseDrag.x), &(mouseDrag.y));
-//            break;
-//        }
     }
 }
 

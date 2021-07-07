@@ -2,21 +2,20 @@
 // Created by JJBla on 1/16/2021.
 //
 
-#ifndef MOWERENGINE_RECTANGLE_H
-#define MOWERENGINE_RECTANGLE_H
+#ifndef MOWERENGINE_TESTOBJECT_H
+#define MOWERENGINE_TESTOBJECT_H
 
 #include "texturing/memory/TextureManager.h"
-//TODO: change the name of this class
 
 namespace MowerEngine {
-    class Rectangle {
+    class TestObject {
     private:
         float x, y;
         float width, height;
         Image* image;
     public:
-        Rectangle(float x, float y, float width, float height);
-        ~Rectangle();
+        TestObject(float x, float y, float width, float height);
+        ~TestObject();
         void render();
         float getX() const;
         float getY() const;
@@ -25,4 +24,4 @@ namespace MowerEngine {
     };
 }
 
-#endif //MOWERENGINE_RECTANGLE_H
+#endif //MOWERENGINE_TESTOBJECT_H

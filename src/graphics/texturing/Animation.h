@@ -10,7 +10,6 @@
 #include "Image.h"
 #include <string>
 
-//TODO: Make this use Texture as a class member, not as a parent
 class Animation: public Image {
 private:
     typedef Image super;

@@ -3,7 +3,7 @@
 //
 
 #include "Engine.h"
-#include "graphics/Rectangle.h"
+#include "graphics/TestObject.h"
 
 #include<SDL2/SDL.h>
 #include<GL/gl.h>
@@ -15,7 +15,7 @@
 using namespace MowerEngine;
 using namespace std;
 
-MowerEngine::Rectangle *testRect = nullptr;
+MowerEngine::TestObject *testRect = nullptr;
 //auto last_time = std::chrono::high_resolution_clock::now();
 
 //TODO: Add error checking
@@ -60,7 +60,7 @@ void Engine::start() {
     inputProcessor = new InputProcessor();
     running = true;
 
-    testRect = new Rectangle(250.f, 250.f, 64.f, 64.f);
+    testRect = new TestObject(250.f, 250.f, 64.f, 64.f);
 
     while (running) {
         render();
