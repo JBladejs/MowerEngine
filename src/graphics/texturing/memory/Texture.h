@@ -7,20 +7,26 @@
 
 #include <GL/glu.h>
 #include "../../util/FRect.h"
+#include "../../Color.h"
 
 class Texture {
 private:
+    GLuint* loadedPixels;
+    bool pixelsLoaded;
     GLuint textureID;
     GLuint textureWidth, textureHeight;
     GLuint imageWidth, imageHeight;
     void bind() const;
     static void unbind();
+    void loadPixels(GLuint *pixels, int texWidth, int texHeight, int imgWidth, int imgHeight);
+    void generate();
 public:
     Texture();
     ~Texture();
     void free();
     //TODO: change singed int to unsigned
-    bool load(GLuint *pixels, int texWidth, int texHeight, int imgWidth, int imgHeight);
+    void load(GLuint *pixels, int texWidth, int texHeight, int imgWidth, int imgHeight);
+    void loadColorKeyed(GLuint *pixels, int texWidth, int texHeight, int imgWidth, int imgHeight, Color color, GLuint alpha = 0);
     void render(float x, float y, float width, float height, FRect *clip = nullptr);
     void render(float x, float y, float scale = 1.f, FRect *clip = nullptr);
     GLuint getTextureId() const;

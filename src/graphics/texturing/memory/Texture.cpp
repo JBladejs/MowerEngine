@@ -5,8 +5,11 @@
 #include "Texture.h"
 
 #include <iostream>
+#include <cstring>
 
 Texture::Texture() {
+    loadedPixels = nullptr;
+    pixelsLoaded = false;
     textureID = 0;
     textureWidth = textureHeight = 0.f;
     imageWidth = imageHeight = 0.f;
@@ -26,36 +29,74 @@ void Texture::free() {
         glDeleteTextures(1, &textureID);
         textureID = 0;
     }
+    if (pixelsLoaded) {
+        delete[] loadedPixels;
+        loadedPixels = nullptr;
+        pixelsLoaded = false;
+    }
 }
 
-bool Texture::load(GLuint *pixels, int texWidth, int texHeight, int imgWidth, int imgHeight) {
+//TODO: consider making pixels constant
+void Texture::loadPixels(GLuint *pixels, int texWidth, int texHeight, int imgWidth, int imgHeight) {
     free();
+    GLuint size = texHeight * texWidth;
+    loadedPixels = new GLuint[size];
+
     textureID = 0;
     textureWidth = texWidth;
     textureHeight = texHeight;
     imageWidth = imgWidth;
     imageHeight = imgHeight;
 
+    memcpy(loadedPixels, pixels, size * 4);
+    pixelsLoaded = true;
+}
+
+void Texture::generate() {
     glGenTextures(1, &textureID);
     bind();
 
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, (GLsizei) textureWidth,
                  (GLsizei) textureHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE,
-                 pixels);
+                 loadedPixels);
 
 //    TODO: find out about this
 //    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 //    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,
-                    GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,
-                    GL_NEAREST);
+//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,
+//                    GL_NEAREST);
+//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,
+//                    GL_NEAREST);
+    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
+    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
 
     unbind();
-
+    delete[] loadedPixels;
+    loadedPixels = nullptr;
+    pixelsLoaded = false;
     //TODO: add error checking
 }
 
+void Texture::load(GLuint *pixels, int texWidth, int texHeight, int imgWidth, int imgHeight) {
+    loadPixels(pixels, texWidth, texHeight, imgWidth, imgHeight);
+    generate();
+}
+
+void Texture::loadColorKeyed(GLuint *pixels, int texWidth, int texHeight, int imgWidth, int imgHeight, Color color, GLuint alpha) {
+    loadPixels(pixels, texWidth, texHeight, imgWidth, imgHeight);
+    //TODO: make sure that only the part that contains an image is keyed
+    GLuint size = textureWidth * textureHeight;
+    for (int i = 0; i < size; i++) {
+        auto* colors = (GLubyte*) &loadedPixels[i];
+        if (colors[0] == color.iR && colors[1] == color.iB && colors[2] == color.iG && colors[3] == alpha) {
+            colors[0] = 255;
+            colors[1] = 255;
+            colors[2] = 255;
+            colors[3] = 0;
+        }
+    }
+    generate();
+}
 
 void Texture::render(float x, float y, float width, float height, FRect *clip) {
     if (textureID != 0) {

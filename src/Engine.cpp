@@ -7,6 +7,7 @@
 #include<SDL2/SDL.h>
 #include<GL/gl.h>
 #include <IL/il.h>
+#include <ilu.h>
 
 using namespace MowerEngine;
 using namespace std;
@@ -28,16 +29,29 @@ Engine::Engine() {
 }
 
 void Engine::initGL() const {
-    glClearColor(0.0, 0.0, 0.0, 1.0);
+    //TODO: add viewport
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     glOrtho(0.0, screenWidth, screenHeight, 0.0, 1.0, -1.0);
+
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
+
+    glClearColor(0.0, 0.0, 0.0, 1.0);
+
+    glEnable(GL_TEXTURE_2D);
+
+    //Enable blending
+    glEnable(GL_BLEND);
     glEnable(GL_DEPTH_TEST);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+    //TODO: add error checking
+
 //    TODO: Find out the difference between matrix modes
     ilInit();
-    ilClearColour(255, 255, 255, 000);
+    iluInit();
+    ilClearColour(0, 0, 0, 0);
 }
 
 void Engine::initSDL() {
@@ -97,6 +111,7 @@ void Engine::update() {
         } else inputProcessor->processInput(event);
     }
 
+    //TODO: investigate why InputProcessor is not working
     while (inputProcessor->hasProcessedKeyboardInput()) {
         switch (inputProcessor->getKeyboardInput()) {
             case SDLK_w:

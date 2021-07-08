@@ -9,9 +9,12 @@
 #include <cstdint>
 
 struct Color {
-    float r;
-    float b;
-    float g;
+    float fR;
+    float fB;
+    float fG;
+    uint8_t iR;
+    uint8_t iB;
+    uint8_t iG;
     explicit Color(uint32_t colorHex);
 };
 
