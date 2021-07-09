@@ -4,6 +4,7 @@
 
 #include "Engine.h"
 #include "graphics/TestObject.h"
+#include "graphics/texturing/Sprite.h"
 #include<SDL2/SDL.h>
 #include<GL/gl.h>
 #include <IL/il.h>
@@ -13,6 +14,7 @@ using namespace MowerEngine;
 using namespace std;
 
 MowerEngine::TestObject *testRect = nullptr;
+Sprite *background = nullptr;
 //auto last_time = std::chrono::high_resolution_clock::now();
 
 //TODO: Add error checking
@@ -43,7 +45,8 @@ void Engine::initGL() const {
 
     //Enable blending
     glEnable(GL_BLEND);
-    glEnable(GL_DEPTH_TEST);
+    //TODO: research depth test
+//    glEnable(GL_DEPTH_TEST);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     //TODO: add error checking
@@ -72,6 +75,7 @@ void Engine::start() {
     running = true;
 
     testRect = new TestObject(250.f, 250.f, 64.f, 64.f);
+    background = new Sprite("assets/crate.jpg");
 
     while (running) {
         render();
@@ -158,6 +162,7 @@ void Engine::render() {
     glEnable(GL_TEXTURE_2D);
     glLoadIdentity(); //TODO: Check functionality of this
     glTranslatef(-camera->getX(), -camera->getY(), -camera->getZ());
+    background->render(0.f, 0.f);
     testRect->render();
     //TODO: find out about glFlush
     glFlush();
