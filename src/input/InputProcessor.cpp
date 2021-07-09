@@ -21,7 +21,7 @@ InputProcessor::InputProcessor() {
 void InputProcessor::processInput(SDL_Event input) {
     switch (input.type) {
         case SDL_KEYDOWN: {
-            if (vector_contains(pressed_keyboard_keys, input.key.keysym.sym))
+            if (!vector_contains(pressed_keyboard_keys, input.key.keysym.sym))
                 pressed_keyboard_keys.push_back(input.key.keysym.sym);
             break;
         }
