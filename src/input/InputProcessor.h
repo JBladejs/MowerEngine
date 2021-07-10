@@ -7,6 +7,7 @@
 
 #include <SDL2/SDL.h>
 #include <vector>
+#include <map>
 
 //TODO: make it more static
 
@@ -23,6 +24,8 @@ struct Position2Df {
 class InputProcessor {
 private:
     //TODO: use more controlled data types (like uint32)
+    std::vector<uint16_t> verbs;
+    std::map<uint16_t, SDL_KeyCode> key_map;
     int keyboard_i;
     int mouse_i;
     std::vector<SDL_Keycode> pressed_keyboard_keys;
@@ -32,15 +35,24 @@ private:
     Position2D mouseDrag{};
 public:
     InputProcessor();
+    //For updating:
     void processInput(SDL_Event input);
-    SDL_Keycode getKeyboardInput();
-    unsigned char getMouseButtonInput();
-    Position2Df getMouseDrag();
-    bool hasProcessedKeyboardInput();
-    bool hasProcessedMouseButtonInput();
-    bool isMouseDragged() const;
     void endProcessing();
-    static Position2D getMouseCoordinates();
+    //For bound input:
+    void addVerb(uint16_t verb);
+    void map_key(char key, uint16_t verb);
+    bool isVerbMapped(uint16_t verb);
+    char getBoundKey(uint16_t verb);
+    bool isBoundKeyPressed(uint16_t verb);
+    //For general input:
+    bool isKeyPressed(char key);
+//    SDL_Keycode getKeyboardInput();
+//    unsigned char getMouseButtonInput();
+//    Position2Df getMouseDrag();
+//    bool hasProcessedKeyboardInput();
+//    bool hasProcessedMouseButtonInput();
+//    bool isMouseDragged() const;
+//    static Position2D getMouseCoordinates();
 };
 
 #endif //MOWERENGINE_INPUTPROCESSOR_H

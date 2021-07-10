@@ -77,6 +77,9 @@ void Engine::start() {
     testRect = new TestObject(250.f, 250.f, 64.f, 64.f);
     background = new Sprite("assets/crate.jpg");
 
+    inputProcessor->map_key('s', 1);
+    inputProcessor->map_key('d', 2);
+
     while (running) {
         render();
         update();
@@ -107,6 +110,7 @@ int Engine::getExitCode() const {
 }
 
 void Engine::update() {
+    //TODO: move that to input processor
     SDL_Event event;
     while (SDL_PollEvent(&event)) {
         if (event.type == SDL_QUIT) {
@@ -115,37 +119,10 @@ void Engine::update() {
         } else inputProcessor->processInput(event);
     }
 
-    //TODO: investigate why InputProcessor is not working
-    while (inputProcessor->hasProcessedKeyboardInput()) {
-        switch (inputProcessor->getKeyboardInput()) {
-            case SDLK_w:
-                testRect->setY(testRect->getY() - 5);
-                break;
-            case SDLK_s:
-                testRect->setY(testRect->getY() + 5);
-                break;
-            case SDLK_a:
-                testRect->setX(testRect->getX() - 5);
-                break;
-            case SDLK_d:
-                testRect->setX(testRect->getX() + 5);
-                break;
-            case SDLK_UP:
-                camera->setY(camera->getY() - 2.5f);
-                break;
-            case SDLK_DOWN:
-                camera->setY(camera->getY() + 2.5f);
-                break;
-            case SDLK_LEFT:
-                camera->setX(camera->getX() - 2.5f);
-                break;
-            case SDLK_RIGHT:
-                camera->setX(camera->getX() + 2.5f);
-                break;
-            default:
-                break;
-        }
-    }
+    if (inputProcessor->isKeyPressed('w')) testRect->setY(testRect->getY() - 5);
+    if (inputProcessor->isKeyPressed('a')) testRect->setX(testRect->getX() - 5);
+    if (inputProcessor->isBoundKeyPressed(1)) testRect->setY(testRect->getY() + 5);
+    if (inputProcessor->isBoundKeyPressed(2)) testRect->setX(testRect->getX() + 5);
 
     inputProcessor->endProcessing();
     SDL_GL_SwapWindow(window);

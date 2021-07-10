@@ -2,6 +2,9 @@
 // Created by JJBla on 1/14/2021.
 //
 
+//TODO: reformat
+//TODO: add mouse and controller to key mapping
+
 #include <iostream>
 #include <algorithm>
 #include "InputProcessor.h"
@@ -17,6 +20,7 @@ InputProcessor::InputProcessor() {
     //TODO: make this work for any button/key
     leftButtonPressed = false;
 }
+
 
 void InputProcessor::processInput(SDL_Event input) {
     switch (input.type) {
@@ -43,42 +47,70 @@ void InputProcessor::processInput(SDL_Event input) {
     }
 }
 
-SDL_Keycode InputProcessor::getKeyboardInput() {
-    return pressed_keyboard_keys[keyboard_i++];
-}
-
-unsigned char InputProcessor::getMouseButtonInput() {
-    return pressed_mouse_buttons[mouse_i++];
-}
-
-Position2Df InputProcessor::getMouseDrag() {
-    Position2Df drag = Position2Df();
-    drag.x = (float) (mouseDrag.x - mousePos.x) / 320.0f * 2.75f;
-    drag.y = (float) (mouseDrag.y - mousePos.y) / 240.0f * 2.0625f;
-    mousePos.x = mouseDrag.x;
-    mousePos.y = mouseDrag.y;
-    return drag;
-}
-
-bool InputProcessor::hasProcessedKeyboardInput() {
-    return !pressed_keyboard_keys.empty() && keyboard_i != pressed_keyboard_keys.size();
-}
-
-bool InputProcessor::hasProcessedMouseButtonInput() {
-    return !pressed_mouse_buttons.empty() && mouse_i != pressed_mouse_buttons.size();
-}
-
-bool InputProcessor::isMouseDragged() const {
-    return leftButtonPressed;
-}
-
 void InputProcessor::endProcessing() {
     keyboard_i = 0;
     mouse_i = 0;
 }
 
-Position2D InputProcessor::getMouseCoordinates() {
-    Position2D coordinates = Position2D();
-    SDL_GetMouseState(&(coordinates.x), &(coordinates.y));
-    return coordinates;
+void InputProcessor::addVerb(uint16_t verb) {
+    if (!vector_contains(verbs, verb)) verbs.push_back(verb);
 }
+
+void InputProcessor::map_key(char key, uint16_t verb) {
+    key_map[verb] = (SDL_KeyCode) key;
+    addVerb(verb);
+}
+
+bool InputProcessor::isVerbMapped(uint16_t verb) {
+    return key_map.find(verb) != key_map.end();
+}
+
+char InputProcessor::getBoundKey(uint16_t verb) {
+    return key_map[verb];
+}
+
+bool InputProcessor::isBoundKeyPressed(uint16_t verb) {
+    if (isVerbMapped(verb)) return isKeyPressed(getBoundKey(verb));
+    else return false;
+}
+
+bool InputProcessor::isKeyPressed(char key) {
+    if (vector_contains(pressed_keyboard_keys, (int) key)) return true;
+    else return false;
+}
+
+//SDL_Keycode InputProcessor::getKeyboardInput() {
+//    return pressed_keyboard_keys[keyboard_i++];
+//}
+//
+//unsigned char InputProcessor::getMouseButtonInput() {
+//    return pressed_mouse_buttons[mouse_i++];
+//}
+//
+//Position2Df InputProcessor::getMouseDrag() {
+//    Position2Df drag = Position2Df();
+//    drag.x = (float) (mouseDrag.x - mousePos.x) / 320.0f * 2.75f;
+//    drag.y = (float) (mouseDrag.y - mousePos.y) / 240.0f * 2.0625f;
+//    mousePos.x = mouseDrag.x;
+//    mousePos.y = mouseDrag.y;
+//    return drag;
+//}
+//
+//bool InputProcessor::hasProcessedKeyboardInput() {
+//    return !pressed_keyboard_keys.empty() && keyboard_i != pressed_keyboard_keys.size();
+//}
+//
+//bool InputProcessor::hasProcessedMouseButtonInput() {
+//    return !pressed_mouse_buttons.empty() && mouse_i != pressed_mouse_buttons.size();
+//}
+//
+//bool InputProcessor::isMouseDragged() const {
+//    return leftButtonPressed;
+//}
+//
+//
+//Position2D InputProcessor::getMouseCoordinates() {
+//    Position2D coordinates = Position2D();
+//    SDL_GetMouseState(&(coordinates.x), &(coordinates.y));
+//    return coordinates;
+//}
