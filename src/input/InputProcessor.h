@@ -29,7 +29,7 @@ struct Position2Df {
 class InputProcessor {
 private:
     //TODO: use more controlled data types (like uint32)
-    std::vector<InputHandler*> handlers;
+    InputHandler *handler{};
     std::vector<uint16_t> verbs;
     //TODO: do this in a more optimized way (without using two vectors)
     std::map<uint16_t, SDL_Keycode> key_map;
@@ -44,14 +44,14 @@ private:
 public:
     InputProcessor();
     ~InputProcessor();
-    void addHandler(InputHandler *handler);
-    void removeHandler(InputHandler *handler);
+
+//    static const char* getKeyName(uint8_t key);
+
+    void setHandler(InputHandler *inputHandler);
+    void updateHandler(InputType type, SDL_Keycode input);
 
     void processInput(SDL_Event input);
     void endProcessing();
-    void updateHandlers(InputType type, SDL_Keycode input);
-
-    static const char* getKeyName(uint8_t key);
 
     void addVerb(uint16_t verb);
     void map_key(uint8_t key, uint16_t verb);

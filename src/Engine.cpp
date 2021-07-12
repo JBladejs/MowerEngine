@@ -82,6 +82,7 @@ void Engine::start() {
     input->map_key('w', 1);
     input->map_key('s', 2);
     handler = new TestInputHandler(testRect);
+    input->setHandler(handler);
 
     while (running) {
         render();

@@ -12,6 +12,7 @@
 #include "../util/misc_functions.h"
 
 InputProcessor::InputProcessor() {
+    handler = nullptr;
     keyboard_i = 0;
     mouse_i = 0;
     mousePos.x = 0;
@@ -28,7 +29,7 @@ void InputProcessor::processInput(SDL_Event input) {
         case SDL_KEYDOWN: {
             if (!vector_contains(pressed_keyboard_keys, input.key.keysym.sym)) {
                 pressed_keyboard_keys.push_back(input.key.keysym.sym);
-                updateHandlers(DOWN, input.key.keysym.sym);
+                updateHandler(DOWN, input.key.keysym.sym);
             }
             break;
         }
@@ -36,27 +37,27 @@ void InputProcessor::processInput(SDL_Event input) {
             auto iter = std::find(pressed_keyboard_keys.begin(), pressed_keyboard_keys.end(), input.key.keysym.sym);
             if (iter != pressed_keyboard_keys.end()) {
                 pressed_keyboard_keys.erase(iter);
-                updateHandlers(UP, input.key.keysym.sym);
+                updateHandler(UP, input.key.keysym.sym);
             }
             break;
         }
-        case SDL_MOUSEBUTTONDOWN: {
-            if (vector_contains(pressed_mouse_buttons, input.button.button))
-                pressed_mouse_buttons.push_back(input.button.button);
-            break;
-        }
-        case SDL_MOUSEBUTTONUP: {
-            auto iter = std::find(pressed_mouse_buttons.begin(), pressed_mouse_buttons.end(), input.button.button);
-            if (iter != pressed_mouse_buttons.end()) pressed_mouse_buttons.erase(iter);
-            break;
-        }
+//        case SDL_MOUSEBUTTONDOWN: {
+//            if (vector_contains(pressed_mouse_buttons, input.button.button))
+//                pressed_mouse_buttons.push_back(input.button.button);
+//            break;
+//        }
+//        case SDL_MOUSEBUTTONUP: {
+//            auto iter = std::find(pressed_mouse_buttons.begin(), pressed_mouse_buttons.end(), input.button.button);
+//            if (iter != pressed_mouse_buttons.end()) pressed_mouse_buttons.erase(iter);
+//            break;
+//        }
     }
 }
 
 void InputProcessor::endProcessing() {
     //TODO: make sure that the first press doesn't count into that
     for (auto key: pressed_keyboard_keys) {
-        updateHandlers(HOLD, key);
+        updateHandler(HOLD, key);
     }
     keyboard_i = 0;
     mouse_i = 0;
@@ -103,40 +104,32 @@ bool InputProcessor::isKeyPressed(uint8_t key) {
     else return false;
 }
 
-void InputProcessor::addHandler(InputHandler *handler) {
-    handlers.push_back(handler);
-}
-
-void InputProcessor::removeHandler(InputHandler *handler) {
-    auto index = find(handlers.begin(), handlers.end(), handler);
-    if (index != handlers.end()) handlers.erase(index);
-}
-
 InputProcessor::~InputProcessor() {
-    for (auto *handler: handlers) {
-        delete handler;
-    }
-    handlers.clear();
+    delete handler;
+    handler = nullptr;
 }
 
-void InputProcessor::updateHandlers(InputType type, SDL_Keycode input) {
-    for (auto handler: handlers) {
-        switch (type) {
-            case DOWN:
-                handler->onKeyDown((uint8_t) input);
-                break;
-            case HOLD:
-                handler->onKeyHold((uint8_t) input);
-                break;
-            case UP:
-                handler->onKeyUp((uint8_t) input);
-                break;
-        }
+//const char *InputProcessor::getKeyName(uint8_t key) {
+////    return SDL_Keysym((SDL_Keycode) key);
+//}
+
+void InputProcessor::updateHandler(InputType type, SDL_Keycode input) {
+    if (handler == nullptr) return;
+    switch (type) {
+        case DOWN:
+            handler->onKeyDown((uint8_t) input);
+            break;
+        case HOLD:
+            handler->onKeyHold((uint8_t) input);
+            break;
+        case UP:
+            handler->onKeyUp((uint8_t) input);
+            break;
     }
 }
 
-const char *InputProcessor::getKeyName(uint8_t key) {
-//    return SDL_Keysym((SDL_Keycode) key);
+void InputProcessor::setHandler(InputHandler *inputHandler) {
+    handler = inputHandler;
 }
 
 //SDL_Keycode InputProcessor::getKeyboardInput() {

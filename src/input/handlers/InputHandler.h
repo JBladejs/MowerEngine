@@ -10,8 +10,6 @@
 //interface
 class InputHandler {
 public:
-    InputHandler();
-    virtual ~InputHandler();
     virtual bool onKeyDown(uint8_t key) = 0;
     virtual bool onKeyUp(uint8_t key) = 0;
     virtual bool onKeyHold(uint8_t key) = 0;
