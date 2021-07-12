@@ -6,9 +6,9 @@
 #define MOWERENGINE_TESTINPUTHANDLER_H
 
 
-#include "input/InputHandler.h"
+#include "input/handlers/InputHandler.h"
 #include "graphics/TestObject.h"
-#include "input/BoundInputHandler.h"
+#include "input/handlers/BoundInputHandler.h"
 
 class TestInputHandler: public BoundInputHandler {
 private:
