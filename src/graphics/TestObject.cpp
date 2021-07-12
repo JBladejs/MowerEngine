@@ -5,7 +5,6 @@
 #include "TestObject.h"
 #include "texturing/Sprite.h"
 
-using namespace MowerEngine;
 
 TestObject::TestObject(float x, float y, float width, float height) : x(x), y(y), width(width), height(height) {
 //    image = new Sprite("assets/crate.jpg");
@@ -17,19 +16,19 @@ void TestObject::render() {
     image->render(x, y, 0.25f);
 }
 
-float MowerEngine::TestObject::getX() const {
+float TestObject::getX() const {
     return x;
 }
 
-float MowerEngine::TestObject::getY() const {
+float TestObject::getY() const {
     return y;
 }
 
-void MowerEngine::TestObject::setX(float x) {
+void TestObject::setX(float x) {
     this->x = x;
 }
 
-void MowerEngine::TestObject::setY(float y) {
+void TestObject::setY(float y) {
     this->y = y;
 }
 

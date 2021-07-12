@@ -4,6 +4,7 @@
 
 //TODO: reformat
 //TODO: add mouse and controller to key mapping
+//TODO: add input multiplexer
 
 #include <iostream>
 #include <algorithm>
@@ -27,11 +28,13 @@ void InputProcessor::processInput(SDL_Event input) {
         case SDL_KEYDOWN: {
             if (!vector_contains(pressed_keyboard_keys, input.key.keysym.sym))
                 pressed_keyboard_keys.push_back(input.key.keysym.sym);
+            updateHandlers(DOWN, input.key.keysym.sym);
             break;
         }
         case SDL_KEYUP: {
             auto iter = std::find(pressed_keyboard_keys.begin(), pressed_keyboard_keys.end(), input.key.keysym.sym);
             if (iter != pressed_keyboard_keys.end()) pressed_keyboard_keys.erase(iter);
+            updateHandlers(UP, input.key.keysym.sym);
             break;
         }
         case SDL_MOUSEBUTTONDOWN: {
@@ -48,6 +51,10 @@ void InputProcessor::processInput(SDL_Event input) {
 }
 
 void InputProcessor::endProcessing() {
+    //TODO: make sure that the first press dosen't count into that
+    for (auto key: pressed_keyboard_keys) {
+        updateHandlers(HOLD, key);
+    }
     keyboard_i = 0;
     mouse_i = 0;
 }
@@ -56,17 +63,18 @@ void InputProcessor::addVerb(uint16_t verb) {
     if (!vector_contains(verbs, verb)) verbs.push_back(verb);
 }
 
-void InputProcessor::map_key(char key, uint16_t verb) {
-    key_map[verb] = (SDL_KeyCode) key;
+void InputProcessor::map_key(uint8_t key, uint16_t verb) {
+    key_map[verb] = (SDL_Keycode) key;
     addVerb(verb);
 }
 
+//TODO: change all chars to uint8_t
 bool InputProcessor::isVerbMapped(uint16_t verb) {
     return key_map.find(verb) != key_map.end();
 }
 
 char InputProcessor::getBoundKey(uint16_t verb) {
-    return key_map[verb];
+    return (char) key_map[verb];
 }
 
 bool InputProcessor::isBoundKeyPressed(uint16_t verb) {
@@ -77,6 +85,38 @@ bool InputProcessor::isBoundKeyPressed(uint16_t verb) {
 bool InputProcessor::isKeyPressed(char key) {
     if (vector_contains(pressed_keyboard_keys, (int) key)) return true;
     else return false;
+}
+
+void InputProcessor::addHandler(InputHandler *handler) {
+    handlers.push_back(handler);
+}
+
+void InputProcessor::removeHandler(InputHandler *handler) {
+    auto index = find(handlers.begin(), handlers.end(), handler);
+    if (index != handlers.end()) handlers.erase(index);
+}
+
+InputProcessor::~InputProcessor() {
+    for (auto *handler: handlers) {
+        delete handler;
+    }
+    handlers.clear();
+}
+
+void InputProcessor::updateHandlers(InputType type, SDL_Keycode input) {
+    for (auto handler: handlers) {
+        switch (type) {
+            case DOWN:
+                handler->onKeyDown((char) input);
+                break;
+            case HOLD:
+                handler->onKeyHold((char) input);
+                break;
+            case UP:
+                handler->onKeyUp((char) input);
+                break;
+        }
+    }
 }
 
 //SDL_Keycode InputProcessor::getKeyboardInput() {

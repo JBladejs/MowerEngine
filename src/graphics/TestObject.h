@@ -7,21 +7,19 @@
 
 #include "texturing/memory/TextureManager.h"
 
-namespace MowerEngine {
-    class TestObject {
-    private:
-        float x, y;
-        float width, height;
-        Image *image;
-    public:
-        TestObject(float x, float y, float width, float height);
-        ~TestObject();
-        void render();
-        float getX() const;
-        void setX(float x);
-        float getY() const;
-        void setY(float y);
-    };
-}
+class TestObject {
+private:
+    float x, y;
+    float width, height;
+    Image *image;
+public:
+    TestObject(float x, float y, float width, float height);
+    ~TestObject();
+    void render();
+    float getX() const;
+    void setX(float x);
+    float getY() const;
+    void setY(float y);
+};
 
 #endif //MOWERENGINE_TESTOBJECT_H

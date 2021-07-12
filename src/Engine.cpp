@@ -5,16 +5,18 @@
 #include "Engine.h"
 #include "graphics/TestObject.h"
 #include "graphics/texturing/Sprite.h"
+#include "TestInputHandler.h"
 #include<SDL2/SDL.h>
 #include<GL/gl.h>
 #include <IL/il.h>
 #include <ilu.h>
 
-using namespace MowerEngine;
 using namespace std;
 
-MowerEngine::TestObject *testRect = nullptr;
+TestInputHandler *handler = nullptr;
+TestObject *testRect = nullptr;
 Sprite *background = nullptr;
+InputProcessor *Engine::input;
 //auto last_time = std::chrono::high_resolution_clock::now();
 
 //TODO: Add error checking
@@ -22,7 +24,7 @@ Engine::Engine() {
     camera = new Camera();
     window = nullptr;
     context = nullptr;
-    inputProcessor = nullptr;
+    input = nullptr;
     //TODO: make it not hardcoded
     screenWidth = 500.f;
     screenHeight = 500.f;
@@ -71,14 +73,15 @@ void Engine::initSDL() {
 void Engine::start() {
     initSDL();
     initGL();
-    inputProcessor = new InputProcessor();
+    input = new InputProcessor();
     running = true;
 
     testRect = new TestObject(250.f, 250.f, 64.f, 64.f);
     background = new Sprite("assets/crate.jpg");
 
-    inputProcessor->map_key('s', 1);
-    inputProcessor->map_key('d', 2);
+//    input->map_key('s', 1);
+//    input->map_key('d', 2);
+    handler = new TestInputHandler(testRect);
 
     while (running) {
         render();
@@ -93,8 +96,8 @@ void Engine::quit() {
     context = nullptr;
     delete camera;
     camera = nullptr;
-    delete inputProcessor;
-    inputProcessor = nullptr;
+    delete input;
+    input = nullptr;
     SDL_Quit();
     exitCode = 0;
 }
@@ -102,6 +105,8 @@ void Engine::quit() {
 Engine::~Engine() {
     delete testRect;
     testRect = nullptr;
+    delete input;
+    input = nullptr;
     quit();
 }
 
@@ -116,15 +121,15 @@ void Engine::update() {
         if (event.type == SDL_QUIT) {
             running = false;
             break;
-        } else inputProcessor->processInput(event);
+        } else input->processInput(event);
     }
 
-    if (inputProcessor->isKeyPressed('w')) testRect->setY(testRect->getY() - 5);
-    if (inputProcessor->isKeyPressed('a')) testRect->setX(testRect->getX() - 5);
-    if (inputProcessor->isBoundKeyPressed(1)) testRect->setY(testRect->getY() + 5);
-    if (inputProcessor->isBoundKeyPressed(2)) testRect->setX(testRect->getX() + 5);
+//    if (input->isKeyPressed('w')) testRect->setY(testRect->getY() - 5);
+//    if (input->isKeyPressed('a')) testRect->setX(testRect->getX() - 5);
+//    if (input->isBoundKeyPressed(1)) testRect->setY(testRect->getY() + 5);
+//    if (input->isBoundKeyPressed(2)) testRect->setX(testRect->getX() + 5);
 
-    inputProcessor->endProcessing();
+    input->endProcessing();
     SDL_GL_SwapWindow(window);
 }
 
