@@ -26,15 +26,18 @@ InputProcessor::InputProcessor() {
 void InputProcessor::processInput(SDL_Event input) {
     switch (input.type) {
         case SDL_KEYDOWN: {
-            if (!vector_contains(pressed_keyboard_keys, input.key.keysym.sym))
+            if (!vector_contains(pressed_keyboard_keys, input.key.keysym.sym)) {
                 pressed_keyboard_keys.push_back(input.key.keysym.sym);
-            updateHandlers(DOWN, input.key.keysym.sym);
+                updateHandlers(DOWN, input.key.keysym.sym);
+            }
             break;
         }
         case SDL_KEYUP: {
             auto iter = std::find(pressed_keyboard_keys.begin(), pressed_keyboard_keys.end(), input.key.keysym.sym);
-            if (iter != pressed_keyboard_keys.end()) pressed_keyboard_keys.erase(iter);
-            updateHandlers(UP, input.key.keysym.sym);
+            if (iter != pressed_keyboard_keys.end()) {
+                pressed_keyboard_keys.erase(iter);
+                updateHandlers(UP, input.key.keysym.sym);
+            }
             break;
         }
         case SDL_MOUSEBUTTONDOWN: {

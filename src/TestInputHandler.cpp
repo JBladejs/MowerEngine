@@ -10,10 +10,10 @@ TestInputHandler::TestInputHandler(TestObject *object): InputHandler(), object(o
 
 bool TestInputHandler::onKeyDown(char key) {
     switch (key) {
-        case 'w': object->setY(object->getY() - 10); break;
-        case 's': object->setY(object->getY() + 10); break;
-        case 'a': object->setX(object->getX() - 10); break;
-        case 'd': object->setX(object->getX() + 10); break;
+        case 'w': object->setY(object->getY() - 20); break;
+        case 's': object->setY(object->getY() + 20); break;
+        case 'a': object->setX(object->getX() - 20); break;
+        case 'd': object->setX(object->getX() + 20); break;
         default: return false;
     }
     return true;
@@ -32,10 +32,10 @@ bool TestInputHandler::onKeyHold(char key) {
 
 bool TestInputHandler::onKeyUp(char key) {
     switch (key) {
-        case 'w': object->setY(object->getY() - 1); break;
-        case 's': object->setY(object->getY() + 1); break;
-        case 'a': object->setX(object->getX() - 1); break;
-        case 'd': object->setX(object->getX() + 1); break;
+        case 'w': object->setY(object->getY() - 100); break;
+        case 's': object->setY(object->getY() + 100); break;
+        case 'a': object->setX(object->getX() - 100); break;
+        case 'd': object->setX(object->getX() + 100); break;
         default: return false;
     }
     return true;
