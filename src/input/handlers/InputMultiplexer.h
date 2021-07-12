@@ -12,9 +12,10 @@
 class InputMultiplexer: public InputHandler {
 private:
     std::vector<InputHandler*> handlers;
+public:
     void addHandler(InputHandler *handler);
     void removeHandler(InputHandler *handler);
-    void updateHandlers(InputType type, SDL_Keycode input);
+    bool updateHandlers(InputType type, uint8_t input);
     bool onKeyDown(uint8_t key) override;
     bool onKeyUp(uint8_t key) override;
     bool onKeyHold(uint8_t key) override;

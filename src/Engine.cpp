@@ -6,6 +6,8 @@
 #include "graphics/TestObject.h"
 #include "graphics/texturing/Sprite.h"
 #include "TestInputHandler.h"
+#include "TestInputHandler2.h"
+#include "input/handlers/InputMultiplexer.h"
 #include<SDL2/SDL.h>
 #include<GL/gl.h>
 #include <IL/il.h>
@@ -13,7 +15,6 @@
 
 using namespace std;
 
-TestInputHandler *handler = nullptr;
 TestObject *testRect = nullptr;
 Sprite *background = nullptr;
 InputProcessor *Engine::input;
@@ -81,13 +82,23 @@ void Engine::start() {
 
     input->map_key('w', 1);
     input->map_key('s', 2);
-    handler = new TestInputHandler(testRect);
-    input->setHandler(handler);
+    auto handler1 = new TestInputHandler(testRect);
+    auto handler2 = new TestInputHandler2(testRect);
+
+    auto *multiplexer = new InputMultiplexer();
+    multiplexer->addHandler(handler1);
+    multiplexer->addHandler(handler2);
+    input->setHandler(multiplexer);
 
     while (running) {
         render();
         update();
     }
+    multiplexer->removeHandler(handler1);
+    multiplexer->removeHandler(handler2);
+    delete multiplexer;
+    delete handler1;
+    delete handler2;
     quit();
 }
 

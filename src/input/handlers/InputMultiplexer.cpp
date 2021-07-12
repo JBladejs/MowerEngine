@@ -14,30 +14,31 @@ void InputMultiplexer::removeHandler(InputHandler *handler) {
     if (index != handlers.end()) handlers.erase(index);
 }
 
-void InputMultiplexer::updateHandlers(InputType type, SDL_Keycode input) {
+bool InputMultiplexer::updateHandlers(InputType type, uint8_t input) {
     for (auto handler: handlers) {
         switch (type) {
             case DOWN:
-                handler->onKeyDown((uint8_t) input);
+                if(handler->onKeyDown(input)) return true;
                 break;
             case HOLD:
-                handler->onKeyHold((uint8_t) input);
+                if(handler->onKeyHold(input)) return true;
                 break;
             case UP:
-                handler->onKeyUp((uint8_t) input);
+                if(handler->onKeyUp(input)) return true;
                 break;
         }
     }
+    return false;
 }
 
 bool InputMultiplexer::onKeyDown(uint8_t key) {
-    return false;
+    return updateHandlers(DOWN, key);
 }
 
 bool InputMultiplexer::onKeyUp(uint8_t key) {
-    return false;
+    return updateHandlers(UP, key);
 }
 
 bool InputMultiplexer::onKeyHold(uint8_t key) {
-    return false;
+    return updateHandlers(HOLD, key);
 }
