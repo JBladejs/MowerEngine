@@ -67,7 +67,12 @@ void InputProcessor::addVerb(uint16_t verb) {
 }
 
 void InputProcessor::map_key(uint8_t key, uint16_t verb) {
+    if (key_map.find(verb) != key_map.end())
+        verb_map.erase(key_map[verb]);
+    if (verb_map.find(key) != verb_map.end())
+        key_map.erase(verb_map[key]);
     key_map[verb] = (SDL_Keycode) key;
+    verb_map[key] = verb;
     addVerb(verb);
 }
 
@@ -75,8 +80,17 @@ bool InputProcessor::isVerbMapped(uint16_t verb) {
     return key_map.find(verb) != key_map.end();
 }
 
+bool InputProcessor::isKeyMapped(uint8_t key) {
+    return verb_map.find(key) != verb_map.end();
+}
+
+//TODO: add error checking
 uint8_t InputProcessor::getBoundKey(uint16_t verb) {
     return (uint8_t) key_map[verb];
+}
+
+uint16_t InputProcessor::getBoundVerb(uint8_t key) {
+    return verb_map[key];
 }
 
 bool InputProcessor::isBoundKeyPressed(uint16_t verb) {
@@ -119,6 +133,10 @@ void InputProcessor::updateHandlers(InputType type, SDL_Keycode input) {
                 break;
         }
     }
+}
+
+const char *InputProcessor::getKeyName(uint8_t key) {
+//    return SDL_Keysym((SDL_Keycode) key);
 }
 
 //SDL_Keycode InputProcessor::getKeyboardInput() {

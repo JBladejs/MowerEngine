@@ -82,6 +82,7 @@ void Texture::load(GLuint *pixels, int texWidth, int texHeight, int imgWidth, in
     generate();
 }
 
+//TODO: do color keying while drawing
 void Texture::loadColorKeyed(GLuint *pixels, int texWidth, int texHeight, int imgWidth, int imgHeight, Color color, GLuint alpha) {
     loadPixels(pixels, texWidth, texHeight, imgWidth, imgHeight);
     //TODO: make sure that only the part that contains an image is keyed

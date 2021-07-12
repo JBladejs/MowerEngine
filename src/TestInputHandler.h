@@ -8,15 +8,16 @@
 
 #include "input/InputHandler.h"
 #include "graphics/TestObject.h"
+#include "input/BoundInputHandler.h"
 
-class TestInputHandler: public InputHandler {
+class TestInputHandler: public BoundInputHandler {
 private:
     TestObject *object;
 public:
     explicit TestInputHandler(TestObject *object);
-    bool onKeyDown(uint8_t key) override;
-    bool onKeyHold(uint8_t key) override;
-    bool onKeyUp(uint8_t key) override;
+    bool onKeyDown(uint16_t key) override;
+    bool onKeyHold(uint16_t key) override;
+    bool onKeyUp(uint16_t key) override;
 };
 
 

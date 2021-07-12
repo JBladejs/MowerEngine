@@ -79,8 +79,8 @@ void Engine::start() {
     testRect = new TestObject(250.f, 250.f, 64.f, 64.f);
     background = new Sprite("assets/crate.jpg");
 
-//    input->map_key('s', 1);
-//    input->map_key('d', 2);
+    input->map_key('w', 1);
+    input->map_key('s', 2);
     handler = new TestInputHandler(testRect);
 
     while (running) {
