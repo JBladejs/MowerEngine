@@ -54,7 +54,7 @@ void InputProcessor::processInput(SDL_Event input) {
 }
 
 void InputProcessor::endProcessing() {
-    //TODO: make sure that the first press dosen't count into that
+    //TODO: make sure that the first press doesn't count into that
     for (auto key: pressed_keyboard_keys) {
         updateHandlers(HOLD, key);
     }
@@ -71,13 +71,12 @@ void InputProcessor::map_key(uint8_t key, uint16_t verb) {
     addVerb(verb);
 }
 
-//TODO: change all chars to uint8_t
 bool InputProcessor::isVerbMapped(uint16_t verb) {
     return key_map.find(verb) != key_map.end();
 }
 
-char InputProcessor::getBoundKey(uint16_t verb) {
-    return (char) key_map[verb];
+uint8_t InputProcessor::getBoundKey(uint16_t verb) {
+    return (uint8_t) key_map[verb];
 }
 
 bool InputProcessor::isBoundKeyPressed(uint16_t verb) {
@@ -85,7 +84,7 @@ bool InputProcessor::isBoundKeyPressed(uint16_t verb) {
     else return false;
 }
 
-bool InputProcessor::isKeyPressed(char key) {
+bool InputProcessor::isKeyPressed(uint8_t key) {
     if (vector_contains(pressed_keyboard_keys, (int) key)) return true;
     else return false;
 }
@@ -110,13 +109,13 @@ void InputProcessor::updateHandlers(InputType type, SDL_Keycode input) {
     for (auto handler: handlers) {
         switch (type) {
             case DOWN:
-                handler->onKeyDown((char) input);
+                handler->onKeyDown((uint8_t) input);
                 break;
             case HOLD:
-                handler->onKeyHold((char) input);
+                handler->onKeyHold((uint8_t) input);
                 break;
             case UP:
-                handler->onKeyUp((char) input);
+                handler->onKeyUp((uint8_t) input);
                 break;
         }
     }

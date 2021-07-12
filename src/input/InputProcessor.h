@@ -35,7 +35,7 @@ private:
     int keyboard_i;
     int mouse_i;
     std::vector<SDL_Keycode> pressed_keyboard_keys;
-    std::vector<unsigned char> pressed_mouse_buttons;
+    std::vector<uint8_t> pressed_mouse_buttons;
     bool leftButtonPressed;
     Position2D mousePos{};
     Position2D mouseDrag{};
@@ -52,10 +52,10 @@ public:
     void addVerb(uint16_t verb);
     void map_key(uint8_t key, uint16_t verb);
     bool isVerbMapped(uint16_t verb);
-    char getBoundKey(uint16_t verb);
+    uint8_t getBoundKey(uint16_t verb);
     bool isBoundKeyPressed(uint16_t verb);
     //For general input:
-    bool isKeyPressed(char key);
+    bool isKeyPressed(uint8_t key);
 //    SDL_Keycode getKeyboardInput();
 //    unsigned char getMouseButtonInput();
 //    Position2Df getMouseDrag();

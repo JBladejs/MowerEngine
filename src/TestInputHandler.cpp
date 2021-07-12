@@ -2,13 +2,15 @@
 // Created by goon on 12.07.2021.
 //
 
+#include <iostream>
 #include "TestInputHandler.h"
 
 //TODO: investigate sudden increase in speed
 
 TestInputHandler::TestInputHandler(TestObject *object): InputHandler(), object(object) {}
 
-bool TestInputHandler::onKeyDown(char key) {
+bool TestInputHandler::onKeyDown(uint8_t key) {
+    std::cout << key << std::endl;
     switch (key) {
         case 'w': object->setY(object->getY() - 20); break;
         case 's': object->setY(object->getY() + 20); break;
@@ -19,7 +21,7 @@ bool TestInputHandler::onKeyDown(char key) {
     return true;
 }
 
-bool TestInputHandler::onKeyHold(char key) {
+bool TestInputHandler::onKeyHold(uint8_t key) {
     switch (key) {
         case 'w': object->setY(object->getY() - 5); break;
         case 's': object->setY(object->getY() + 5); break;
@@ -30,7 +32,7 @@ bool TestInputHandler::onKeyHold(char key) {
     return true;
 }
 
-bool TestInputHandler::onKeyUp(char key) {
+bool TestInputHandler::onKeyUp(uint8_t key) {
     switch (key) {
         case 'w': object->setY(object->getY() - 100); break;
         case 's': object->setY(object->getY() + 100); break;

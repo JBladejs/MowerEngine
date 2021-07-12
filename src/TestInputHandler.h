@@ -14,9 +14,9 @@ private:
     TestObject *object;
 public:
     explicit TestInputHandler(TestObject *object);
-    bool onKeyDown(char key) override;
-    bool onKeyHold(char key) override;
-    bool onKeyUp(char key) override;
+    bool onKeyDown(uint8_t key) override;
+    bool onKeyHold(uint8_t key) override;
+    bool onKeyUp(uint8_t key) override;
 };
 
 
