@@ -10,7 +10,7 @@ file(GLOB HEADERS "src/*.h" "src/*/*.h" "src/*/*/*.h" "src/*/*/*/*.h")
 #TODO: make it so the files are copied on assets change
 file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
 
-add_executable(MowerEngine ${SOURCE} ${HEADERS} src/graphics/Color.cpp src/graphics/Color.h src/input/handlers/InputHandler.cpp src/input/handlers/InputHandler.h src/TestInputHandler.cpp src/TestInputHandler.h src/input/handlers/BoundInputHandler.cpp src/input/handlers/BoundInputHandler.h src/input/processors/InputProcessor.cpp src/input/processors/InputProcessor.h)
+add_executable(MowerEngine ${SOURCE} ${HEADERS})
 
 #TODO: make it more platform independent
 IF (WIN32)
