@@ -2,7 +2,7 @@
 // Created by JJBla on 1/9/2021.
 //
 
-#include "Engine.h"
+#include "Mower.h"
 #include "graphics/TestObject.h"
 #include "graphics/texturing/Sprite.h"
 #include "TestInputHandler.h"
@@ -17,11 +17,11 @@ using namespace std;
 
 TestObject *testRect = nullptr;
 Sprite *background = nullptr;
-InputProcessor *Engine::input;
+InputProcessor *Mower::input;
 //auto last_time = std::chrono::high_resolution_clock::now();
 
 //TODO: Add error checking
-Engine::Engine() {
+Mower::Mower() {
     camera = new Camera();
     window = nullptr;
     context = nullptr;
@@ -33,7 +33,7 @@ Engine::Engine() {
     running = false;
 }
 
-void Engine::initGL() const {
+void Mower::initGL() const {
     //TODO: add viewport
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
@@ -60,7 +60,7 @@ void Engine::initGL() const {
     ilClearColour(0, 0, 0, 0);
 }
 
-void Engine::initSDL() {
+void Mower::initSDL() {
     SDL_Init(SDL_INIT_EVERYTHING);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
@@ -71,7 +71,7 @@ void Engine::initSDL() {
     SDL_GL_SetSwapInterval(1);
 }
 
-void Engine::start() {
+void Mower::start() {
     initSDL();
     initGL();
     input = new InputProcessor();
@@ -102,7 +102,7 @@ void Engine::start() {
     quit();
 }
 
-void Engine::quit() {
+void Mower::quit() {
     SDL_DestroyWindow(window);
     window = nullptr;
     context = nullptr;
@@ -114,7 +114,7 @@ void Engine::quit() {
     exitCode = 0;
 }
 
-Engine::~Engine() {
+Mower::~Mower() {
     delete testRect;
     testRect = nullptr;
     delete input;
@@ -122,11 +122,11 @@ Engine::~Engine() {
     quit();
 }
 
-int Engine::getExitCode() const {
+int Mower::getExitCode() const {
     return exitCode;
 }
 
-void Engine::update() {
+void Mower::update() {
     //TODO: move that to input processor
     SDL_Event event;
     while (SDL_PollEvent(&event)) {
@@ -146,7 +146,7 @@ void Engine::update() {
 }
 
 //TODO: add delta time as argument of render to make it framerate independent
-void Engine::render() {
+void Mower::render() {
 //    May be useful later
 //    auto time = last_time;
 //    last_time = std::chrono::high_resolution_clock::now();

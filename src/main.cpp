@@ -1,9 +1,9 @@
 #include <iostream>
-#include "Engine.h"
+#include "Mower.h"
 #include "graphics/Color.h"
 
 int main(int argc, char *args[]) {
-    Engine engine = Engine();
+    Mower engine = Mower();
     engine.start();
     return engine.getExitCode();
 }

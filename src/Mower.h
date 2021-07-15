@@ -2,15 +2,15 @@
 // Created by JJBla on 1/9/2021.
 //
 
-#ifndef MOWERENGINE_ENGINE_H
-#define MOWERENGINE_ENGINE_H
+#ifndef MOWERENGINE_MOWER_H
+#define MOWERENGINE_MOWER_H
 
 #include <SDL2/SDL_video.h>
 #include "input/InputProcessor.h"
 #include "objects/Camera.h"
 
 //TODO: make it more static
-class Engine {
+class Mower {
 private:
     SDL_Window *window;
     SDL_GLContext context;
@@ -26,11 +26,11 @@ private:
     void quit();
 public:
     static InputProcessor *input;
-    Engine();
-    ~Engine();
+    Mower();
+    ~Mower();
     void start();
     int getExitCode() const;
 };
 
 
-#endif //MOWERENGINE_ENGINE_H
+#endif //MOWERENGINE_MOWER_H
