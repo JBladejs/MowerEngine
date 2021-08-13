@@ -5,7 +5,7 @@
 #ifndef MOWERENGINE_CAMERA_H
 #define MOWERENGINE_CAMERA_H
 
-
+//TODO: make camera an entity
 class Camera {
 private:
     float x;

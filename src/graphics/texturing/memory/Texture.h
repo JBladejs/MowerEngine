@@ -7,7 +7,7 @@
 
 #include <GL/glu.h>
 #include "../../util/FRect.h"
-#include "../../Color.h"
+#include "../../util/Color.h"
 
 class Texture {
 private:
