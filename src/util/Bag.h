@@ -14,23 +14,23 @@ template <typename T>
 class Bag {
 private:
     T* data_ptr = nullptr;
-    int data_size = 0;
-    int bag_capacity = 0;
+    uint32_t data_size = 0;
+    uint32_t bag_capacity = 0;
 public:
     explicit Bag(int capacity);
     Bag();
     ~Bag();
-    int size();
-    int capacity();
+    uint32_t size();
+    uint32_t capacity();
     void add(T element);
-    void remove(int i);
+    void remove(uint32_t i);
     void removeElement(T element);
-    T get(int i);
+    T get(uint32_t i);
     void clear();
     bool contains(T element);
 private:
-    void ensureCapacity(int size);
-    void grow(int capacity);
+    void ensureCapacity(uint32_t size);
+    void grow(uint32_t capacity);
     void grow();
 };
 
@@ -45,17 +45,17 @@ template<typename T>
 Bag<T>::Bag(): Bag(64) { }
 
 template<typename T>
-int Bag<T>::size() {
+uint32_t Bag<T>::size() {
     return data_size;
 }
 
 template<typename T>
-int Bag<T>::capacity() {
+uint32_t Bag<T>::capacity() {
     return bag_capacity;
 }
 
 template<typename T>
-void Bag<T>::grow(int capacity) {
+void Bag<T>::grow(uint32_t capacity) {
     data_ptr = (T*) realloc(data_ptr, capacity * sizeof(T));
     bag_capacity = capacity;
 }
@@ -66,7 +66,7 @@ void Bag<T>::grow() {
 }
 
 template<typename T>
-void Bag<T>::ensureCapacity(int size) {
+void Bag<T>::ensureCapacity(uint32_t size) {
     if (size > bag_capacity) {
         grow();
     }
@@ -79,7 +79,7 @@ void Bag<T>::add(T element) {
 }
 
 template<typename T>
-void Bag<T>::remove(int i) {
+void Bag<T>::remove(uint32_t i) {
     data_ptr[i] = data_ptr[--data_size];
 }
 
@@ -94,7 +94,7 @@ void Bag<T>::removeElement(T element) {
 }
 
 template<typename T>
-T Bag<T>::get(int i) {
+T Bag<T>::get(uint32_t i) {
     return data_ptr[i];
 }
 

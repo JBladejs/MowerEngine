@@ -12,14 +12,14 @@
 class ExtendingBitset {
 private:
     std::vector<uint8_t> bytes;
-    int size;
+    uint32_t size;
 
     void extend();
 public:
     ExtendingBitset();
-    void set(int index);
-    void unset(int index);
-    bool get(int index);
+    void set(uint32_t index);
+    void unset(uint32_t index);
+    bool get(uint32_t index);
     void clear();
 };
 

@@ -9,7 +9,6 @@
 //TODO: add signals
 
 Entity::Entity() {
-
     components = Bag<Component>();
 }
 

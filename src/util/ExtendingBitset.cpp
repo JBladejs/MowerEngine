@@ -1,6 +1,8 @@
 //
 // Created by goon on 17.08.2021.
 //
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "hicpp-signed-bitwise"
 
 #include "ExtendingBitset.h"
 
@@ -13,23 +15,23 @@ void ExtendingBitset::extend() {
     size += 8;
 }
 
-void ExtendingBitset::set(int index) {
+void ExtendingBitset::set(uint32_t index) {
     while (index >= size) extend();
-    int byte = index / 8;
-    int bit = index % 8;
+    uint32_t byte = index / 8;
+    uint32_t bit = index % 8;
     bytes[byte] = bytes[byte] | (0x01 << bit);
 }
 
-void ExtendingBitset::unset(int index) {
+void ExtendingBitset::unset(uint32_t index) {
     if (index < size) {
-        int byte = index / 8;
-        int bit = index % 8;
+        uint32_t byte = index / 8;
+        uint32_t bit = index % 8;
         bytes[byte] = bytes[byte] & ~(0x01 << bit);
     }
 }
 
 
-bool ExtendingBitset::get(int index) {
+bool ExtendingBitset::get(uint32_t index) {
     if (index >= size) return false;
     return (bytes[index / 8] >> (index % 8)) & 0x01;
 }
@@ -38,3 +40,5 @@ void ExtendingBitset::clear() {
     bytes.clear();
     size = 0;
 }
+
+#pragma clang diagnostic pop

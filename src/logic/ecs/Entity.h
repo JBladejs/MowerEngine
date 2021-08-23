@@ -8,7 +8,7 @@
 #include <cstdint>
 #include <string>
 #include <typeinfo>
-#include "Component.h"
+#include "ECSTypes.h"
 #include "../../util/Bag.h"
 #include "../../util/ExtendingBitset.h"
 
@@ -16,13 +16,7 @@ class Entity {
 private:
     Bag<Component> components;
     uint64_t id;
-    std::string tag;
     ExtendingBitset bits;
-
-    //TODO: change to transform
-    int x;
-    int y;
-
 public:
     Entity();
     ~Entity();
