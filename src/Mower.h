@@ -26,6 +26,7 @@ private:
     void quit();
 public:
     static InputProcessor *input;
+    //TODO: try to remove constructor
     Mower();
     ~Mower();
     void start();
