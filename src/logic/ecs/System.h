@@ -6,8 +6,12 @@
 #define MOWERENGINE_SYSTEM_H
 
 
-class System {
+#include <vector>
 
+class System {
+public:
+    virtual void update() = 0;
+    virtual void render() = 0;
 };
 
 

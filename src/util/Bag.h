@@ -108,9 +108,6 @@ bool Bag<T>::contains(T element) {
 
 template<typename T>
 void Bag<T>::clear() {
-    for (int i = 0; i < data_size; i++) {
-        delete data_ptr[i];
-    }
     data_size = 0;
 }
 

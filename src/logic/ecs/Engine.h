@@ -7,7 +7,8 @@
 
 
 class Engine {
-
+public:
+    Engine();
 };
 
 

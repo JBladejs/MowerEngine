@@ -3,19 +3,11 @@
 #include "graphics/util/Color.h"
 #include "util/Bag.h"
 
+//TODO: try to convert as many pointers to values as possible
+
 int main(int argc, char *args[]) {
+    std::cout << 0 << std::endl;
 //    Mower engine = Mower();
 //    engine.start();
 //    return engine.getExitCode();
-    Bag<int> bag = Bag<int>();
-    for (int i = 0; i < 128; ++i) {
-        bag.add(i);
-        std::cout << i + 1 << " " << bag.size() << " " << bag.capacity() << std::endl;
-    }
-    bag.remove(12);
-    bag.remove(64);
-    bag.remove(127);
-    for (int i = 0; i < bag.size(); ++i) {
-        std::cout << bag.get(i) << std::endl;
-    }
 }

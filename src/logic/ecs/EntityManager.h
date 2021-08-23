@@ -6,8 +6,17 @@
 #define MOWERENGINE_ENTITYMANAGER_H
 
 
-class EntityManager {
+#include <vector>
+#include "Entity.h"
 
+class EntityManager {
+private:
+    std::vector<Entity*> entites;
+public:
+    void add(Entity* entity);
+    void remove(Entity* entity);
+    void remove(int i);
+    Entity* get(int i);
 };
 
 

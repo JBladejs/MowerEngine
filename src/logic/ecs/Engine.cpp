@@ -3,3 +3,8 @@
 //
 
 #include "Engine.h"
+#include "ComponentMapper.h"
+
+Engine::Engine() {
+    ComponentMapper::start();
+}

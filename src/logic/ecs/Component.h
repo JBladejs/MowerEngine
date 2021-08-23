@@ -5,6 +5,7 @@
 #ifndef MOWERENGINE_COMPONENT_H
 #define MOWERENGINE_COMPONENT_H
 
-class Component {};
+struct Component {
+};
 
 #endif //MOWERENGINE_COMPONENT_H
