@@ -6,10 +6,10 @@
 #define MOWERENGINE_ENGINE_H
 
 
-class Engine {
-public:
-    Engine();
-};
+//class Engine {
+//public:
+//    Engine();
+//};
 
 
 #endif //MOWERENGINE_ENGINE_H

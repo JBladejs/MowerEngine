@@ -1,14 +1,17 @@
 //
 // Created by goon on 13.08.2021.
 //
+#pragma once
 
 #ifndef MOWERENGINE_BAG_H
 #define MOWERENGINE_BAG_H
 
 //Extending array to use when order is not important
 
+//TODOL implement "empty()"
 #include <cstdlib>
 #include <algorithm>
+#include <cstdint>
 
 template <typename T>
 class Bag {
@@ -24,8 +27,9 @@ public:
     uint32_t capacity();
     void add(T element);
     void remove(uint32_t i);
-    void removeElement(T element);
+    bool removeElement(T element);
     T get(uint32_t i);
+    void set(uint32_t i, T value);
     void clear();
     bool contains(T element);
 private:
@@ -34,6 +38,7 @@ private:
     void grow();
 };
 
+//TODO: change from malloc to new
 
 template<typename T>
 Bag<T>::Bag(int capacity): bag_capacity(capacity) {
@@ -67,7 +72,7 @@ void Bag<T>::grow() {
 
 template<typename T>
 void Bag<T>::ensureCapacity(uint32_t size) {
-    if (size > bag_capacity) {
+    while (size > bag_capacity) {
         grow();
     }
 }
@@ -84,18 +89,27 @@ void Bag<T>::remove(uint32_t i) {
 }
 
 template<typename T>
-void Bag<T>::removeElement(T element) {
-    for (int i = 0; i < data_size; i++) {
-        T e = data_ptr[i];
-        if (e == element) {
+bool Bag<T>::removeElement(T element) {
+    for (uint32_t i = 0; i < data_size; i++) {
+        if (data_ptr[i] == element) {
             remove(i);
+            return true;
         }
     }
+    return false;
 }
 
 template<typename T>
 T Bag<T>::get(uint32_t i) {
     return data_ptr[i];
+}
+
+template<typename T>
+void Bag<T>::set(uint32_t i, T value) {
+    if (i > bag_capacity) grow(i * 2);
+    auto new_size = i + 1;
+    if (new_size > data_size) data_size = new_size;
+    data_ptr[i] = value;
 }
 
 template<typename T>

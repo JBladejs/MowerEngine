@@ -6,6 +6,8 @@
 #ifndef MOWERENGINE_ECSTYPES_H
 #define MOWERENGINE_ECSTYPES_H
 
-using ComponentType = uint32_t;
+#include <cstdint>
+
+using componentType = uint32_t;
 
 #endif //MOWERENGINE_ECSTYPES_H
