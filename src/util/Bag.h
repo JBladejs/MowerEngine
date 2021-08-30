@@ -8,7 +8,8 @@
 
 //Extending array to use when order is not important
 
-//TODOL implement "empty()"
+//TODO: implement "empty()"
+//TODO: implement shrinking
 #include <cstdlib>
 #include <algorithm>
 #include <cstdint>

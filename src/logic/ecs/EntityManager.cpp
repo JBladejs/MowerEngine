@@ -7,21 +7,29 @@
 #include "Entity.hpp"
 
 Entity& EntityManager::createEntity() {
-    auto *entity = new Entity(getAvailableID());
-    entities.add(entity);
+    uint32_t id = getAvailableID();
+    auto *entity = new Entity(id);
+    entities.set(id, entity);
+    active_entities++;
     return *entity;
 }
 
-bool EntityManager::removeEntity(Entity& entity) {
-    bool success = entities.removeElement(&entity);
-    if (entity.getID() == entities.size() - 1) next_id--;
-    else available_ids.push(entity.getID());
-    delete &entity;
-    return success;
+Entity &EntityManager::getEntity(uint32_t entityID) {
+    return *entities.get(entityID);
 }
 
-uint32_t EntityManager::getNumberOfActiveEntities() {
-    return entities.size();
+void EntityManager::removeEntity(Entity& entity) {
+    if (!isEntityRegistered(entity)) return;
+    if (entity.getID() == entities.size() - 1) next_id--;
+    else available_ids.push(entity.getID());
+    component_manager.entityDestroyed(entity.getID());
+    active_entities--;
+    delete &entity;
+    entities.set(entity.getID(), nullptr);
+}
+
+uint32_t EntityManager::getNumberOfActiveEntities() const {
+    return active_entities;
 }
 
 EntityManager::~EntityManager() {
@@ -38,3 +46,9 @@ uint32_t EntityManager::getAvailableID() {
         return id;
     } else return next_id++;
 }
+
+bool EntityManager::isEntityRegistered(Entity& entity) {
+    return entities.get(entity.getID()) == &entity;
+}
+
+

@@ -1,18 +1,19 @@
 //
 // Created by JJBla on 8/26/2021.
 //
+#pragma once
 
 #ifndef MOWERENGINE_COMPONENTPOOL_HPP
 #define MOWERENGINE_COMPONENTPOOL_HPP
 
+#include <unordered_map>
+#include "../../util/Bag.h"
+
 class IComponentPool {
 public:
     virtual ~IComponentPool() = default;
-    virtual void entityDestroyed() = 0;
+    virtual void entityDestroyed(uint32_t entityID) = 0;
 };
-
-#include "../../util/Bag.h"
-#include <unordered_map>
 
 template <typename C>
 class ComponentPool: public IComponentPool {
@@ -31,13 +32,16 @@ public:
         return true;
     }
 
-    bool removeData(uint32_t entityID) {
-        if (entity_to_index.find(entityID) == entity_to_index.end()) return false;
+    void removeData(uint32_t entityID) {
         components.remove(entity_to_index[entityID]);
         uint32_t new_index = components.get(entityID);
         entity_to_index[entityID] = new_index;
         index_to_entity[new_index] = entityID;
-        return true;
+    }
+
+    void entityDestroyed(uint32_t entityID) override {
+        if (entity_to_index.find(entityID) != entity_to_index.end())
+            removeData(entityID);
     }
 
     C& getData(uint32_t entityID) {

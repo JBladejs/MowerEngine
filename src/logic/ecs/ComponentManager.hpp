@@ -1,6 +1,7 @@
 //
 // Created by JJBla on 8/25/2021.
 //
+#pragma once
 
 #ifndef MOWERENGINE_COMPONENTMANAGER_HPP
 #define MOWERENGINE_COMPONENTMANAGER_HPP
@@ -43,14 +44,29 @@ public:
         return component_types[typeName];
     }
 
+    //TODO: change to bool
     template <typename C>
     void addComponent(uint32_t entityID, C component) {
+        //TODO: check for component registration (either throw exception or automatically register the component)
         getComponentPool<C>()->insertData(entityID, component);
     }
 
+    //TODO: change to bool
     template <typename C>
     void removeComponent(uint32_t entityID) {
         getComponentPool<C>()->removeData(entityID);
+    }
+
+    void entityDestroyed(uint32_t entityID) {
+        for (auto const& pair : component_pools) {
+            auto const& component_pool = pair.second;
+            component_pool->entityDestroyed(entityID);
+        }
+    }
+
+    template<typename C>
+    C getComponent(uint32_t entityID) {
+        return getComponentPool<C>()->getData(entityID);
     }
 
 private:
