@@ -20,7 +20,7 @@ public:
     Entity& createEntity() {
         return entity_manger.createEntity();
     }
-    Entity& getEntity(uint32_t entityID) {
+    Entity& getEntity(EntityID entityID) {
         return entity_manger.getEntity(entityID);
     }
     void removeEntity(Entity& entity) {
@@ -35,20 +35,23 @@ public:
         return component_manager.registerComponent<C>();
     }
     template <typename C>
-    componentType getComponentType() {
+    ComponentType getComponentType() {
         return component_manager.getComponentType<C>();
     }
     template <typename C>
-    void addComponent(uint32_t entityID, C component) {
+    void addComponent(EntityID entityID, C component) {
         component_manager.addComponent(entityID, component);
     }
     template <typename C>
-    void removeComponent(uint32_t entityID) {
+    void removeComponent(EntityID entityID) {
         component_manager.removeComponent<C>(entityID);
     }
     template<typename C>
-    C getComponent(uint32_t entityID) {
+    C getComponent(EntityID entityID) {
         return component_manager.getComponentType<C>(entityID);
+    }
+    void entityDestroyed(EntityID entityId) {
+        component_manager.entityDestroyed(entityId);
     }
 private:
     Coordinator(): component_manager(ComponentManager::getInstance()), entity_manger(EntityManager::getInstance()) {}
@@ -57,7 +60,6 @@ public:
         static Coordinator instance;
         return instance;
     }
-    ~Coordinator() = default;
     Coordinator(EntityManager const&) = delete;
     void operator=(EntityManager const&) = delete;
 };

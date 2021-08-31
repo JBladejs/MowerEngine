@@ -8,6 +8,7 @@
 
 #include <cstdint>
 
-using componentType = uint32_t;
+using ComponentType = uint32_t;
+using EntityID = uint32_t;
 
 #endif //MOWERENGINE_ECSTYPES_H

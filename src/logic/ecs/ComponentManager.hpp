@@ -13,9 +13,9 @@
 class ComponentManager {
 private:
     //TODO: implement a similar system as in EntityManager
-    componentType next_type = 0;
-    std::unordered_map<const char*, componentType> component_types;
-    std::unordered_map<const char*, IComponentPool*> component_pools;
+    ComponentType next_type = 0;
+    std::unordered_map<const char*, ComponentType> component_types{};
+    std::unordered_map<const char*, IComponentPool*> component_pools{};
 
     ComponentManager() = default;
 public:
@@ -29,16 +29,16 @@ public:
     ~ComponentManager() = default;
 
     template<typename C>
-    bool registerComponent() {
+    void registerComponent() {
+        //TODO: throw exception if component is already registered
         const char* typeName = typeid(C).name();
-        if (component_types.find(typeName) != component_types.end()) return false;
         component_types[typeName] = next_type++;
         //TODO: investigate using shared pointer here
         component_pools[typeName] = new ComponentPool<C>;
     }
 
     template <typename C>
-    componentType getComponentType() {
+    ComponentType getComponentType() {
         const char* typeName = typeid(C).name();
         //TODO: error checking
         return component_types[typeName];

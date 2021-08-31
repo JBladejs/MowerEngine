@@ -5,13 +5,17 @@
 #ifndef MOWERENGINE_SYSTEM_H
 #define MOWERENGINE_SYSTEM_H
 
-
 #include <vector>
+#include <cstdint>
+#include "ECSTypes.h"
+#include "../../util/Bag.h"
 
 class System {
 public:
-    virtual void update() = 0;
-    virtual void render() = 0;
+    //TODO: implement signal to automatically update entities
+    Bag<EntityID> entities;
+    virtual void update() {}
+    virtual void render() {}
 };
 
 

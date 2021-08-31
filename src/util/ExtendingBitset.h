@@ -21,6 +21,7 @@ public:
     void unset(uint32_t index);
     bool get(uint32_t index);
     void clear();
+    ExtendingBitset operator&(const ExtendingBitset &other);
 };
 
 

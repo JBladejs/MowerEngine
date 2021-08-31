@@ -41,4 +41,26 @@ void ExtendingBitset::clear() {
     size = 0;
 }
 
+ExtendingBitset ExtendingBitset::operator&(const ExtendingBitset &other) {
+    auto result = ExtendingBitset();
+
+    uint32_t this_elements = bytes.size();
+    //TODO: check if this copies the "other" bitset
+    uint32_t other_elements = other.bytes.size();
+    uint32_t elements = std::max(this_elements, other_elements);
+    uint8_t a, b;
+
+    for (uint32_t i = 0; i < elements; i++) {
+        if (i > this_elements) a = 0x00;
+        else a = bytes[i];
+        if (i > other_elements) b = 0x00;
+        else b = other.bytes[i];
+
+        result.bytes.push_back(a & b);
+        result.size += 8;
+    }
+
+    return result;
+}
+
 #pragma clang diagnostic pop
