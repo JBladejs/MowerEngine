@@ -4,54 +4,32 @@
 #ifndef MOWERENGINE_COORDINATOR_H
 #define MOWERENGINE_COORDINATOR_H
 
-//#include "ECSTypes.h"
+class SystemManager;
 
-//TODO: move singleton to a base class
 class Coordinator {
 private:
     ComponentManager& component_manager;
     EntityManager& entity_manger;
     SystemManager& system_manager;
 public:
-    Entity& createEntity() {
-        return entity_manger.createEntity();
-    }
-    Entity& getEntity(EntityID entityID) {
-        return entity_manger.getEntity(entityID);
-    }
-    void removeEntity(Entity& entity) {
-        entity_manger.removeEntity(entity);
-        EntityID id = entity.
-
-        component_manager.entityDestroyed(en)
-        system_manager.entityDestroyed()
-    }
-    uint32_t getNumberOfActiveEntities() const {
-        return entity_manger.getNumberOfActiveEntities();
-    }
+    Entity& createEntity();
+    Entity& getEntity(EntityID entityID);
+    void removeEntity(Entity& entity);
+    uint32_t getNumberOfActiveEntities() const;
 
     template<typename C>
-    bool registerComponent() {
-        return component_manager.registerComponent<C>();
-    }
+    bool registerComponent();
     template <typename C>
-    ComponentType getComponentType() {
-        return component_manager.getComponentType<C>();
-    }
+    ComponentType getComponentType();
     template <typename C>
-    void addComponent(EntityID entityID, C component) {
-        component_manager.addComponent(entityID, component);
-    }
+    void addComponent(EntityID entityID, C component);
     template <typename C>
-    void removeComponent(EntityID entityID) {
-        component_manager.removeComponent<C>(entityID);
-    }
+    void removeComponent(EntityID entityID);
     template<typename C>
-    C getComponent(EntityID entityID) {
-        return component_manager.getComponentType<C>(entityID);
-    }
+    C getComponent(EntityID entityID);
+    //Singleton:
 private:
-    Coordinator(): component_manager(ComponentManager::getInstance()), entity_manger(EntityManager::getInstance()), system_manager(SystemManager::getInstance()) {}
+    Coordinator();
 public:
     static Coordinator& getInstance() {
         static Coordinator instance;
@@ -60,6 +38,55 @@ public:
     Coordinator(EntityManager const&) = delete;
     void operator=(EntityManager const&) = delete;
 };
+
+#include "SystemManager.h"
+
+inline Entity &Coordinator::createEntity() {
+    return entity_manger.createEntity();
+}
+
+inline Entity &Coordinator::getEntity(EntityID entityID) {
+    return entity_manger.getEntity(entityID);
+}
+
+inline void Coordinator::removeEntity(Entity &entity) {
+    entity_manger.removeEntity(entity);
+    EntityID id = entity.getID();
+
+    component_manager.entityDestroyed(id);
+    system_manager.entityDestroyed(id);
+}
+
+inline uint32_t Coordinator::getNumberOfActiveEntities() const {
+    return entity_manger.getNumberOfActiveEntities();
+}
+
+template<typename C>
+inline bool Coordinator::registerComponent() {
+    return component_manager.registerComponent<C>();
+}
+
+template<typename C>
+inline ComponentType Coordinator::getComponentType() {
+    return component_manager.getComponentType<C>();
+}
+
+template<typename C>
+inline void Coordinator::addComponent(EntityID entityID, C component) {
+    component_manager.addComponent(entityID, component);
+}
+
+template<typename C>
+inline void Coordinator::removeComponent(EntityID entityID) {
+    component_manager.removeComponent<C>(entityID);
+}
+
+template<typename C>
+inline C Coordinator::getComponent(EntityID entityID) {
+    return component_manager.getComponentType<C>(entityID);
+}
+
+inline Coordinator::Coordinator() : component_manager(ComponentManager::getInstance()), entity_manger(EntityManager::getInstance()), system_manager(SystemManager::getInstance()) {}
 
 
 #endif //MOWERENGINE_COORDINATOR_H

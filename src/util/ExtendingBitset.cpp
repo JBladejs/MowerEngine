@@ -41,7 +41,7 @@ void ExtendingBitset::clear() {
     size = 0;
 }
 
-ExtendingBitset ExtendingBitset::operator&(const ExtendingBitset &other) {
+ExtendingBitset ExtendingBitset::operator&(const ExtendingBitset &other) const {
     auto result = ExtendingBitset();
 
     uint32_t this_elements = bytes.size();

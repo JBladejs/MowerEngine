@@ -16,50 +16,16 @@ class SystemManager {
 private:
     std::unordered_map<const char*, System*> systems{};
     //TODO: test if those are destroyed
-    std::unordered_map<const char*, ExtendingBitset*> bitsets{};
+    std::unordered_map<const char*, ExtendingBitset> bitsets{};
 public:
     template<typename S>
-    S& registerSystem() {
-        //TODO: throw exception if system is already registered
-        const char* type_name = typeid(S).name();
-        //TODO: investigate a possibility of using a shared pointer hare
-        systems[type_name] = new S();
-        bitsets[type_name] = new ExtendingBitset();
-        return *system;
-    }
-
+    S& registerSystem();
     template<typename S>
-    void observeComponentType(ComponentType componentType) {
-        //TODO: throw exception if system is not registered
-        const char* type_name = typeid(S).name();
-        auto &bitset = bitsets[type_name];
-        bitset->set(componentType);
-    }
-
-    void entityDestroyed(EntityID entityID) {
-        for (auto const& pair : systems)
-        {
-            auto const& system = pair.second;
-            system->entities.remove(entityID);
-        }
-    }
-
-    //TODO: add "entitySignatureChanges(EntityID entityID)"
-
-    void update() {
-        for (auto const& pair : systems) {
-            auto const& system = pair.second;
-            system->update();
-        }
-    }
-    
-    void render() {
-        for (auto const& pair : systems) {
-            auto const& system = pair.second;
-            system->render();
-        }
-    }
-
+    void observeComponentType(ComponentType componentType);
+    void entityDestroyed(EntityID entityID);
+    void entitySignatureChanged(EntityID entityID);
+    void update();
+    void render();
     ~SystemManager() = default;
 //Singleton:
 private:
@@ -72,6 +38,63 @@ public:
     SystemManager(SystemManager const&) = delete;
     void operator=(SystemManager const&) = delete;
 };
+
+#include "Entity.h"
+
+template<typename S>
+inline S &SystemManager::registerSystem() {
+    //TODO: throw exception if system is already registered
+    const char* type_name = typeid(S).name();
+    //TODO: investigate a possibility of using a shared pointer hare
+    systems[type_name] = new S();
+    bitsets[type_name] = ExtendingBitset();
+    return *system;
+}
+
+template<typename S>
+inline void SystemManager::observeComponentType(ComponentType componentType) {
+    //TODO: throw exception if system is not registered
+    const char* type_name = typeid(S).name();
+    auto &bitset = bitsets[type_name];
+    bitset.set(componentType);
+}
+
+inline void SystemManager::entityDestroyed(EntityID entityID) {
+    for (auto const& pair : systems)
+    {
+        auto const& system = pair.second;
+        system->entities.remove(entityID);
+    }
+}
+
+inline void SystemManager::entitySignatureChanged(EntityID entityID) {
+    //TODO: fix this
+    auto& entity = Coordinator::getInstance().getEntity(entityID);
+    for (auto const& pair : systems) {
+        auto const& type = pair.first;
+        auto const& system = pair.second;
+        auto const& system_signature = bitsets[type];
+
+//        //TODO: check if bitset is copied
+//        if ((system_signature & entity.getSignature()) == system_signature) {
+//            system->entities.add(entityID);
+//        }
+    }
+}
+
+inline void SystemManager::update() {
+    for (auto const& pair : systems) {
+        auto const& system = pair.second;
+        system->update();
+    }
+}
+
+inline void SystemManager::render() {
+    for (auto const& pair : systems) {
+        auto const& system = pair.second;
+        system->render();
+    }
+}
 
 
 #endif //MOWERENGINE_SYSTEMMANAGER_H
