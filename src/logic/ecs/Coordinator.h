@@ -4,18 +4,14 @@
 #ifndef MOWERENGINE_COORDINATOR_H
 #define MOWERENGINE_COORDINATOR_H
 
-#include "ECSTypes.h"
-
-#include "ComponentManager.hpp"
-#include "EntityManager.h"
-
-class Entity;
+//#include "ECSTypes.h"
 
 //TODO: move singleton to a base class
 class Coordinator {
 private:
     ComponentManager& component_manager;
     EntityManager& entity_manger;
+    SystemManager& system_manager;
 public:
     Entity& createEntity() {
         return entity_manger.createEntity();
@@ -25,6 +21,10 @@ public:
     }
     void removeEntity(Entity& entity) {
         entity_manger.removeEntity(entity);
+        EntityID id = entity.
+
+        component_manager.entityDestroyed(en)
+        system_manager.entityDestroyed()
     }
     uint32_t getNumberOfActiveEntities() const {
         return entity_manger.getNumberOfActiveEntities();
@@ -50,11 +50,8 @@ public:
     C getComponent(EntityID entityID) {
         return component_manager.getComponentType<C>(entityID);
     }
-    void entityDestroyed(EntityID entityId) {
-        component_manager.entityDestroyed(entityId);
-    }
 private:
-    Coordinator(): component_manager(ComponentManager::getInstance()), entity_manger(EntityManager::getInstance()) {}
+    Coordinator(): component_manager(ComponentManager::getInstance()), entity_manger(EntityManager::getInstance()), system_manager(SystemManager::getInstance()) {}
 public:
     static Coordinator& getInstance() {
         static Coordinator instance;

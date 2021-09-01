@@ -5,12 +5,12 @@ set(CMAKE_CXX_STANDARD 14)
 
 find_package(SDL2 REQUIRED)
 find_package(DevIL REQUIRED)
-file(GLOB SOURCE "src/*.cpp" "src/*/*.cpp" "src/*/*/*.cpp" "src/*/*/*/*.cpp")
-file(GLOB HEADERS "src/*.h" "src/*/*.h" "src/*/*/*.h" "src/*/*/*/*.h")
+file(GLOB SOURCE "src/*.cpp" "src/*/*.cpp" "src/*/*/*.cpp" "src/*/*/*/*.cpp" "src/*/*/*/*/*.cpp")
+file(GLOB HEADERS "src/*.h" "src/*/*.h" "src/*/*/*.h" "src/*/*/*/*.h" "src/*/*/*/*/*.h")
 #TODO: make it so the files are copied on assets change
 file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
 
-add_executable(MowerEngine ${SOURCE} ${HEADERS} src/logic/ecs/SystemManager.hpp)
+add_executable(MowerEngine ${SOURCE} ${HEADERS} src/logic/ecs/Entity.cpp)
 
 #TODO: make it more platform independent
 IF (WIN32)

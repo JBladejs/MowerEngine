@@ -4,7 +4,7 @@
 #include <iostream>
 #include "EntityManager.h"
 
-#include "Entity.hpp"
+#include "Entity.h"
 
 Entity& EntityManager::createEntity() {
     uint32_t id = getAvailableID();

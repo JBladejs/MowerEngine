@@ -8,7 +8,7 @@
 #include <cstdint>
 #include <queue>
 #include "../../util/Bag.h"
-#include "ComponentManager.hpp"
+#include "ComponentManager.h"
 
 class Entity;
 

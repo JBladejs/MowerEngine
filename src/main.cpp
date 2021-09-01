@@ -2,8 +2,8 @@
 #include "Mower.h"
 #include "graphics/util/Color.h"
 #include "util/Bag.h"
-#include "logic/ecs/Entity.hpp"
-#include "logic/ecs/SystemManager.hpp"
+#include "logic/ecs/Entity.h"
+#include "logic/ecs/SystemManager.h"
 
 //TODO: try to convert as many pointers to values as possible
 

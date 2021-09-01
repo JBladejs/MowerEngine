@@ -3,8 +3,8 @@
 //
 #pragma once
 
-#ifndef MOWERENGINE_COMPONENTPOOL_HPP
-#define MOWERENGINE_COMPONENTPOOL_HPP
+#ifndef MOWERENGINE_COMPONENTPOOL_H
+#define MOWERENGINE_COMPONENTPOOL_H
 
 #include <unordered_map>
 #include "../../util/Bag.h"
@@ -54,4 +54,4 @@ public:
 };
 
 
-#endif //MOWERENGINE_COMPONENTPOOL_HPP
+#endif //MOWERENGINE_COMPONENTPOOL_H

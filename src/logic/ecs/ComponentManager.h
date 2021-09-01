@@ -3,11 +3,11 @@
 //
 #pragma once
 
-#ifndef MOWERENGINE_COMPONENTMANAGER_HPP
-#define MOWERENGINE_COMPONENTMANAGER_HPP
+#ifndef MOWERENGINE_COMPONENTMANAGER_H
+#define MOWERENGINE_COMPONENTMANAGER_H
 
 #include "ECSTypes.h"
-#include "ComponentPool.hpp"
+#include "ComponentPool.h"
 #include <unordered_map>
 
 class ComponentManager {
@@ -79,4 +79,4 @@ private:
 };
 
 
-#endif //MOWERENGINE_COMPONENTMANAGER_HPP
+#endif //MOWERENGINE_COMPONENTMANAGER_H
