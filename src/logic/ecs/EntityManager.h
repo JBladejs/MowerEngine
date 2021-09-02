@@ -38,5 +38,53 @@ private:
     uint32_t getAvailableID();
 };
 
+#include <iostream>
+#include "Entity.h"
+
+inline Entity& EntityManager::createEntity() {
+    uint32_t id = getAvailableID();
+    auto *entity = new Entity(id);
+    entities.set(id, entity);
+    active_entities++;
+    return *entity;
+}
+
+inline Entity &EntityManager::getEntity(uint32_t entityID) {
+    return *entities.get(entityID);
+}
+
+inline void EntityManager::removeEntity(Entity& entity) {
+    if (!isEntityRegistered(entity)) return;
+    if (entity.getID() == entities.size() - 1) next_id--;
+    else available_ids.push(entity.getID());
+    component_manager.entityDestroyed(entity.getID());
+    active_entities--;
+    delete &entity;
+    entities.set(entity.getID(), nullptr);
+}
+
+inline uint32_t EntityManager::getNumberOfActiveEntities() const {
+    return active_entities;
+}
+
+inline EntityManager::~EntityManager() {
+    for (uint32_t i = 0; i < entities.size(); i++) {
+        delete entities.get(i);
+    }
+    entities.clear();
+}
+
+inline uint32_t EntityManager::getAvailableID() {
+    if (!available_ids.empty()) {
+        uint32_t id = available_ids.front();
+        available_ids.pop();
+        return id;
+    } else return next_id++;
+}
+
+inline bool EntityManager::isEntityRegistered(Entity& entity) {
+    return entities.get(entity.getID()) == &entity;
+}
+
 
 #endif //MOWERENGINE_ENTITYMANAGER_H

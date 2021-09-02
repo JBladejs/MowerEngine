@@ -10,7 +10,8 @@
 #include "ECSTypes.h"
 #include "../../util/Bag.h"
 #include "../../util/ExtendingBitset.h"
-#include "EntityManager.h"
+
+class EntityManager;
 
 class Entity {
 private:
@@ -19,7 +20,7 @@ private:
 
     explicit Entity(uint32_t id): id(id) {}
 public:
-    friend Entity& EntityManager::createEntity();
+    friend class EntityManager;
     Entity(Entity const&) = delete;
     void operator=(Entity const&) = delete;
 
@@ -40,6 +41,7 @@ private:
     bool hasComponent(int componentType);
 };
 
+#include "EntityManager.h"
 #include "Coordinator.h"
 
 inline uint32_t Entity::getID() const {
