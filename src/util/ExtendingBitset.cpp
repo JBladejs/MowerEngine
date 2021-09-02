@@ -6,6 +6,22 @@
 
 #include "ExtendingBitset.h"
 
+uint8_t ExtendingBitset::get_byte(uint32_t index) const {
+    if (index >= bytes.size()) return 0x00;
+    else return bytes[index];
+}
+
+void ExtendingBitset::set_byte(uint32_t index, uint8_t byte) {
+    if (index >= bytes.size()) {
+        if (index > bytes.size()) {
+            uint32_t elements_to_be_added = index - bytes.size();
+            for (uint32_t i = 0; i < elements_to_be_added; i++)
+                bytes.push_back(0x00);
+        }
+        bytes.push_back(byte);
+    } else bytes[index] = byte;
+}
+
 ExtendingBitset::ExtendingBitset() {
     size = 0;
 }
@@ -31,7 +47,7 @@ void ExtendingBitset::unset(uint32_t index) {
 }
 
 
-bool ExtendingBitset::get(uint32_t index) {
+bool ExtendingBitset::get(uint32_t index) const {
     if (index >= size) return false;
     return (bytes[index / 8] >> (index % 8)) & 0x01;
 }
@@ -41,26 +57,17 @@ void ExtendingBitset::clear() {
     size = 0;
 }
 
-ExtendingBitset ExtendingBitset::operator&(const ExtendingBitset &other) const {
-    auto result = ExtendingBitset();
+ExtendingBitset &ExtendingBitset::operator&=(const ExtendingBitset &other) {
+    uint32_t elements = std::max(bytes.size(), other.bytes.size());
 
-    uint32_t this_elements = bytes.size();
-    //TODO: check if this copies the "other" bitset
-    uint32_t other_elements = other.bytes.size();
-    uint32_t elements = std::max(this_elements, other_elements);
-    uint8_t a, b;
+    for (uint32_t i = 0; i < elements; i++)
+        set_byte(i, get_byte(i) & other.get_byte(i));
 
-    for (uint32_t i = 0; i < elements; i++) {
-        if (i > this_elements) a = 0x00;
-        else a = bytes[i];
-        if (i > other_elements) b = 0x00;
-        else b = other.bytes[i];
-
-        result.bytes.push_back(a & b);
-        result.size += 8;
-    }
-
-    return result;
+    return *this;
 }
+
+//bool ExtendingBitset::operator==(const ExtendingBitset) {
+//    uint32_t elements = std::max(by)
+//}
 
 #pragma clang diagnostic pop

@@ -8,6 +8,7 @@
 
 #include <cstdint>
 #include <vector>
+#include <bitset>
 
 class ExtendingBitset {
 private:
@@ -15,14 +16,22 @@ private:
     uint32_t size;
 
     void extend();
+    uint8_t get_byte(uint32_t index) const;
+    void set_byte(uint32_t index, uint8_t byte);
 public:
     ExtendingBitset();
     void set(uint32_t index);
     void unset(uint32_t index);
-    bool get(uint32_t index);
+    bool get(uint32_t index) const;
     void clear();
-    ExtendingBitset operator&(const ExtendingBitset &other) const;
+    ExtendingBitset& operator&=(const ExtendingBitset &other);
+    bool operator==(const ExtendingBitset &other);
 };
 
+inline ExtendingBitset operator&(const ExtendingBitset &a, const ExtendingBitset &b) {
+    ExtendingBitset result(a);
+    result &= b;
+    return result;
+}
 
 #endif //MOWERENGINE_EXTENDINGBITSET_H
