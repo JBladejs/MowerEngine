@@ -104,11 +104,6 @@ bool InputProcessor::isKeyPressed(uint8_t key) {
     else return false;
 }
 
-InputProcessor::~InputProcessor() {
-    delete handler;
-    handler = nullptr;
-}
-
 //const char *InputProcessor::getKeyName(uint8_t key) {
 ////    return SDL_Keysym((SDL_Keycode) key);
 //}

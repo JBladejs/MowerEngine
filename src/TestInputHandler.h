@@ -18,6 +18,7 @@ public:
     bool onKeyDown(uint16_t key) override;
     bool onKeyHold(uint16_t key) override;
     bool onKeyUp(uint16_t key) override;
+    ~TestInputHandler() override = default;
 };
 
 

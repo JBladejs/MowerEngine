@@ -52,6 +52,7 @@ public:
 };
 
 #include "SystemManager.h"
+#include "ComponentManager.h"
 
 inline Entity &Coordinator::createEntity() {
     return entity_manger.createEntity();

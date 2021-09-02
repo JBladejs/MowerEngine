@@ -43,7 +43,8 @@ private:
     Position2D mouseDrag{};
 public:
     InputProcessor();
-    ~InputProcessor();
+    //TODO: fix the ownership of handlers
+    ~InputProcessor() = default;
 
 //    static const char* getKeyName(uint8_t key);
 
