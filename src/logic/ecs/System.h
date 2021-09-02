@@ -13,7 +13,8 @@
 class System {
 public:
     //TODO: implement signal to automatically update entities
-    Bag<EntityID> entities;
+    //TODO: change set to Bag
+   std::set<EntityID> entities;
     virtual void update() {}
     virtual void render() {}
 };

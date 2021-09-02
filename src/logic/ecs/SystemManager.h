@@ -63,7 +63,7 @@ inline void SystemManager::entityDestroyed(EntityID entityID) {
     for (auto const& pair : systems)
     {
         auto const& system = pair.second;
-        system->entities.remove(entityID);
+        system->entities.erase(entityID);
     }
 }
 
@@ -75,10 +75,9 @@ inline void SystemManager::entitySignatureChanged(EntityID entityID) {
         auto const& system = pair.second;
         auto const& system_signature = bitsets[type];
 
-//        //TODO: check if bitset is copied
-//        if ((system_signature & entity.getSignature()) == system_signature) {
-//            system->entities.add(entityID);
-//        }
+        if ((system_signature & entity.getSignature()) == system_signature)
+            system->entities.insert(entityID);
+        else system->entities.erase(entityID);
     }
 }
 
