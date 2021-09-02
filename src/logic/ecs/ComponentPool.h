@@ -6,9 +6,6 @@
 #ifndef MOWERENGINE_COMPONENTPOOL_H
 #define MOWERENGINE_COMPONENTPOOL_H
 
-#include <unordered_map>
-#include "../../util/Bag.h"
-
 class IComponentPool {
 public:
     virtual ~IComponentPool() = default;
@@ -18,9 +15,9 @@ public:
 template <typename C>
 class ComponentPool: public IComponentPool {
 private:
-    Bag<C> components;
-    std::unordered_map<uint32_t, uint32_t> entity_to_index;
-    std::unordered_map<uint32_t, uint32_t> index_to_entity;
+    Bag<C> components{};
+    std::unordered_map<uint32_t, uint32_t> entity_to_index{};
+    std::unordered_map<uint32_t, uint32_t> index_to_entity{};
 public:
     bool insertData(uint32_t entityID, C component) {
         if (entity_to_index.find(entityID) == entity_to_index.end()) return false;

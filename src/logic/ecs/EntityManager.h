@@ -8,14 +8,12 @@
 #include <cstdint>
 #include <queue>
 #include "../../util/Bag.h"
-#include "ComponentManager.h"
 
 class Entity;
 
 class EntityManager {
 private:
     //TODO: go through the rest of the class and change pointers to references when pointers are not necessary
-    ComponentManager& component_manager = ComponentManager::getInstance();
     Bag<Entity*> entities;
     std::queue<uint32_t> available_ids;
     uint32_t active_entities = 0;
@@ -57,7 +55,6 @@ inline void EntityManager::removeEntity(Entity& entity) {
     if (!isEntityRegistered(entity)) return;
     if (entity.getID() == entities.size() - 1) next_id--;
     else available_ids.push(entity.getID());
-    component_manager.entityDestroyed(entity.getID());
     active_entities--;
     delete &entity;
     entities.set(entity.getID(), nullptr);

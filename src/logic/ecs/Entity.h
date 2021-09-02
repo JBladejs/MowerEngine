@@ -5,10 +5,7 @@
 #define MOWERENGINE_ENTITY_H
 
 #include <cstdint>
-#include <string>
-#include <typeinfo>
 #include "ECSTypes.h"
-#include "../../util/Bag.h"
 #include "../../util/ExtendingBitset.h"
 
 class EntityManager;
@@ -43,6 +40,7 @@ private:
 
 #include "EntityManager.h"
 #include "Coordinator.h"
+#include <typeinfo>
 
 inline uint32_t Entity::getID() const {
     return id;

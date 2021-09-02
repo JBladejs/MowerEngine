@@ -6,9 +6,7 @@
 #ifndef MOWERENGINE_COMPONENTMANAGER_H
 #define MOWERENGINE_COMPONENTMANAGER_H
 
-#include "ECSTypes.h"
 #include "ComponentPool.h"
-#include <unordered_map>
 
 class ComponentManager {
 private:
