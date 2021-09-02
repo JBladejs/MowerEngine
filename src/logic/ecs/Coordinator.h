@@ -4,7 +4,12 @@
 #ifndef MOWERENGINE_COORDINATOR_H
 #define MOWERENGINE_COORDINATOR_H
 
+#include "ECSTypes.h"
+
 class SystemManager;
+class ComponentManager;
+class EntityManager;
+class Entity;
 
 class Coordinator {
 private:
@@ -98,20 +103,20 @@ inline C Coordinator::getComponent(EntityID entityID) {
 inline Coordinator::Coordinator() : component_manager(ComponentManager::getInstance()), entity_manger(EntityManager::getInstance()), system_manager(SystemManager::getInstance()) {}
 
 template<typename S>
-S &Coordinator::registerSystem() {
+inline S &Coordinator::registerSystem() {
     system_manager.registerSystem<S>();
 }
 
 template<typename S>
-void Coordinator::observeComponentType(ComponentType componentType) {
+inline void Coordinator::observeComponentType(ComponentType componentType) {
     system_manager.registerSystem<S>(componentType);
 }
 
-void Coordinator::update() {
+inline void Coordinator::update() {
     system_manager.update();
 }
 
-void Coordinator::render() {
+inline void Coordinator::render() {
     system_manager.render();
 }
 

@@ -46,13 +46,13 @@ private:
     ComponentPool<C>* getComponentPool();
 };
 
-ComponentManager &ComponentManager::getInstance() {
+inline ComponentManager &ComponentManager::getInstance() {
     static ComponentManager instance;
     return instance;
 }
 
 template<typename C>
-void ComponentManager::registerComponent() {
+inline void ComponentManager::registerComponent() {
     //TODO: throw exception if component is already registered
     const char* typeName = typeid(C).name();
     component_types[typeName] = next_type++;
@@ -61,24 +61,24 @@ void ComponentManager::registerComponent() {
 }
 
 template<typename C>
-ComponentType ComponentManager::getComponentType() {
+inline ComponentType ComponentManager::getComponentType() {
     const char* typeName = typeid(C).name();
     //TODO: error checking
     return component_types[typeName];
 }
 
 template<typename C>
-void ComponentManager::addComponent(uint32_t entityID, C component) {
+inline void ComponentManager::addComponent(uint32_t entityID, C component) {
     //TODO: check for component registration (either throw exception or automatically register the component)
     getComponentPool<C>()->insertData(entityID, component);
 }
 
 template<typename C>
-void ComponentManager::removeComponent(uint32_t entityID) {
+inline void ComponentManager::removeComponent(uint32_t entityID) {
     getComponentPool<C>()->removeData(entityID);
 }
 
-void ComponentManager::entityDestroyed(uint32_t entityID) {
+inline void ComponentManager::entityDestroyed(uint32_t entityID) {
     for (auto const& pair : component_pools) {
         auto const& component_pool = pair.second;
         component_pool->entityDestroyed(entityID);
@@ -86,12 +86,12 @@ void ComponentManager::entityDestroyed(uint32_t entityID) {
 }
 
 template<typename C>
-C ComponentManager::getComponent(uint32_t entityID) {
+inline C ComponentManager::getComponent(uint32_t entityID) {
     return getComponentPool<C>()->getData(entityID);
 }
 
 template<typename C>
-ComponentPool<C> *ComponentManager::getComponentPool() {
+inline ComponentPool<C> *ComponentManager::getComponentPool() {
     const char* typeName = typeid(C).name();
     //TODO: throw error if memory pool is not there
     return component_pools[typeName];

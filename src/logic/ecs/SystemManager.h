@@ -7,6 +7,7 @@
 
 
 #include <iostream>
+#include <unordered_map>
 #include "System.h"
 #include "../../util/ExtendingBitset.h"
 

@@ -7,6 +7,7 @@
 
 #include <vector>
 #include <cstdint>
+#include <set>
 #include "ECSTypes.h"
 #include "../../util/Bag.h"
 
