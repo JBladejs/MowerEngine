@@ -9,7 +9,7 @@
 //Extending array to use when order is not important
 
 //TODO: implement "empty()"
-//TODO: implement shrinking
+//TODO: correct this
 #include <cstdlib>
 #include <algorithm>
 #include <cstdint>
@@ -39,7 +39,6 @@ private:
     void grow();
 };
 
-//TODO: change from malloc to new
 
 template<typename T>
 Bag<T>::Bag(int capacity): bag_capacity(capacity) {

@@ -8,7 +8,7 @@
 
 #include <cstdint>
 #include <vector>
-#include <bitset>
+#include <set>
 
 class ExtendingBitset {
 private:

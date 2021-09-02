@@ -62,12 +62,15 @@ ExtendingBitset &ExtendingBitset::operator&=(const ExtendingBitset &other) {
 
     for (uint32_t i = 0; i < elements; i++)
         set_byte(i, get_byte(i) & other.get_byte(i));
-
     return *this;
 }
 
-//bool ExtendingBitset::operator==(const ExtendingBitset) {
-//    uint32_t elements = std::max(by)
-//}
+bool ExtendingBitset::operator==(const ExtendingBitset &other) {
+    uint32_t elements = std::max(bytes.size(), other.bytes.size());
+
+    for (uint32_t i = 0; i < elements; i++)
+        if (get_byte(i) != other.get_byte(i)) return false;
+    return true;
+}
 
 #pragma clang diagnostic pop
