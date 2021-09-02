@@ -68,7 +68,7 @@ inline void SystemManager::entityDestroyed(EntityID entityID) {
 }
 
 inline void SystemManager::entitySignatureChanged(EntityID entityID) {
-    //TODO: fix this
+    //TODO: don't use the coordinator
     auto& entity = Coordinator::getInstance().getEntity(entityID);
     for (auto const& pair : systems) {
         auto const& type = pair.first;

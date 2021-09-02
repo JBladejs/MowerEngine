@@ -27,6 +27,13 @@ public:
     void removeComponent(EntityID entityID);
     template<typename C>
     C getComponent(EntityID entityID);
+
+    template<typename S>
+    S& registerSystem();
+    template<typename S>
+    void observeComponentType(ComponentType componentType);
+    void update();
+    void render();
     //Singleton:
 private:
     Coordinator();
@@ -74,11 +81,13 @@ inline ComponentType Coordinator::getComponentType() {
 template<typename C>
 inline void Coordinator::addComponent(EntityID entityID, C component) {
     component_manager.addComponent(entityID, component);
+    system_manager.entitySignatureChanged(entityID);
 }
 
 template<typename C>
 inline void Coordinator::removeComponent(EntityID entityID) {
     component_manager.removeComponent<C>(entityID);
+    system_manager.entitySignatureChanged(entityID);
 }
 
 template<typename C>
@@ -87,6 +96,24 @@ inline C Coordinator::getComponent(EntityID entityID) {
 }
 
 inline Coordinator::Coordinator() : component_manager(ComponentManager::getInstance()), entity_manger(EntityManager::getInstance()), system_manager(SystemManager::getInstance()) {}
+
+template<typename S>
+S &Coordinator::registerSystem() {
+    system_manager.registerSystem<S>();
+}
+
+template<typename S>
+void Coordinator::observeComponentType(ComponentType componentType) {
+    system_manager.registerSystem<S>(componentType);
+}
+
+void Coordinator::update() {
+    system_manager.update();
+}
+
+void Coordinator::render() {
+    system_manager.render();
+}
 
 
 #endif //MOWERENGINE_COORDINATOR_H

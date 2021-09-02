@@ -8,6 +8,7 @@
 #include <SDL2/SDL_video.h>
 #include "input/InputProcessor.h"
 #include "objects/Camera.h"
+#include "logic/ecs/Coordinator.h"
 
 //TODO: make it more static
 class Mower {
@@ -19,6 +20,8 @@ private:
     float screenHeight;
     bool running;
     int exitCode;
+    Coordinator& ecs_coordinator;
+
     void initGL() const;
     void initSDL();
     void update();

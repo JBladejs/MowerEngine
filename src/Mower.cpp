@@ -21,7 +21,7 @@ InputProcessor *Mower::input;
 //auto last_time = std::chrono::high_resolution_clock::now();
 
 //TODO: Add error checking
-Mower::Mower() {
+Mower::Mower(): ecs_coordinator(Coordinator::getInstance()) {
     camera = new Camera();
     window = nullptr;
     context = nullptr;
@@ -142,6 +142,7 @@ void Mower::update() {
 //    if (input->isBoundKeyPressed(2)) testRect->setX(testRect->getX() + 5);
 
     input->endProcessing();
+    ecs_coordinator.update();
     SDL_GL_SwapWindow(window);
 }
 
@@ -156,6 +157,7 @@ void Mower::render() {
     glEnable(GL_TEXTURE_2D);
     glLoadIdentity(); //TODO: Check functionality of this
     glTranslatef(-camera->getX(), -camera->getY(), -camera->getZ());
+    ecs_coordinator.render();
     background->render(0.f, 0.f);
     testRect->render();
     //TODO: find out about glFlush
