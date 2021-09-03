@@ -8,6 +8,7 @@
 #include "TestInputHandler.h"
 #include "TestInputHandler2.h"
 #include "input/handlers/InputMultiplexer.h"
+#include "logic/Components/Position.h"
 #include<SDL2/SDL.h>
 #include<GL/gl.h>
 #include <IL/il.h>
@@ -76,6 +77,7 @@ void Engine::start() {
     initGL();
     input = new InputProcessor();
     running = true;
+    ecs_coordinator.registerSystem<Position>();
 
     testRect = new TestObject(250.f, 250.f, 64.f, 64.f);
     background = new Sprite("assets/crate.jpg");

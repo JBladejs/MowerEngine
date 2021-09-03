@@ -6,14 +6,14 @@
 #define MOWERENGINE_TESTOBJECT_H
 
 #include "texturing/memory/TextureManager.h"
+#include "../logic/ecs/Entity.h"
 
 class TestObject {
 private:
-    float x, y;
-    float width, height;
+    Entity& entity;
     Image *image;
 public:
-    TestObject(float x, float y, float width, float height);
+    TestObject(float x, float y);
     ~TestObject();
     void render();
     float getX() const;
