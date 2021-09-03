@@ -2,15 +2,15 @@
 // Created by JJBla on 1/9/2021.
 //
 
-#ifndef MOWERENGINE_MOWER_H
-#define MOWERENGINE_MOWER_H
+#ifndef MOWERENGINE_ENGINE_H
+#define MOWERENGINE_ENGINE_H
 
 #include <SDL2/SDL_video.h>
 #include "input/InputProcessor.h"
 #include "objects/Camera.h"
 #include "logic/ecs/Coordinator.h"
 
-class Mower {
+class Engine {
 private:
     SDL_Window *window;
     SDL_GLContext context;
@@ -28,21 +28,21 @@ private:
     void quit();
 public:
     static InputProcessor *input;
-    ~Mower();
+    ~Engine();
     void start();
     int getExitCode() const;
 
     //Singleton:
 private:
-    Mower();
+    Engine();
 public:
-    static Mower& getInstance() {
-        static Mower instance;
+    static Engine& getInstance() {
+        static Engine instance;
         return instance;
     }
-    Mower(EntityManager const&) = delete;
+    Engine(EntityManager const&) = delete;
     void operator=(EntityManager const&) = delete;
 };
 
 
-#endif //MOWERENGINE_MOWER_H
+#endif //MOWERENGINE_ENGINE_H
