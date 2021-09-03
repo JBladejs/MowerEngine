@@ -47,8 +47,8 @@ public:
         static Coordinator instance;
         return instance;
     }
-    Coordinator(EntityManager const&) = delete;
-    void operator=(EntityManager const&) = delete;
+    Coordinator(Coordinator const&) = delete;
+    void operator=(Coordinator const&) = delete;
 };
 
 #include "SystemManager.h"

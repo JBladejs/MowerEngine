@@ -10,7 +10,6 @@
 #include "objects/Camera.h"
 #include "logic/ecs/Coordinator.h"
 
-//TODO: make it more static
 class Mower {
 private:
     SDL_Window *window;
@@ -29,11 +28,20 @@ private:
     void quit();
 public:
     static InputProcessor *input;
-    //TODO: try to remove constructor
-    Mower();
     ~Mower();
     void start();
     int getExitCode() const;
+
+    //Singleton:
+private:
+    Mower();
+public:
+    static Mower& getInstance() {
+        static Mower instance;
+        return instance;
+    }
+    Mower(EntityManager const&) = delete;
+    void operator=(EntityManager const&) = delete;
 };
 
 

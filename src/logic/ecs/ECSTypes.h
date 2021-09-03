@@ -10,5 +10,7 @@
 
 using ComponentType = uint32_t;
 using EntityID = uint32_t;
+using EventType = uint32_t;
+using EventParam = uint32_t;
 
 #endif //MOWERENGINE_ECSTYPES_H
