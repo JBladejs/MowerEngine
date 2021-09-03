@@ -98,7 +98,7 @@ inline void Coordinator::removeComponent(EntityID entityID) {
 
 template<typename C>
 inline C Coordinator::getComponent(EntityID entityID) {
-    return component_manager.getComponentType<C>(entityID);
+    return component_manager.getComponent<C>(entityID);
 }
 
 inline Coordinator::Coordinator() : component_manager(ComponentManager::getInstance()), entity_manger(EntityManager::getInstance()), system_manager(SystemManager::getInstance()) {}

@@ -48,7 +48,7 @@ inline uint32_t Entity::getID() const {
 
 template<typename C>
 inline void Entity::addComponent(C component) {
-    Coordinator::getInstance().addComponent<C>(component);
+    Coordinator::getInstance().addComponent<C>(id, component);
 }
 
 template<typename C>

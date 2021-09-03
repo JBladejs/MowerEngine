@@ -1,8 +1,6 @@
 //
 // Created by JJBla on 8/26/2021.
 //
-#pragma once
-
 #ifndef MOWERENGINE_COMPONENTPOOL_H
 #define MOWERENGINE_COMPONENTPOOL_H
 
