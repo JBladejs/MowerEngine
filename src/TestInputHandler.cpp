@@ -10,24 +10,21 @@
 TestInputHandler::TestInputHandler(TestObject *object): BoundInputHandler(true), object(object) {}
 
 bool TestInputHandler::onKeyDown(uint16_t key) {
-    if (key == 2) {
-        object->setY(object->getY() + 20);
-        return true;
-    } else return false;
+    return false;
 }
 
 bool TestInputHandler::onKeyHold(uint16_t key) {
-    if (key == 2) {
-        object->setY(object->getY() + 5);
-        return true;
-    } else return false;
+    switch (key) {
+        case 1: object->setY(object->getY() - 5.f); return true;
+        case 2: object->setY(object->getY() + 5.f); return true;
+        case 3: object->setX(object->getX() - 5.f); return true;
+        case 4: object->setX(object->getX() + 5.f); return true;
+        default: return false;
+    }
 }
 
 bool TestInputHandler::onKeyUp(uint16_t key) {
-    if (key == 2) {
-        object->setY(object->getY() + 100);
-        return true;
-    } else return false;
+    return false;
 }
 
 

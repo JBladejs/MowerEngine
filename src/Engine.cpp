@@ -6,10 +6,8 @@
 #include "graphics/TestObject.h"
 #include "graphics/texturing/Sprite.h"
 #include "TestInputHandler.h"
-#include "TestInputHandler2.h"
 #include "input/handlers/InputMultiplexer.h"
 #include "logic/Components/Position.h"
-//#include "logic/Components/Position.h"
 #include<SDL2/SDL.h>
 #include<GL/gl.h>
 #include <IL/il.h>
@@ -85,23 +83,16 @@ void Engine::start() {
 
     input->map_key('w', 1);
     input->map_key('s', 2);
-    auto handler1 = new TestInputHandler(testRect);
-    auto handler2 = new TestInputHandler2(testRect);
+    input->map_key('a', 3);
+    input->map_key('d', 4);
+    auto handler = new TestInputHandler(testRect);
 
-    auto *multiplexer = new InputMultiplexer();
-    multiplexer->addHandler(handler1);
-    multiplexer->addHandler(handler2);
-    input->setHandler(multiplexer);
+    input->setHandler(handler);
 
     while (running) {
         render();
         update();
     }
-    multiplexer->removeHandler(handler1);
-    multiplexer->removeHandler(handler2);
-    delete multiplexer;
-    delete handler1;
-    delete handler2;
     quit();
 }
 
@@ -118,11 +109,11 @@ void Engine::quit() {
 }
 
 Engine::~Engine() {
+    if (running) quit();
     delete testRect;
     testRect = nullptr;
     delete input;
     input = nullptr;
-    quit();
 }
 
 int Engine::getExitCode() const {
