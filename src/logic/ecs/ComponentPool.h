@@ -4,6 +4,7 @@
 #ifndef MOWERENGINE_COMPONENTPOOL_H
 #define MOWERENGINE_COMPONENTPOOL_H
 
+#include <vector>
 #include <unordered_map>
 #include "../../util/Bag.h"
 
@@ -23,17 +24,18 @@ public:
     uint32_t size() const;
 
 private:
-    Bag<C> components{};
+    //TODO: change that back into Bag
+    std::vector<C> components{};
     std::unordered_map<EntityID, uint32_t> entity_to_index{};
     std::unordered_map<uint32_t, EntityID> index_to_entity{};
 };
 
 template<typename C>
 bool ComponentPool<C>::insertData(EntityID entityID, C component) {
-    if (entity_to_index.find(entityID) == entity_to_index.end()) return false;
-    uint32_t index = components.size() - 1;
+    if (entity_to_index.find(entityID) != entity_to_index.end()) return false;
+    uint32_t index = components.size();
     //TODO: replace component if necessary
-    components.add(component);
+    components.push_back(component);
     entity_to_index[entityID] = index;
     index_to_entity[index] = entityID;
     return true;
@@ -42,10 +44,10 @@ bool ComponentPool<C>::insertData(EntityID entityID, C component) {
 template<typename C>
 void ComponentPool<C>::removeData(EntityID entityID) {
     //TODO: check this
-    components.remove(entity_to_index[entityID]);
-    uint32_t new_index = components.size() - 1;
-    entity_to_index[entityID] = new_index;
-    index_to_entity[new_index] = entityID;
+//    components.remove(entity_to_index[entityID]);
+//    uint32_t new_index = components.size() - 1;
+//    entity_to_index[entityID] = new_index;
+//    index_to_entity[new_index] = entityID;
 }
 
 template<typename C>
@@ -56,7 +58,7 @@ void ComponentPool<C>::entityDestroyed(EntityID entityID) {
 
 template<typename C>
 C& ComponentPool<C>::getData(EntityID entityID){
-    return components.get(entity_to_index[entityID]);
+    return components[entity_to_index[entityID]];
 }
 
 template<typename C>

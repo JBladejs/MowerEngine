@@ -15,6 +15,7 @@ private:
 public:
     TestObject(float x, float y);
     ~TestObject();
+    void render();
     float getX() const;
     void setX(float x);
     float getY() const;
