@@ -1,8 +1,6 @@
 //
 // Created by goon on 13.08.2021.
 //
-#pragma once
-
 #ifndef MOWERENGINE_BAG_H
 #define MOWERENGINE_BAG_H
 
@@ -10,6 +8,10 @@
 
 //TODO: implement "empty()"
 //TODO: correct this
+
+#include <cstdlib>
+#include <algorithm>
+#include <cstdint>
 
 template <typename T>
 class Bag {
@@ -36,10 +38,6 @@ private:
     uint32_t data_size = 0;
     uint32_t bag_capacity = 0;
 };
-
-#include <cstdlib>
-#include <algorithm>
-#include <cstdint>
 
 template<typename T>
 Bag<T>::Bag(int capacity): bag_capacity(capacity) {
