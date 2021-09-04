@@ -58,8 +58,8 @@ inline void EntityManager::removeEntity(Entity& entity) {
     if (entity.getID() == entities.size() - 1) next_id--;
     else available_ids.push(entity.getID());
     active_entities--;
-    delete &entity;
     entities.set(entity.getID(), nullptr);
+    delete &entity;
 }
 
 inline uint32_t EntityManager::getNumberOfActiveEntities() const {
