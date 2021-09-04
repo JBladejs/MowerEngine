@@ -27,7 +27,7 @@ public:
     template <typename C>
     void removeComponent(EntityID entityID);
     template<typename C>
-    C getComponent(EntityID entityID);
+    C& getComponent(EntityID entityID);
 
     template<typename S>
     S& registerSystem();
@@ -100,7 +100,7 @@ inline void Coordinator::removeComponent(EntityID entityID) {
 }
 
 template<typename C>
-inline C Coordinator::getComponent(EntityID entityID) {
+inline C& Coordinator::getComponent(EntityID entityID) {
     return component_manager.getComponent<C>(entityID);
 }
 

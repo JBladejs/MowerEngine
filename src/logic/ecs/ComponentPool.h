@@ -54,7 +54,7 @@ void ComponentPool<C>::entityDestroyed(EntityID entityID) {
 }
 
 template<typename C>
-C &ComponentPool<C>::getData(EntityID entityID){
+C& ComponentPool<C>::getData(EntityID entityID){
     return components.get(entity_to_index[entityID]);
 }
 
