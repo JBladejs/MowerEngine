@@ -19,7 +19,7 @@ public:
     template<typename C>
     bool hasComponent();
     template<typename C>
-    C getComponent();
+    C& getComponent();
 
     ~Entity() = default;
 
@@ -56,7 +56,7 @@ inline bool Entity::hasComponent() {
 }
 
 template<typename C>
-inline C Entity::getComponent() {
+inline C& Entity::getComponent() {
     return Coordinator::getInstance().getComponent<C>(id);
 }
 

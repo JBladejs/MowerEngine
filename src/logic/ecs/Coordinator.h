@@ -19,7 +19,7 @@ public:
     uint32_t getNumberOfActiveEntities() const;
 
     template<typename C>
-    bool registerComponent();
+    void registerComponent();
     template <typename C>
     ComponentType getComponentType();
     template <typename C>
@@ -78,7 +78,7 @@ inline uint32_t Coordinator::getNumberOfActiveEntities() const {
 }
 
 template<typename C>
-inline bool Coordinator::registerComponent() {
+inline void Coordinator::registerComponent() {
     return component_manager.registerComponent<C>();
 }
 

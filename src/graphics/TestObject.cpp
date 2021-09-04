@@ -7,7 +7,7 @@
 #include "../logic/Components/Position.h"
 
 TestObject::TestObject(float x, float y) : entity(EntityManager::getInstance().createEntity()) {
-//    image = new Sprite("assets/crate.jpg");
+    image = new Sprite("assets/crate.jpg");
     entity.addComponent<Position>({x, y});
     image = new Animation("assets/megaman.png", 5, 2, 15);
 }
@@ -27,11 +27,13 @@ float TestObject::getY() const {
 }
 
 void TestObject::setX(float x) {
-//    this->x = x;
+    auto& position = entity.getComponent<Position>();
+    position.x = x;
 }
 
 void TestObject::setY(float y) {
-//    this->y = y;
+    auto& position = entity.getComponent<Position>();
+    position.y = y;
 }
 
 TestObject::~TestObject() {
