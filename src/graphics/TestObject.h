@@ -11,11 +11,10 @@
 class TestObject {
 private:
     Entity& entity;
-    Image *image;
+    Image* image;
 public:
     TestObject(float x, float y);
     ~TestObject();
-    void render();
     float getX() const;
     void setX(float x);
     float getY() const;

@@ -42,10 +42,3 @@ bool InputMultiplexer::onKeyUp(uint8_t key) {
 bool InputMultiplexer::onKeyHold(uint8_t key) {
     return updateHandlers(HOLD, key);
 }
-
-InputMultiplexer::~InputMultiplexer() {
-    for (auto handler: handlers) {
-        delete handler;
-    }
-    handlers.clear();
-}

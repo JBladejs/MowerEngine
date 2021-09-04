@@ -90,12 +90,16 @@ inline ComponentType Coordinator::getComponentType() {
 template<typename C>
 inline void Coordinator::addComponent(EntityID entityID, C component) {
     component_manager.addComponent(entityID, component);
+    auto& signature = entity_manger.getSignature(entityID);
+    signature.set(component_manager.getComponentType<C>());
     system_manager.entitySignatureChanged(entityID, entity_manger.getSignature(entityID));
 }
 
 template<typename C>
 inline void Coordinator::removeComponent(EntityID entityID) {
     component_manager.removeComponent<C>(entityID);
+    auto& signature = entity_manger.getSignature(entityID);
+    signature.unset(component_manager.getComponentType<C>());
     system_manager.entitySignatureChanged(entityID, entity_manger.getSignature(entityID));
 }
 
@@ -108,12 +112,12 @@ inline Coordinator::Coordinator() : component_manager(ComponentManager::getInsta
 
 template<typename S>
 inline S &Coordinator::registerSystem() {
-    system_manager.registerSystem<S>();
+    return system_manager.registerSystem<S>();
 }
 
 template<typename S>
 inline void Coordinator::observeComponentType(ComponentType componentType) {
-    system_manager.registerSystem<S>(componentType);
+    system_manager.observeComponentType<S>(componentType);
 }
 
 inline void Coordinator::update() {

@@ -20,7 +20,6 @@ public:
     virtual bool onKeyDown(uint16_t key) = 0;
     virtual bool onKeyUp(uint16_t key) = 0;
     virtual bool onKeyHold(uint16_t key) = 0;
-    ~BoundInputHandler() override = default;
 };
 
 

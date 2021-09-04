@@ -5,6 +5,7 @@
 #include "Image.h"
 
 Image::~Image() {
+    //TODO: move ownership of textures to TextureManager
     delete texture;
     texture = nullptr;
 }

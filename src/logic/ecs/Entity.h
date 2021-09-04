@@ -10,7 +10,7 @@
 class Entity {
 public:
     uint32_t getID() const;
-    ExtendingBitset getSignature() const;
+    ExtendingBitset& getSignature();
 
     template<typename C>
     void addComponent(C component);
@@ -28,9 +28,9 @@ public:
     void operator=(Entity const&) = delete;
 private:
     uint32_t id;
-    ExtendingBitset bits;
+    ExtendingBitset* bits;
 
-    explicit Entity(uint32_t id): id(id) {}
+    explicit Entity(uint32_t id): id(id), bits(new ExtendingBitset()) {}
     bool has_component(int componentType);
 };
 
@@ -61,11 +61,11 @@ inline C& Entity::getComponent() {
 }
 
 inline bool Entity::has_component(int componentType) {
-    return bits.get(componentType);
+    return bits->get(componentType);
 }
 
-inline ExtendingBitset Entity::getSignature() const {
-    return bits;
+inline ExtendingBitset& Entity::getSignature() {
+    return *bits;
 }
 
 #endif //MOWERENGINE_ENTITY_H

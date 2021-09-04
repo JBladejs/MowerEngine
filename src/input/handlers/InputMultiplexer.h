@@ -19,7 +19,6 @@ public:
     bool onKeyDown(uint8_t key) override;
     bool onKeyUp(uint8_t key) override;
     bool onKeyHold(uint8_t key) override;
-    ~InputMultiplexer() override;
 };
 
 

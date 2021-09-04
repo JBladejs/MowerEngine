@@ -47,7 +47,7 @@ inline S& SystemManager::registerSystem() {
     System *system = new S();
     systems[type_name] = system;
     bitsets[type_name] = ExtendingBitset();
-    return system;
+    return (S&) *system;
 }
 
 template<typename S>

@@ -1,8 +1,6 @@
 //
 // Created by goon on 13.08.2021.
 //
-#pragma once
-
 #ifndef MOWERENGINE_BAG_H
 #define MOWERENGINE_BAG_H
 

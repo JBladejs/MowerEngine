@@ -7,7 +7,8 @@
 #include "graphics/texturing/Sprite.h"
 #include "TestInputHandler.h"
 #include "input/handlers/InputMultiplexer.h"
-#include "logic/Components/Position.h"
+#include "logic/components/Position.h"
+#include "logic/systems/TexturingSystem.h"
 #include<SDL2/SDL.h>
 #include<GL/gl.h>
 #include <IL/il.h>
@@ -74,13 +75,13 @@ void Engine::initSDL() {
 void Engine::start() {
     initSDL();
     initGL();
+    ecs_coordinator.registerComponent<Position>();
+    TexturingSystem::initialize();
     input = new InputProcessor();
     running = true;
-    ecs_coordinator.registerComponent<Position>();
 
     testRect = new TestObject(250.f, 250.f);
     background = new Sprite("assets/crate.jpg");
-
     input->map_key('w', 1);
     input->map_key('s', 2);
     input->map_key('a', 3);
@@ -153,7 +154,6 @@ void Engine::render() {
     glTranslatef(-camera->getX(), -camera->getY(), -camera->getZ());
     ecs_coordinator.render();
     background->render(0.f, 0.f);
-    testRect->render();
     //TODO: find out about glFlush
     glFlush();
     glDisable(GL_TEXTURE_2D);

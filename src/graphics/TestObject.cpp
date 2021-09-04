@@ -4,18 +4,20 @@
 
 #include "TestObject.h"
 #include "texturing/Sprite.h"
-#include "../logic/Components/Position.h"
+#include "../logic/components/Position.h"
+#include "../logic/components/Textured.h"
 
-TestObject::TestObject(float x, float y) : entity(EntityManager::getInstance().createEntity()) {
-    image = new Sprite("assets/crate.jpg");
-    entity.addComponent<Position>({x, y});
-    image = new Animation("assets/megaman.png", 5, 2, 15);
+void test(Textured textured) {
+    std::cout << textured.texture << std::endl;
 }
 
-void TestObject::render() {
-    image->update();
-    auto position = entity.getComponent<Position>();
-    image->render(position.x, position.y, 0.25f);
+TestObject::TestObject(float x, float y) : entity(Coordinator::getInstance().createEntity()) {
+    image = new Animation("assets/megaman.png", 5, 2, 15);
+    auto textured = Textured {image};
+    test(textured);
+    entity.addComponent<Textured>(textured);
+//    entity.addComponent<Position>({x, y});
+    std::cout << entity.getComponent<Textured>().texture << std::endl;
 }
 
 float TestObject::getX() const {
@@ -38,5 +40,5 @@ void TestObject::setY(float y) {
 
 TestObject::~TestObject() {
     delete image;
-    image = nullptr;
+    Coordinator::getInstance().removeEntity(entity);
 }

@@ -14,7 +14,7 @@ class EntityManager {
 public:
     Entity& createEntity();
     Entity& getEntity(EntityID entityID);
-    ExtendingBitset getSignature(EntityID entityID);
+    ExtendingBitset& getSignature(EntityID entityID);
     void removeEntity(Entity& entity);
     uint32_t getNumberOfActiveEntities() const;
     ~EntityManager();
@@ -85,7 +85,7 @@ inline bool EntityManager::is_entity_registered(Entity& entity) {
     return entities.get(entity.getID()) == &entity;
 }
 
-inline ExtendingBitset EntityManager::getSignature(EntityID entityID) {
+inline ExtendingBitset& EntityManager::getSignature(EntityID entityID) {
     return getEntity(entityID).getSignature();
 }
 
