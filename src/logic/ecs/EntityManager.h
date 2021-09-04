@@ -4,20 +4,32 @@
 #ifndef MOWERENGINE_ENTITYMANAGER_H
 #define MOWERENGINE_ENTITYMANAGER_H
 
-#include <vector>
-#include <cstdint>
 #include <queue>
+#include "ECSTypes.h"
 #include "../../util/Bag.h"
 
 class Entity;
 
 class EntityManager {
+public:
+    Entity& createEntity();
+    Entity& getEntity(EntityID entityID);
+    ExtendingBitset getSignature(EntityID entityID);
+    void removeEntity(Entity& entity);
+    uint32_t getNumberOfActiveEntities() const;
+    ~EntityManager();
+
 private:
-    //TODO: go through the rest of the class and change pointers to references when pointers are not necessary
-    Bag<Entity*> entities;
-    std::queue<uint32_t> available_ids;
+    Bag<Entity*> entities{};
+    std::queue<uint32_t> available_ids{};
     uint32_t active_entities = 0;
     uint32_t next_id = 0;
+
+    bool is_entity_registered(Entity& entity);
+    uint32_t get_available_id();
+    //Singleton:
+private:
+    EntityManager() = default;
 public:
     static EntityManager& getInstance() {
         static EntityManager instance;
@@ -25,22 +37,12 @@ public:
     }
     EntityManager(EntityManager const&) = delete;
     void operator=(EntityManager const&) = delete;
-    Entity& createEntity();
-    Entity& getEntity(uint32_t entityID);
-    void removeEntity(Entity& entity);
-    uint32_t getNumberOfActiveEntities() const;
-    ~EntityManager();
-private:
-    EntityManager() = default;
-    bool isEntityRegistered(Entity& entity);
-    uint32_t getAvailableID();
 };
 
-#include <iostream>
 #include "Entity.h"
 
 inline Entity& EntityManager::createEntity() {
-    uint32_t id = getAvailableID();
+    uint32_t id = get_available_id();
     auto *entity = new Entity(id);
     entities.set(id, entity);
     active_entities++;
@@ -52,7 +54,7 @@ inline Entity &EntityManager::getEntity(uint32_t entityID) {
 }
 
 inline void EntityManager::removeEntity(Entity& entity) {
-    if (!isEntityRegistered(entity)) return;
+    if (!is_entity_registered(entity)) return;
     if (entity.getID() == entities.size() - 1) next_id--;
     else available_ids.push(entity.getID());
     active_entities--;
@@ -71,7 +73,7 @@ inline EntityManager::~EntityManager() {
     entities.clear();
 }
 
-inline uint32_t EntityManager::getAvailableID() {
+inline uint32_t EntityManager::get_available_id() {
     if (!available_ids.empty()) {
         uint32_t id = available_ids.front();
         available_ids.pop();
@@ -79,8 +81,12 @@ inline uint32_t EntityManager::getAvailableID() {
     } else return next_id++;
 }
 
-inline bool EntityManager::isEntityRegistered(Entity& entity) {
+inline bool EntityManager::is_entity_registered(Entity& entity) {
     return entities.get(entity.getID()) == &entity;
+}
+
+inline ExtendingBitset EntityManager::getSignature(EntityID entityID) {
+    return getEntity(entityID).getSignature();
 }
 
 

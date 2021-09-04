@@ -4,23 +4,11 @@
 #ifndef MOWERENGINE_ENTITY_H
 #define MOWERENGINE_ENTITY_H
 
-#include <cstdint>
 #include "ECSTypes.h"
 #include "../../util/ExtendingBitset.h"
 
-class EntityManager;
-
 class Entity {
-private:
-    uint32_t id;
-    ExtendingBitset bits;
-
-    explicit Entity(uint32_t id): id(id) {}
 public:
-    friend class EntityManager;
-    Entity(Entity const&) = delete;
-    void operator=(Entity const&) = delete;
-
     uint32_t getID() const;
     ExtendingBitset getSignature() const;
 
@@ -34,13 +22,19 @@ public:
     C getComponent();
 
     ~Entity() = default;
+
+    friend class EntityManager;
+    Entity(Entity const&) = delete;
+    void operator=(Entity const&) = delete;
 private:
-    bool hasComponent(int componentType);
+    uint32_t id;
+    ExtendingBitset bits;
+
+    explicit Entity(uint32_t id): id(id) {}
+    bool has_component(int componentType);
 };
 
-#include "EntityManager.h"
 #include "Coordinator.h"
-#include <typeinfo>
 
 inline uint32_t Entity::getID() const {
     return id;
@@ -58,7 +52,7 @@ inline void Entity::removeComponent() {
 
 template<typename C>
 inline bool Entity::hasComponent() {
-    return hasComponent(Coordinator::getInstance().getComponentType<C>());
+    return has_component(Coordinator::getInstance().getComponentType<C>());
 }
 
 template<typename C>
@@ -66,7 +60,7 @@ inline C Entity::getComponent() {
     return Coordinator::getInstance().getComponent<C>(id);
 }
 
-inline bool Entity::hasComponent(int componentType) {
+inline bool Entity::has_component(int componentType) {
     return bits.get(componentType);
 }
 

@@ -12,10 +12,6 @@ class EntityManager;
 class Entity;
 
 class Coordinator {
-private:
-    ComponentManager& component_manager;
-    EntityManager& entity_manger;
-    SystemManager& system_manager;
 public:
     Entity& createEntity();
     Entity& getEntity(EntityID entityID);
@@ -39,6 +35,12 @@ public:
     void observeComponentType(ComponentType componentType);
     void update();
     void render();
+
+private:
+    ComponentManager& component_manager;
+    EntityManager& entity_manger;
+    SystemManager& system_manager;
+
     //Singleton:
 private:
     Coordinator();
@@ -53,6 +55,7 @@ public:
 
 #include "SystemManager.h"
 #include "ComponentManager.h"
+#include "EntityManager.h"
 
 inline Entity &Coordinator::createEntity() {
     return entity_manger.createEntity();
@@ -87,13 +90,13 @@ inline ComponentType Coordinator::getComponentType() {
 template<typename C>
 inline void Coordinator::addComponent(EntityID entityID, C component) {
     component_manager.addComponent(entityID, component);
-    system_manager.entitySignatureChanged(entityID);
+    system_manager.entitySignatureChanged(entityID, entity_manger.getSignature(entityID));
 }
 
 template<typename C>
 inline void Coordinator::removeComponent(EntityID entityID) {
     component_manager.removeComponent<C>(entityID);
-    system_manager.entitySignatureChanged(entityID);
+    system_manager.entitySignatureChanged(entityID, entity_manger.getSignature(entityID));
 }
 
 template<typename C>

@@ -1,32 +1,31 @@
 //
 // Created by JJBla on 8/31/2021.
 //
-
 #ifndef MOWERENGINE_SYSTEMMANAGER_H
 #define MOWERENGINE_SYSTEMMANAGER_H
 
-
-#include <unordered_map>
-#include "System.h"
-#include "../../util/ExtendingBitset.h"
-
 //TODO: check how Ashley handles it
 
+#include <unordered_map>
+#include "../../util/ExtendingBitset.h"
+#include "System.h"
+
 class SystemManager {
-private:
-    std::unordered_map<const char*, System*> systems{};
-    //TODO: test if those are destroyed
-    std::unordered_map<const char*, ExtendingBitset> bitsets{};
 public:
     template<typename S>
     S& registerSystem();
     template<typename S>
     void observeComponentType(ComponentType componentType);
     void entityDestroyed(EntityID entityID);
-    void entitySignatureChanged(EntityID entityID);
+    void entitySignatureChanged(EntityID entityID, const ExtendingBitset& signature);
     void update();
     void render();
     ~SystemManager() = default;
+
+private:
+    std::unordered_map<const char*, System*> systems{};
+    std::unordered_map<const char*, ExtendingBitset> bitsets{};
+
 //Singleton:
 private:
     SystemManager() = default;
@@ -39,16 +38,16 @@ public:
     void operator=(SystemManager const&) = delete;
 };
 
-#include "Entity.h"
 
 template<typename S>
-inline S &SystemManager::registerSystem() {
+inline S& SystemManager::registerSystem() {
     //TODO: throw exception if system is already registered
     const char* type_name = typeid(S).name();
     //TODO: investigate a possibility of using a shared pointer hare
-    systems[type_name] = new S();
+    System *system = new S();
+    systems[type_name] = system;
     bitsets[type_name] = ExtendingBitset();
-    return *system;
+    return system;
 }
 
 template<typename S>
@@ -67,15 +66,13 @@ inline void SystemManager::entityDestroyed(EntityID entityID) {
     }
 }
 
-inline void SystemManager::entitySignatureChanged(EntityID entityID) {
-    //TODO: don't use the coordinator
-    auto& entity = Coordinator::getInstance().getEntity(entityID);
+inline void SystemManager::entitySignatureChanged(EntityID entityID, const ExtendingBitset& signature) {
     for (auto const& pair : systems) {
         auto const& type = pair.first;
         auto const& system = pair.second;
         auto const& system_signature = bitsets[type];
 
-        if ((system_signature & entity.getSignature()) == system_signature)
+        if ((system_signature & signature) == system_signature)
             system->entities.insert(entityID);
         else system->entities.erase(entityID);
     }

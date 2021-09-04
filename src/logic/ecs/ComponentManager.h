@@ -5,6 +5,7 @@
 #define MOWERENGINE_COMPONENTMANAGER_H
 
 #include <memory>
+#include <unordered_map>
 #include "ComponentPool.h"
 
 class ComponentManager {
@@ -26,7 +27,6 @@ public:
     void entityDestroyed(EntityID entityID);
 
 private:
-    //TODO: implement a similar system as in EntityManager
     ComponentType next_type = 0;
     std::unordered_map<const char*, ComponentType> component_types{};
     std::unordered_map<const char*, IComponentPool*> component_pools{};

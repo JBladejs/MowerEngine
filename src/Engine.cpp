@@ -77,9 +77,9 @@ void Engine::start() {
     initGL();
     input = new InputProcessor();
     running = true;
-    ecs_coordinator.registerSystem<Position>();
+//    ecs_coordinator.registerComponent<Position>();
 
-    testRect = new TestObject(250.f, 250.f, 64.f, 64.f);
+    testRect = new TestObject(250.f, 250.f);
     background = new Sprite("assets/crate.jpg");
 
     input->map_key('w', 1);
