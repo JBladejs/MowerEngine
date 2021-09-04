@@ -7,15 +7,9 @@
 #include "../logic/components/Position.h"
 #include "../logic/components/Textured.h"
 
-void test(Textured textured) {
-    std::cout << textured.texture << std::endl;
-}
-
 TestObject::TestObject(float x, float y) : entity(Coordinator::getInstance().createEntity()) {
     image = new Animation("assets/megaman.png", 5, 2, 15);
-    auto textured = Textured {image};
-    test(textured);
-    entity.addComponent<Textured>(textured);
+//    entity.addComponent<Textured>(textured);
 //    entity.addComponent<Position>({x, y});
     std::cout << entity.getComponent<Textured>().texture << std::endl;
 }
