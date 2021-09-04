@@ -41,6 +41,7 @@ bool ComponentPool<C>::insertData(EntityID entityID, C component) {
 
 template<typename C>
 void ComponentPool<C>::removeData(EntityID entityID) {
+    //TODO: check this
     components.remove(entity_to_index[entityID]);
     uint32_t new_index = components.size() - 1;
     entity_to_index[entityID] = new_index;
