@@ -13,12 +13,6 @@ TestObject::TestObject(float x, float y) : entity(Coordinator::getInstance().cre
     entity.addComponent<Textured>({image});
 }
 
-void TestObject::render() {
-//    image->update();
-//    auto& position = entity.getComponent<Position>();
-//    image->render(position.x, position.y, 0.25f);
-}
-
 float TestObject::getX() const {
     return entity.getComponent<Position>().x;
 }
