@@ -100,6 +100,7 @@ inline bool Bag<T>::removeElement(const T& element) {
 
 template<typename T>
 inline T& Bag<T>::get(uint32_t i) const{
+    //TODO: throw exception if it doesn't exist
     return data_ptr[i];
 }
 
