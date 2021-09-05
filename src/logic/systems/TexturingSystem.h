@@ -33,6 +33,8 @@ void TexturingSystem::render() {
         auto& position = coordinator.getComponent<Position>(entity);
         std::cout << texture << std::endl;
         texture->update();
+        //TODO: remove scale
+        texture->render(position.x, position.y, 0.25f);
         //TODO: make sprite methods const and change this
     }
 }

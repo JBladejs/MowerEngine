@@ -5,19 +5,18 @@
 #include "TestObject.h"
 #include "texturing/Sprite.h"
 #include "../logic/components/Position.h"
+#include "../logic/components/Textured.h"
 
 TestObject::TestObject(float x, float y) : entity(Coordinator::getInstance().createEntity()) {
     image = new Animation("assets/megaman.png", 5, 2, 15);
-//    entity.addComponent<Textured>(textured);
     entity.addComponent<Position>({x, y});
-    entity.removeComponent<Position>();
-//    std::cout << entity.getComponent<Textured>().texture << std::endl;
+    entity.addComponent<Textured>({image});
 }
 
 void TestObject::render() {
-    image->update();
-    auto& position = entity.getComponent<Position>();
-    image->render(position.x, position.y, 0.25f);
+//    image->update();
+//    auto& position = entity.getComponent<Position>();
+//    image->render(position.x, position.y, 0.25f);
 }
 
 float TestObject::getX() const {

@@ -152,10 +152,8 @@ void Engine::render() {
     glEnable(GL_TEXTURE_2D);
     glLoadIdentity(); //TODO: Check functionality of this
     glTranslatef(-camera->getX(), -camera->getY(), -camera->getZ());
-    ecs_coordinator.render();
-
     background->render(0.f, 0.f);
-    testRect->render();
+    ecs_coordinator.render();
     //TODO: find out about glFlush
     glFlush();
     glDisable(GL_TEXTURE_2D);
