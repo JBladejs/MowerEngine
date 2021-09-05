@@ -10,6 +10,7 @@ TestObject::TestObject(float x, float y) : entity(Coordinator::getInstance().cre
     image = new Animation("assets/megaman.png", 5, 2, 15);
 //    entity.addComponent<Textured>(textured);
     entity.addComponent<Position>({x, y});
+    entity.removeComponent<Position>();
 //    std::cout << entity.getComponent<Textured>().texture << std::endl;
 }
 

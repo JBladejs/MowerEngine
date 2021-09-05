@@ -6,7 +6,8 @@
 
 #include <vector>
 #include <unordered_map>
-#include "../../util/Bag.h"
+#include "ECSTypes.h"
+//#include "../../util/Bag.h"
 
 class IComponentPool {
 public:
@@ -44,10 +45,10 @@ bool ComponentPool<C>::insertData(EntityID entityID, C component) {
 template<typename C>
 void ComponentPool<C>::removeData(EntityID entityID) {
     //TODO: check this
-//    components.remove(entity_to_index[entityID]);
-//    uint32_t new_index = components.size() - 1;
-//    entity_to_index[entityID] = new_index;
-//    index_to_entity[new_index] = entityID;
+//    components.erase(entity_to_index[entityID]);
+    uint32_t new_index = components.size();
+    entity_to_index[entityID] = new_index;
+    index_to_entity[new_index] = entityID;
 }
 
 template<typename C>
