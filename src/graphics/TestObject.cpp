@@ -16,7 +16,7 @@ TestObject::TestObject(float x, float y) : entity(Coordinator::getInstance().cre
 
 void TestObject::render() {
     image->update();
-    auto position = entity.getComponent<Position>();
+    auto& position = entity.getComponent<Position>();
     image->render(position.x, position.y, 0.25f);
 }
 

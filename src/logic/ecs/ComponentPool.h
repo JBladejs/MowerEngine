@@ -4,10 +4,9 @@
 #ifndef MOWERENGINE_COMPONENTPOOL_H
 #define MOWERENGINE_COMPONENTPOOL_H
 
-#include <vector>
 #include <unordered_map>
 #include "ECSTypes.h"
-//#include "../../util/Bag.h"
+#include "../../util/Bag.h"
 
 class IComponentPool {
 public:
@@ -26,7 +25,7 @@ public:
 
 private:
     //TODO: change that back into Bag
-    std::vector<C> components{};
+    Bag<C> components{};
     std::unordered_map<EntityID, uint32_t> entity_to_index{};
     std::unordered_map<uint32_t, EntityID> index_to_entity{};
 };
@@ -36,7 +35,7 @@ bool ComponentPool<C>::insertData(EntityID entityID, C component) {
     if (entity_to_index.find(entityID) != entity_to_index.end()) return false;
     uint32_t index = components.size();
     //TODO: replace component if necessary
-    components.push_back(component);
+    components.add(component);
     entity_to_index[entityID] = index;
     index_to_entity[index] = entityID;
     return true;
@@ -44,11 +43,24 @@ bool ComponentPool<C>::insertData(EntityID entityID, C component) {
 
 template<typename C>
 void ComponentPool<C>::removeData(EntityID entityID) {
-    //TODO: check this
-//    components.erase(entity_to_index[entityID]);
-    uint32_t new_index = components.size();
-    entity_to_index[entityID] = new_index;
-    index_to_entity[new_index] = entityID;
+    if (components.size() > 1) {
+        uint32_t index = entity_to_index[entityID];
+        uint32_t last_index = components.size() - 1;
+        EntityID last_index_entity = index_to_entity[last_index];
+
+        components.remove(index);
+
+        entity_to_index[last_index_entity] = index;
+        index_to_entity[index] = last_index_entity;
+
+        entity_to_index.erase(entityID);
+        index_to_entity.erase(last_index);
+    } else {
+        components.clear();
+        entity_to_index.clear();
+        index_to_entity.clear();
+    }
+
 }
 
 template<typename C>
@@ -59,7 +71,7 @@ void ComponentPool<C>::entityDestroyed(EntityID entityID) {
 
 template<typename C>
 C& ComponentPool<C>::getData(EntityID entityID){
-    return components[entity_to_index[entityID]];
+    return components.get(entity_to_index[entityID]);
 }
 
 template<typename C>
