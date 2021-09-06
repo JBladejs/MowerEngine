@@ -7,14 +7,14 @@
 
 
 #include "input/handlers/InputHandler.h"
-#include "graphics/TestObject.h"
 #include "input/handlers/BoundInputHandler.h"
+#include "logic/ecs/Entity.h"
 
 class TestInputHandler: public BoundInputHandler {
 private:
-    TestObject *object;
+    Entity& player;
 public:
-    explicit TestInputHandler(TestObject *object);
+    explicit TestInputHandler(EntityID entityID);
     bool onKeyDown(uint16_t key) override;
     bool onKeyHold(uint16_t key) override;
     bool onKeyUp(uint16_t key) override;

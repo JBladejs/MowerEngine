@@ -3,21 +3,18 @@
 //
 
 #include "Engine.h"
-#include "graphics/TestObject.h"
 #include "graphics/texturing/Sprite.h"
 #include "TestInputHandler.h"
 #include "input/handlers/InputMultiplexer.h"
 #include "logic/components/Position.h"
 #include "logic/systems/TexturingSystem.h"
+#include "graphics/texturing/Animation.h"
 #include<SDL2/SDL.h>
 #include<GL/gl.h>
 #include <IL/il.h>
 #include <ilu.h>
 
 using namespace std;
-
-TestObject *testRect = nullptr;
-Sprite *background = nullptr;
 InputProcessor *Engine::input;
 //auto last_time = std::chrono::high_resolution_clock::now();
 
@@ -80,13 +77,20 @@ void Engine::start() {
     input = new InputProcessor();
     running = true;
 
-    testRect = new TestObject(250.f, 250.f);
-    background = new Sprite("assets/crate.jpg");
+    auto& background = ecs_coordinator.createEntity();
+    background.addComponent<Position>({0.f, 0.f});
+    background.addComponent<Textured>({new Sprite("assets/crate.jpg")});
+
+    auto& player = ecs_coordinator.createEntity();
+    player.addComponent<Position>({250.f, 250.f});
+    player.addComponent<Textured>({new Animation("assets/megaman.png", 5, 2, 15), FRACTIONAL, 0.25f, 0.f});
+
     input->map_key('w', 1);
     input->map_key('s', 2);
     input->map_key('a', 3);
     input->map_key('d', 4);
-    auto handler = new TestInputHandler(testRect);
+
+    auto handler = new TestInputHandler(player.getID());
 
     input->setHandler(handler);
 
@@ -111,8 +115,6 @@ void Engine::quit() {
 
 Engine::~Engine() {
     if (running) quit();
-    delete testRect;
-    testRect = nullptr;
     delete input;
     input = nullptr;
 }
@@ -152,7 +154,6 @@ void Engine::render() {
     glEnable(GL_TEXTURE_2D);
     glLoadIdentity(); //TODO: Check functionality of this
     glTranslatef(-camera->getX(), -camera->getY(), -camera->getZ());
-    background->render(0.f, 0.f);
     ecs_coordinator.render();
     //TODO: find out about glFlush
     glFlush();
