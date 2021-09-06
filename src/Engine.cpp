@@ -9,6 +9,7 @@
 #include "logic/components/Position.h"
 #include "logic/systems/TexturingSystem.h"
 #include "graphics/texturing/Animation.h"
+#include "logic/systems/CollisionSystem.h"
 #include<SDL2/SDL.h>
 #include<GL/gl.h>
 #include <IL/il.h>
@@ -74,6 +75,7 @@ void Engine::start() {
     initGL();
     ecs_coordinator.registerComponent<Position>();
     TexturingSystem::initialize();
+    CollisionSystem::initialize();
     input = new InputProcessor();
     running = true;
 
@@ -83,11 +85,14 @@ void Engine::start() {
 
     auto& player = ecs_coordinator.createEntity();
     player.addComponent<Position>({250.f, 250.f});
-    player.addComponent<Textured>({new Animation("assets/megaman.png", 5, 2, 15), FRACTIONAL, 0.25f, 0.f});
+//    player.addComponent<Textured>({new Animation("assets/megaman.png", 5, 2, 15), CONSTANT, 100.f, 100.f});
+    player.addComponent<Textured>({new Sprite("assets/circle.png"), CONSTANT, 100.f, 100.f});
+    player.addComponent<Collider>({0.f, 0.f, 50.f});
 
     auto& circle = ecs_coordinator.createEntity();
     circle.addComponent<Position>({100.f, 100.f});
     circle.addComponent<Textured>({new Sprite("assets/circle.png"), CONSTANT, 50.f, 50.f});
+    circle.addComponent<Collider>({0.f, 0.f, 25.f});
 
     input->map_key('w', 1);
     input->map_key('s', 2);
