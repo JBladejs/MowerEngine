@@ -85,6 +85,10 @@ void Engine::start() {
     player.addComponent<Position>({250.f, 250.f});
     player.addComponent<Textured>({new Animation("assets/megaman.png", 5, 2, 15), FRACTIONAL, 0.25f, 0.f});
 
+    auto& circle = ecs_coordinator.createEntity();
+    circle.addComponent<Position>({100.f, 100.f});
+    circle.addComponent<Textured>({new Sprite("assets/circle.png"), CONSTANT, 50.f, 50.f});
+
     input->map_key('w', 1);
     input->map_key('s', 2);
     input->map_key('a', 3);

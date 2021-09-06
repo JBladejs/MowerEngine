@@ -31,6 +31,8 @@ void TexturingSystem::render() {
         auto& coordinator = Coordinator::getInstance();
         auto& textured = coordinator.getComponent<Textured>(entity);
         auto& position = coordinator.getComponent<Position>(entity);
+        //TODO: find a way to remove that
+        glLoadIdentity();
         textured.texture->update();
         switch (textured.scalingType) {
             case NONE:
