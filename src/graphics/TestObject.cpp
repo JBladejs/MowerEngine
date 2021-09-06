@@ -10,7 +10,7 @@
 TestObject::TestObject(float x, float y) : entity(Coordinator::getInstance().createEntity()) {
     image = new Animation("assets/megaman.png", 5, 2, 15);
     entity.addComponent<Position>({x, y});
-    entity.addComponent<Textured>({image});
+    entity.addComponent<Textured>({image, FRACTIONAL, 0.25f, 0.f});
 }
 
 float TestObject::getX() const {

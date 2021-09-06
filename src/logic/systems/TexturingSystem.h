@@ -29,12 +29,20 @@ void TexturingSystem::initialize() {
 void TexturingSystem::render() {
     for (const auto& entity: entities) {
         auto& coordinator = Coordinator::getInstance();
-        auto* texture = coordinator.getComponent<Textured>(entity).texture;
+        auto& textured = coordinator.getComponent<Textured>(entity);
         auto& position = coordinator.getComponent<Position>(entity);
-        std::cout << texture << std::endl;
-        texture->update();
-        //TODO: remove scale
-        texture->render(position.x, position.y, 0.25f);
+        textured.texture->update();
+        switch (textured.scalingType) {
+            case NONE:
+                textured.texture->render(position.x, position.y);
+                break;
+            case FRACTIONAL:
+                textured.texture->render(position.x, position.y, textured.scalingA);
+                break;
+            case CONSTANT:
+                textured.texture->render(position.x, position.y, textured.scalingA, textured.scalingB);
+                break;
+        }
         //TODO: make sprite methods const and change this
     }
 }
