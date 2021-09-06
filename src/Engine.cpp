@@ -79,8 +79,10 @@ void Engine::start() {
     input = new InputProcessor();
     running = true;
 
+    //TODO: fix relative placement
+
     auto& background = ecs_coordinator.createEntity();
-    background.addComponent<Position>({0.f, 0.f});
+    background.addComponent<Position>({250.f, 250.f});
     background.addComponent<Textured>({new Sprite("assets/crate.jpg")});
 
     auto& player = ecs_coordinator.createEntity();
@@ -90,7 +92,7 @@ void Engine::start() {
     player.addComponent<Collider>({0.f, 0.f, 50.f});
 
     auto& circle = ecs_coordinator.createEntity();
-    circle.addComponent<Position>({100.f, 100.f});
+    circle.addComponent<Position>({250.f, 250.f});
     circle.addComponent<Textured>({new Sprite("assets/circle.png"), CONSTANT, 50.f, 50.f});
     circle.addComponent<Collider>({0.f, 0.f, 25.f});
 

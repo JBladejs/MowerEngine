@@ -32,17 +32,26 @@ void TexturingSystem::render() {
         auto& textured = coordinator.getComponent<Textured>(entity);
         auto& position = coordinator.getComponent<Position>(entity);
         //TODO: find a way to remove that
-        glLoadIdentity();
+//        glLoadIdentity();
         textured.texture->update();
+        //TODO: move the correction to texture rendering method
+        float corr_x;
+        float corr_y;
         switch (textured.scalingType) {
             case NONE:
-                textured.texture->render(position.x, position.y);
+                corr_x = textured.texture->getTexture().getImageWidth() * .5f;
+                corr_y = textured.texture->getTexture().getImageHeight() * .5f;
+                textured.texture->render(position.x - corr_x, position.y - corr_y);
                 break;
             case FRACTIONAL:
-                textured.texture->render(position.x, position.y, textured.scalingA);
+                corr_x = textured.texture->getTexture().getImageWidth() * .5f * textured.scalingA;
+                corr_y = textured.texture->getTexture().getImageHeight() * .5f * textured.scalingA;
+                textured.texture->render(position.x - corr_x, position.y - corr_y, textured.scalingA);
                 break;
             case CONSTANT:
-                textured.texture->render(position.x, position.y, textured.scalingA, textured.scalingB);
+                corr_x = textured.scalingA * .5f;
+                corr_y = textured.scalingB * .5f;
+                textured.texture->render(position.x - corr_x, position.y - corr_y, textured.scalingA, textured.scalingB);
                 break;
         }
         //TODO: make sprite methods const and change this

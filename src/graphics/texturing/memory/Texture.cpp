@@ -130,6 +130,7 @@ void Texture::render(float x, float y, float width, float height, FRect *clip) {
         glVertex2f(0.f, height);
         glEnd();
         unbind();
+        glTranslatef(-x, -y, 0.f);
     }
 }
 

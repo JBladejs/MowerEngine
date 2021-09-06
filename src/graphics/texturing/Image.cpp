@@ -10,6 +10,6 @@ Image::~Image() {
     texture = nullptr;
 }
 
-Texture *Image::getTexture() {
-    return texture;
+Texture &Image::getTexture() {
+    return *texture;
 }

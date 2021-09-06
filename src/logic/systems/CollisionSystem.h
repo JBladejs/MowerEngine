@@ -5,6 +5,7 @@
 #ifndef MOWERENGINE_COLLISIONSYSTEM_H
 #define MOWERENGINE_COLLISIONSYSTEM_H
 
+#include <cmath>
 #include "../ecs/System.h"
 #include "../ecs/Coordinator.h"
 #include "../components/Collider.h"
@@ -33,12 +34,19 @@ void CollisionSystem::update() {
     for (it = entities.begin(); it != entities.end(); it++) {
         auto& it_position = coordinator.getComponent<Position>(*it);
         auto& it_collider = coordinator.getComponent<Collider>(*it);
+        float it_x = it_position.x + it_collider.x;
+        float it_y = it_position.y + it_collider.y;
+        float it_r = it_collider.r;
         for ((other = it)++; other != entities.end(); other++) {
             auto& other_position = coordinator.getComponent<Position>(*other);
             auto& other_collider = coordinator.getComponent<Collider>(*other);
+            float other_x = other_position.x + other_collider.x;
+            float other_y = other_position.y + other_collider.y;
+            float other_r = other_collider.r;
 
-            if ( std::abs((it_position.x + it_collider.x) - (other_position.x + other_collider.x)) < it_collider.r + other_collider.r
-            &&   std::abs((it_position.y + it_collider.y) - (other_position.y + other_collider.y)) < it_collider.r + other_collider.r)
+//            sqrt((collider.x - x).pow(2) + (collider.y - y).pow(2)) < radius + collider.radius
+
+            if (std::sqrt( powf(it_x - other_x, 2.f) + powf(it_y - other_y, 2.f)) < it_r + other_r )
                 std::cout << "collsion!" << std::endl;
         }
     }

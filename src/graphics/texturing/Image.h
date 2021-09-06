@@ -17,7 +17,7 @@ public:
     virtual void render(float x, float y) = 0;
     virtual void render(float x, float y, float scale) = 0;
     virtual void render(float x, float y, float width, float height) = 0;
-    Texture *getTexture();
+    Texture &getTexture();
 };
 
 #endif //MOWERENGINE_IMAGE_H
