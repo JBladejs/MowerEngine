@@ -89,12 +89,17 @@ void Engine::start() {
     player.addComponent<Position>({250.f, 250.f});
 //    player.addComponent<Textured>({new Animation("assets/megaman.png", 5, 2, 15), CONSTANT, 100.f, 100.f});
     player.addComponent<Textured>({new Sprite("assets/circle.png"), CONSTANT, 100.f, 100.f});
-    player.addComponent<Collider>({0.f, 0.f, 50.f});
+    player.addComponent<CircleCollider>({0.f, 0.f, 50.f});
 
     auto& circle = ecs_coordinator.createEntity();
     circle.addComponent<Position>({250.f, 250.f});
     circle.addComponent<Textured>({new Sprite("assets/circle.png"), CONSTANT, 50.f, 50.f});
-    circle.addComponent<Collider>({0.f, 0.f, 25.f});
+    circle.addComponent<CircleCollider>({0.f, 0.f, 25.f});
+
+    auto& square = ecs_coordinator.createEntity();
+    square.addComponent<Position>({400.f, 400.f});
+    square.addComponent<Textured>({new Sprite("assets/square.jpg"), CONSTANT, 85.f, 85.f});
+    square.addComponent<BoxCollider>({0.f, 0.f, 85.f, 85.f});
 
     input->map_key('w', 1);
     input->map_key('s', 2);

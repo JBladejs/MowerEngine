@@ -17,7 +17,7 @@ public:
     template<typename C>
     void removeComponent();
     template<typename C>
-    bool hasComponent();
+    bool hasComponent() const;
     template<typename C>
     C& getComponent();
 
@@ -31,7 +31,7 @@ private:
     ExtendingBitset* bits;
 
     explicit Entity(uint32_t id): id(id), bits(new ExtendingBitset()) {}
-    bool has_component(int componentType);
+    bool has_component(int componentType) const;
 };
 
 #include "Coordinator.h"
@@ -51,7 +51,7 @@ inline void Entity::removeComponent() {
 }
 
 template<typename C>
-inline bool Entity::hasComponent() {
+inline bool Entity::hasComponent() const{
     return has_component(Coordinator::getInstance().getComponentType<C>());
 }
 
@@ -60,7 +60,7 @@ inline C& Entity::getComponent() {
     return Coordinator::getInstance().getComponent<C>(id);
 }
 
-inline bool Entity::has_component(int componentType) {
+inline bool Entity::has_component(int componentType) const {
     return bits->get(componentType);
 }
 

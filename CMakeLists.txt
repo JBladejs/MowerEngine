@@ -10,7 +10,7 @@ file(GLOB HEADERS "src/*.h" "src/*/*.h" "src/*/*/*.h" "src/*/*/*/*.h" "src/*/*/*
 #TODO: make it so the files are copied on assets change
 file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
 
-add_executable(MowerEngine ${SOURCE} ${HEADERS} src/logic/systems/TexturingSystem.h src/logic/components/Collider.h src/logic/systems/CollisionSystem.h)
+add_executable(MowerEngine ${SOURCE} ${HEADERS})
 
 #TODO: make it more platform independent
 IF (WIN32)

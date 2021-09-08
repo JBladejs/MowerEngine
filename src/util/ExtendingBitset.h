@@ -23,6 +23,7 @@ public:
     void set(uint32_t index);
     void unset(uint32_t index);
     bool get(uint32_t index) const;
+    bool empty() const;
     void clear();
     ExtendingBitset& operator&=(const ExtendingBitset &other);
     bool operator==(const ExtendingBitset &other);

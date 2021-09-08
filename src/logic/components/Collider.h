@@ -5,10 +5,14 @@
 #ifndef MOWERENGINE_COLLIDER_H
 #define MOWERENGINE_COLLIDER_H
 
-//TODO: implement box colliders
+struct BoxCollider {
+    float x;
+    float y;
+    float w;
+    float h;
+};
 
-//Circle collider:
-struct Collider {
+struct CircleCollider {
     float x;
     float y;
     float r;

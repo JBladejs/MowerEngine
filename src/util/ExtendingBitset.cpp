@@ -4,6 +4,7 @@
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "hicpp-signed-bitwise"
 
+#include <algorithm>
 #include "ExtendingBitset.h"
 
 uint8_t ExtendingBitset::get_byte(uint32_t index) const {
@@ -71,6 +72,10 @@ bool ExtendingBitset::operator==(const ExtendingBitset &other) {
     for (uint32_t i = 0; i < elements; i++)
         if (get_byte(i) != other.get_byte(i)) return false;
     return true;
+}
+
+bool ExtendingBitset::empty() const {
+    return std::all_of(bytes.begin(), bytes.end(), [](uint8_t byte){return byte == 0x00l;});
 }
 
 #pragma clang diagnostic pop
