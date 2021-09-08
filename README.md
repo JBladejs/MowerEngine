@@ -5,11 +5,11 @@ ___
 1. ~~Camera~~
 1. ~~Input Processor~~
 1. ~~Entity System~~
-1. Collisions
-1. Physics
-1. Camera additions
-1. Error checking
+1. ~~Collisions~~
 1. Scripting
+1. Camera additions
+1. Physics
+1. Error checking
 1. Lighting
 1. Text
 1. Shaders

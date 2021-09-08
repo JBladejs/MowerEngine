@@ -3,6 +3,7 @@
 //
 
 #include "CollisionSystem.h"
+#include "../components/Collision.h"
 
 void CollisionSystem::initialize() {
     auto& coordinator = Coordinator::getInstance();
@@ -10,6 +11,7 @@ void CollisionSystem::initialize() {
 
     coordinator.registerComponent<CircleCollider>();
     coordinator.registerComponent<BoxCollider>();
+    coordinator.registerSystem<Collision>();
 
     coordinator.observeComponentType<CollisionSystem>(coordinator.getComponentType<Position>());
 }
@@ -31,8 +33,10 @@ void CollisionSystem::update() {
             auto& entity2 = coordinator.getEntity(*other);
             if (!entity2.hasComponent<CircleCollider>() && !entity2.hasComponent<BoxCollider>()) continue;
 
-            if (are_colliding(entity1, entity2))
-                std::cout << "collsion!" << std::endl;
+            if (are_colliding(entity1, entity2)) {
+                entity1.addComponent<Collision>({&entity2});
+                entity2.addComponent<Collision>({&entity1});
+            }
         }
     }
 }
