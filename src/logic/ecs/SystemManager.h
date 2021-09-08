@@ -7,6 +7,7 @@
 //TODO: check how Ashley handles it
 
 #include <unordered_map>
+#include <typeinfo>
 #include "../../util/ExtendingBitset.h"
 #include "System.h"
 

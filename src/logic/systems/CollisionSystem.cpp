@@ -11,7 +11,7 @@ void CollisionSystem::initialize() {
 
     coordinator.registerComponent<CircleCollider>();
     coordinator.registerComponent<BoxCollider>();
-    coordinator.registerSystem<Collision>();
+    coordinator.registerComponent<Collision>();
 
     coordinator.observeComponentType<CollisionSystem>(coordinator.getComponentType<Position>());
 }
