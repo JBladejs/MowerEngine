@@ -15,11 +15,11 @@ private:
 public:
     Camera();
     ~Camera() = default;
-    float getX() const;
+    [[nodiscard]] float getX() const;
     void setX(float value);
-    float getY() const;
+    [[nodiscard]] float getY() const;
     void setY(float value);
-    float getZ() const;
+    [[nodiscard]] float getZ() const;
     void setZ(float value);
 };
 
