@@ -6,9 +6,20 @@
 #define MOWERENGINE_SCRIPTMANAGER_H
 
 
+#include <sol/sol.hpp>
+
 class ScriptManager {
 public:
-
+    //TODO: consider adding init and cleanup to SystemManager and System
+    void init();
+    void update();
+    void render();
+    void cleanup();
+private:
+    sol::state lua;
+    sol::function fun_init;
+    sol::function fun_update;
+    sol::function fun_render;
 
 //Singleton:
 private:
