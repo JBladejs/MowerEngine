@@ -9,6 +9,17 @@
 class ScriptManager {
 public:
 
+
+//Singleton:
+private:
+    ScriptManager() = default;
+public:
+    static ScriptManager& getInstance() {
+        static ScriptManager instance;
+        return instance;
+    }
+    ScriptManager(ScriptManager const&) = delete;
+    void operator=(ScriptManager const&) = delete;
 };
 
 
