@@ -28,13 +28,12 @@ find_package(SOL2 REQUIRED)
 
 set(SOURCES ${SOURCE_FILES})
 
-message(${SOL2_INCLUDE_DIR})
-
 set(INCLUDES
         ${SDL2_INCLUDE_DIR}
         ${IL_INCLUDE_DIR}
         ${OPENGL_INCLUDE_DIR}
         ${LUA_INCLUDE_DIR}
+        ${SOL2_INCLUDE_DIR}
         )
 
 set(LIBS
