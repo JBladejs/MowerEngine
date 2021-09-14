@@ -26,7 +26,7 @@ add_definitions("-llua")
 message("Checking SOL2...")
 find_package(SOL2 REQUIRED)
 
-set(SOURCES ${SOURCE_FILES} src/logic/components/Script.h)
+set(SOURCES ${SOURCE_FILES} src/logic/components/Script.h src/scripting/LuaEntity.cpp src/scripting/LuaEntity.h src/scripting/LuaCoordinator.cpp src/scripting/LuaCoordinator.h src/scripting/LuaSystem.cpp src/scripting/LuaSystem.h src/scripting/LuaCollider.cpp src/scripting/LuaCollider.h src/scripting/LuaPosition.cpp src/scripting/LuaPosition.h src/scripting/LuaCollision.cpp src/scripting/LuaCollision.h src/scripting/LuaScript.cpp src/scripting/LuaScript.h src/scripting/LuaTextured.cpp src/scripting/LuaTextured.h src/scripting/LuaCollisionSystem.cpp src/scripting/LuaCollisionSystem.h src/scripting/LuaScriptSystem.cpp src/scripting/LuaScriptSystem.h src/scripting/LuaTexturingSystem.cpp src/scripting/LuaTexturingSystem.h)
 
 set(INCLUDES
         ${SDL2_INCLUDE_DIR}
