@@ -26,7 +26,7 @@ add_definitions("-llua")
 message("Checking SOL2...")
 find_package(SOL2 REQUIRED)
 
-set(SOURCES ${SOURCE_FILES})
+set(SOURCES ${SOURCE_FILES} src/logic/components/Script.h)
 
 set(INCLUDES
         ${SDL2_INCLUDE_DIR}
