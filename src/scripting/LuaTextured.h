@@ -5,8 +5,9 @@
 #ifndef MOWERENGINE_LUATEXTURED_H
 #define MOWERENGINE_LUATEXTURED_H
 
-
 #include <state.hpp>
+#include "../logic/components/Textured.h"
+
 
 namespace LuaTextured {
     void bind(sol::state& lua);
