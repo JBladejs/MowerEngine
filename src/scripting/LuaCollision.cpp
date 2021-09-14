@@ -3,3 +3,9 @@
 //
 
 #include "LuaCollision.h"
+
+void LuaCollision::bind(sol::state &lua) {
+    lua.new_usertype<Collision>("Collision",
+                                "collidingEntity", &Collision::collidingEntity
+                                );
+}
