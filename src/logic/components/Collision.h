@@ -8,7 +8,7 @@
 #include "../ecs/Entity.h"
 
 struct Collision {
-    Entity* collidingEntity;
+    EntityID collidingEntity;
 };
 
 #endif //MOWERENGINE_COLLISION_H
