@@ -8,6 +8,7 @@
 
 #include <state.hpp>
 
+//TODO: implement that
 namespace LuaScript {
     void bind(sol::state& lua);
 };

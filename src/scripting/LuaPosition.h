@@ -7,6 +7,7 @@
 
 
 #include <state.hpp>
+#include "../logic/components/Position.h"
 
 namespace LuaPosition {
     void bind(sol::state& lua);
