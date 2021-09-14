@@ -34,8 +34,8 @@ void CollisionSystem::update() {
             if (!entity2.hasComponent<CircleCollider>() && !entity2.hasComponent<BoxCollider>()) continue;
 
             if (are_colliding(entity1, entity2)) {
-                entity1.addComponent<Collision>({&entity2});
-                entity2.addComponent<Collision>({&entity1});
+                entity1.addComponent<Collision>({entity2.getID()});
+                entity2.addComponent<Collision>({entity1.getID()});
             }
         }
     }
