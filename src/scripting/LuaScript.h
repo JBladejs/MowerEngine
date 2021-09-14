@@ -9,7 +9,7 @@
 #include <state.hpp>
 
 namespace LuaScript {
-    void bind(sol::state* lua);
+    void bind(sol::state& lua);
 };
 
 

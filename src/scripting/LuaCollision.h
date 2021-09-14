@@ -9,7 +9,7 @@
 #include <state.hpp>
 
 namespace LuaCollision {
-    void bind(sol::state* lua);
+    void bind(sol::state& lua);
 };
 
 
