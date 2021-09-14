@@ -3,6 +3,7 @@
 //
 
 #include "LuaTextured.h"
+#include "../logic/components/Textured.h"
 
 void LuaTextured::bind(sol::state &lua) {
     lua.new_enum("ScalingType",

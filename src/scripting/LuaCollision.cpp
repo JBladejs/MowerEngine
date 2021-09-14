@@ -3,6 +3,8 @@
 //
 
 #include "LuaCollision.h"
+#include "../logic/components/Collision.h"
+
 
 void LuaCollision::bind(sol::state &lua) {
     lua.new_usertype<Collision>("Collision",

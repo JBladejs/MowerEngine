@@ -7,7 +7,6 @@
 
 
 #include <state.hpp>
-#include "../logic/components/Collision.h"
 
 namespace LuaCollision {
     void bind(sol::state& lua);
