@@ -1,5 +1,5 @@
 //
-// Created by Alan Ćwiek on 9/8/2021.
+// Created by JJBla on 9/8/2021.
 //
 
 #include "TexturingSystem.h"

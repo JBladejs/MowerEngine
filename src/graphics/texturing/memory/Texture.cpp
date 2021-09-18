@@ -1,5 +1,5 @@
 //
-// Created by Alan Ćwiek on 4/9/2021.
+// Created by JJBla on 4/9/2021.
 //
 
 #include "Texture.h"

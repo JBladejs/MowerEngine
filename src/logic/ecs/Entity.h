@@ -1,5 +1,5 @@
 //
-// Created by Alan Ćwiek on 15.07.2021.
+// Created by goon on 15.07.2021.
 //
 #ifndef MOWERENGINE_ENTITY_H
 #define MOWERENGINE_ENTITY_H

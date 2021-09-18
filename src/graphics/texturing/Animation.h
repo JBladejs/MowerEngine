@@ -1,5 +1,5 @@
 //
-// Created by Alan Ćwiek on 18.05.2021.
+// Created by goon on 18.05.2021.
 //
 
 #ifndef MOWERENGINE_ANIMATION_H

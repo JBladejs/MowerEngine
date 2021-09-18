@@ -1,5 +1,5 @@
 //
-// Created by Alan Ćwiek on 11.07.2021.
+// Created by goon on 11.07.2021.
 //
 
 #ifndef MOWERENGINE_INPUTHANDLER_H

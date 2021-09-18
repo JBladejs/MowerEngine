@@ -1,5 +1,5 @@
 //
-// Created by Alan Ćwiek on 8/26/2021.
+// Created by JJBla on 8/26/2021.
 //
 #ifndef MOWERENGINE_COMPONENTPOOL_H
 #define MOWERENGINE_COMPONENTPOOL_H

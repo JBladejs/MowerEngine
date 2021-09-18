@@ -1,5 +1,5 @@
 //
-// Created by Alan Ćwiek on 8/29/2021.
+// Created by JJBla on 8/29/2021.
 //
 #ifndef MOWERENGINE_COORDINATOR_H
 #define MOWERENGINE_COORDINATOR_H

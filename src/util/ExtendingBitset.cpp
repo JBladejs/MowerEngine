@@ -1,5 +1,5 @@
 //
-// Created by Alan Ćwiek on 17.08.2021.
+// Created by goon on 17.08.2021.
 //
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "hicpp-signed-bitwise"

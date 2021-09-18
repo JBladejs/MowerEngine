@@ -1,5 +1,5 @@
 //
-// Created by Alan Ćwiek on 9/6/2021.
+// Created by JJBla on 9/6/2021.
 //
 
 #ifndef MOWERENGINE_COLLISIONSYSTEM_H
