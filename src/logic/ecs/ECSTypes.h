@@ -1,5 +1,5 @@
 //
-// Created by JJBla on 8/23/2021.
+// Created by Alan Ćwiek on 8/23/2021.
 //
 #ifndef MOWERENGINE_ECSTYPES_H
 #define MOWERENGINE_ECSTYPES_H

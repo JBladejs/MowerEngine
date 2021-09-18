@@ -1,5 +1,5 @@
 //
-// Created by JJBla on 4/9/2021.
+// Created by Alan Ćwiek on 4/9/2021.
 //
 
 #ifndef MOWERENGINE_TEXTURE_H

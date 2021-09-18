@@ -1,5 +1,5 @@
 //
-// Created by goon on 13.08.2021.
+// Created by Alan Ćwiek on 13.08.2021.
 //
 #ifndef MOWERENGINE_BAG_H
 #define MOWERENGINE_BAG_H

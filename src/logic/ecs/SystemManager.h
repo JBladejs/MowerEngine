@@ -1,5 +1,5 @@
 //
-// Created by JJBla on 8/31/2021.
+// Created by Alan Ćwiek on 8/31/2021.
 //
 #ifndef MOWERENGINE_SYSTEMMANAGER_H
 #define MOWERENGINE_SYSTEMMANAGER_H

@@ -1,5 +1,5 @@
 //
-// Created by goon on 17.08.2021.
+// Created by Alan Ćwiek on 17.08.2021.
 //
 
 #ifndef MOWERENGINE_EXTENDINGBITSET_H
