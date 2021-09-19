@@ -24,7 +24,6 @@ public:
     uint32_t size() const;
 
 private:
-    //TODO: change that back into Bag
     Bag<C> components{};
     std::unordered_map<EntityID, uint32_t> entity_to_index{};
     std::unordered_map<uint32_t, EntityID> index_to_entity{};
