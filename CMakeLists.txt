@@ -19,13 +19,6 @@ find_package(SDL2 REQUIRED)
 message("Checking DevIL...")
 find_package(DevIL REQUIRED)
 
-message("Checking Lua...")
-find_package(Lua REQUIRED)
-add_definitions("-llua")
-
-message("Checking SOL2...")
-find_package(SOL2 REQUIRED)
-
 set(SOURCES ${SOURCE_FILES})
 
 message(${SOL2_INCLUDE_DIR})
@@ -34,7 +27,6 @@ set(INCLUDES
         ${SDL2_INCLUDE_DIR}
         ${IL_INCLUDE_DIR}
         ${OPENGL_INCLUDE_DIR}
-        ${LUA_INCLUDE_DIR}
         )
 
 set(LIBS
@@ -42,7 +34,6 @@ set(LIBS
         ${OPENGL_LIBRARIES}
         ${IL_LIBRARIES}
         ${ILU_LIBRARIES}
-        ${LUA_LIBRARIES}
         )
 
 add_executable(${PROJECT_NAME} ${SOURCES} ${HEADER_FILES})
