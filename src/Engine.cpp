@@ -83,7 +83,7 @@ void Engine::start() {
 
     auto& check = ecs_coordinator.createEntity();
     check.addComponent<Position>({250.f, 250.f});
-    check.addComponent<Textured>({new Sprite("assets/circle.png")});
+    check.addComponent<Textured>({new Sprite("assets/circle2.png", true, 0x00FFFF)});
 
 //    auto& background = ecs_coordinator.createEntity();
 //    background.addComponent<Position>({250.f, 250.f});

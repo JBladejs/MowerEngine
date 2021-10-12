@@ -68,7 +68,7 @@ Texture *TextureManager::loadTextureFromFile(const std::string &path, bool color
             texture = new Texture();
             if (colorKeyed) {
                 texture->loadColorKeyed((GLuint *) ilGetData(), ilGetInteger(IL_IMAGE_WIDTH), ilGetInteger(IL_IMAGE_HEIGHT),
-                                        (int) imgWidth, (int) imgHeight, Color(0xF7F7F7), 255);
+                                        (int) imgWidth, (int) imgHeight, Color(color), 255);
             } else {
                 texture->load((GLuint *) ilGetData(), ilGetInteger(IL_IMAGE_WIDTH), ilGetInteger(IL_IMAGE_HEIGHT),
                               (int) imgWidth,
