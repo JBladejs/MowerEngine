@@ -32,8 +32,10 @@ Engine::Engine(): ecs_coordinator(Coordinator::getInstance()) {
     running = false;
 }
 
+//TODO: add viewport
+//TODO: add error checking
+//    TODO: Find out the difference between matrix modes
 void Engine::initGL() const {
-    //TODO: add viewport
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     glOrtho(0.0, screenWidth, screenHeight, 0.0, 1.0, -1.0);
@@ -47,13 +49,9 @@ void Engine::initGL() const {
 
     //Enable blending
     glEnable(GL_BLEND);
-    //TODO: research depth test
-//    glEnable(GL_DEPTH_TEST);
+    glDisable(GL_DEPTH_TEST);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-    //TODO: add error checking
-
-//    TODO: Find out the difference between matrix modes
     ilInit();
     iluInit();
     ilClearColour(0, 0, 0, 0);
