@@ -40,7 +40,7 @@ Texture *TextureManager::makeCheckTexture(int width, int height) {
 }
 
 //TODO: store textures and return them instead of loading again
-Texture *TextureManager::loadTextureFromFile(const std::string &path) {
+Texture *TextureManager::loadTextureFromFile(const std::string &path, bool colorKeyed, uint32_t color) {
     Texture *texture = nullptr;
     bool loaded = false;
     ILuint imgID = 0;
@@ -66,13 +66,14 @@ Texture *TextureManager::loadTextureFromFile(const std::string &path) {
                 iluEnlargeCanvas((int) texWidth, (int) texHeight, 1);
             }
             texture = new Texture();
-//            texture->load((GLuint *) ilGetData(), ilGetInteger(IL_IMAGE_WIDTH), ilGetInteger(IL_IMAGE_HEIGHT),
-//                                (int) imgWidth,
-//                                (int) imgHeight);
-//                DEBUG
-            texture->loadColorKeyed((GLuint *) ilGetData(), ilGetInteger(IL_IMAGE_WIDTH), ilGetInteger(IL_IMAGE_HEIGHT),
-                                (int) imgWidth, (int) imgHeight, Color(0xF7F7F7), 255);
-//                DEBUG_END
+            if (colorKeyed) {
+                texture->loadColorKeyed((GLuint *) ilGetData(), ilGetInteger(IL_IMAGE_WIDTH), ilGetInteger(IL_IMAGE_HEIGHT),
+                                        (int) imgWidth, (int) imgHeight, Color(0xF7F7F7), 255);
+            } else {
+                texture->load((GLuint *) ilGetData(), ilGetInteger(IL_IMAGE_WIDTH), ilGetInteger(IL_IMAGE_HEIGHT),
+                              (int) imgWidth,
+                              (int) imgHeight);
+            }
         }
         //Delete file from memory
         ilDeleteImages(1, &imgID);

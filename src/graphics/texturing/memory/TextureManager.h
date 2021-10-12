@@ -15,7 +15,7 @@ private:
 
 public:
     static Texture *makeCheckTexture(int width, int height);
-    static Texture *loadTextureFromFile(const std::string &path);
+    static Texture *loadTextureFromFile(const std::string &path, bool colorKeyed = false, uint32_t color = 0x000000);
 };
 
 #endif //MOWERENGINE_TEXTUREMANAGER_H

@@ -12,7 +12,7 @@ class Sprite : public Image {
 private:
     typedef Image super;
 public:
-    explicit Sprite(const std::string &path);
+    explicit Sprite(const std::string &path, bool colorKeyed = false, uint32_t color = 0x000000);
     void update() override;
     void render(float x, float y) override;
     void render(float x, float y, float scale) override;

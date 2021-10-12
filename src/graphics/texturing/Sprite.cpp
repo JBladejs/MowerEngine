@@ -5,7 +5,7 @@
 #include "Sprite.h"
 #include "memory/TextureManager.h"
 
-Sprite::Sprite(const std::string &path) : super(TextureManager::loadTextureFromFile(path)) {}
+Sprite::Sprite(const std::string &path, bool colorKeyed, uint32_t color) : super(TextureManager::loadTextureFromFile(path, colorKeyed, color)) {}
 
 void Sprite::update() {}
 
