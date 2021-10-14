@@ -52,10 +52,8 @@ inline ComponentManager &ComponentManager::getInstance() {
 
 template<typename C>
 inline void ComponentManager::registerComponent() {
-    //TODO: throw exception if component is already registered
     const char* typeName = typeid(C).name();
     component_types[typeName] = next_type++;
-    //TODO: investigate using shared pointer here
     component_pools[typeName] = new ComponentPool<C>;
 }
 
