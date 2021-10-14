@@ -53,6 +53,8 @@ void Engine::initGL() const {
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     ilInit();
+    iluInit();
+    ilClearColour(0, 0, 0, 0);
 }
 
 void Engine::initSDL() {
