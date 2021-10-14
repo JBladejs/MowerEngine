@@ -86,8 +86,7 @@ void Texture::load(GLuint *pixels, int texWidth, int texHeight, int imgWidth, in
 void Texture::loadColorKeyed(GLuint *pixels, int texWidth, int texHeight, int imgWidth, int imgHeight, Color color, GLuint alpha) {
     loadPixels(pixels, texWidth, texHeight, imgWidth, imgHeight);
     //TODO: make sure that only the part that contains an image is keyed
-    GLuint size = imageWidth * imageHeight;
-    GLuint y_offset = texWidth - imgWidth;
+    GLuint size = textureWidth * textureHeight;
     for (int i = 0; i < size; i++) {
         auto* colors = (GLubyte*) &loadedPixels[i];
         if (colors[0] == color.iR && colors[1] == color.iB && colors[2] == color.iG && colors[3] == alpha) {

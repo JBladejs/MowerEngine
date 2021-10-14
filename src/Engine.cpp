@@ -77,11 +77,15 @@ void Engine::start() {
     input = new InputProcessor();
     running = true;
 
+    onInit();
+
     //TODO: fix relative placement
 
-    auto& check = ecs_coordinator.createEntity();
-    check.addComponent<Position>({250.f, 250.f});
-    check.addComponent<Textured>({new Sprite("assets/circle2.png", true, 0x00FFFF)});
+
+
+//    auto& check = ecs_coordinator.createEntity();
+//    check.addComponent<Position>({250.f, 250.f});
+//    check.addComponent<Textured>({new Sprite("assets/circle2.png", true, 0x00FFFF)});
 
 //    auto& background = ecs_coordinator.createEntity();
 //    background.addComponent<Position>({250.f, 250.f});
@@ -158,6 +162,7 @@ void Engine::update() {
 
     input->endProcessing();
     ecs_coordinator.update();
+    onUpdate();
     SDL_GL_SwapWindow(window);
 }
 
@@ -171,6 +176,7 @@ void Engine::render() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glEnable(GL_TEXTURE_2D);
     glLoadIdentity(); //TODO: Check functionality of this
+    onRender();
     glTranslatef(-camera->getX(), -camera->getY(), -camera->getZ());
     ecs_coordinator.render();
     //TODO: find out about glFlush

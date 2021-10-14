@@ -28,20 +28,15 @@ private:
     void quit();
 public:
     static InputProcessor *input;
-    ~Engine();
+
+    Engine();
+    virtual ~Engine();
     void start();
     int getExitCode() const;
 
-    //Singleton:
-private:
-    Engine();
-public:
-    static Engine& getInstance() {
-        static Engine instance;
-        return instance;
-    }
-    Engine(EntityManager const&) = delete;
-    void operator=(EntityManager const&) = delete;
+    virtual void onInit() {};
+    virtual void onUpdate() {};
+    virtual void onRender() {};
 };
 
 
