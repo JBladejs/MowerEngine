@@ -107,10 +107,10 @@ void Engine::start() {
 //    square.addComponent<Textured>({new Sprite("assets/square.jpg"), CONSTANT, 85.f, 85.f});
 //    square.addComponent<BoxCollider>({0.f, 0.f, 85.f, 85.f});
 
-    input->map_key('w', 1);
-    input->map_key('s', 2);
-    input->map_key('a', 3);
-    input->map_key('d', 4);
+//    input->map_key('w', 1);
+//    input->map_key('s', 2);
+//    input->map_key('a', 3);
+//    input->map_key('d', 4);
 
 //    auto handler = new TestInputHandler(player.getID());
 
