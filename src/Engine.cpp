@@ -26,8 +26,8 @@ Engine::Engine(): ecs_coordinator(Coordinator::getInstance()) {
     context = nullptr;
     input = nullptr;
     //TODO: make it not hardcoded
-    screenWidth = 500.f;
-    screenHeight = 500.f;
+    screenWidth = 1280.f;
+    screenHeight =  720.f;
     exitCode = -1;
     running = false;
 }
