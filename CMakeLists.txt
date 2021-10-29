@@ -21,8 +21,6 @@ find_package(DevIL REQUIRED)
 
 set(SOURCES ${SOURCE_FILES})
 
-message(${SOL2_INCLUDE_DIR})
-
 set(INCLUDES
         ${SDL2_INCLUDE_DIR}
         ${IL_INCLUDE_DIR}
