@@ -15,8 +15,6 @@ private:
     SDL_Window *window;
     SDL_GLContext context;
     Camera *camera;
-    float screenWidth;
-    float screenHeight;
     bool running;
     int exitCode;
     Coordinator& ecs_coordinator;
@@ -27,6 +25,8 @@ private:
     void render();
     void quit();
 public:
+    float screenWidth;
+    float screenHeight;
     static InputProcessor *input;
 
     Engine();
