@@ -5,6 +5,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+set(AS_LIBRARY OFF)
 
 file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
 file(GLOB HEADER_FILES "src/*.h" "src/*/*.h" "src/*/*/*.h" "src/*/*/*/*.h" "src/*/*/*/*/*.h")
@@ -33,8 +34,11 @@ set(LIBS
         ${IL_LIBRARIES}
         ${ILU_LIBRARIES}
         )
-
-add_executable(${PROJECT_NAME} ${SOURCES} ${HEADER_FILES})
+IF(AS_LIBRARY)
+   add_library(${PROJECT_NAME} ${SOURCES} ${HEADER_FILES})
+ELSE()
+    add_executable(${PROJECT_NAME} ${SOURCES} ${HEADER_FILES})
+ENDIF()
 
 IF(WIN32)
     add_definitions("-mconsole -mwindows")
