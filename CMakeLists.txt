@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.17)
 project(MowerEngine)
 
 set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake/")
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 set(AS_LIBRARY OFF)
@@ -16,6 +16,8 @@ find_package(OpenGL REQUIRED)
 
 message("Checking SDL2...")
 find_package(SDL2 REQUIRED)
+message(${CMAKE_MODULE_PATH})
+message(${SDL2_LIBRARY})
 
 message("Checking DevIL...")
 find_package(DevIL REQUIRED)
@@ -34,8 +36,10 @@ set(LIBS
         ${IL_LIBRARIES}
         ${ILU_LIBRARIES}
         )
+include_directories(${INCLUDES})
+
 IF(AS_LIBRARY)
-   add_library(${PROJECT_NAME} ${SOURCES} ${HEADER_FILES})
+    add_library(${PROJECT_NAME} STATIC ${SOURCES} ${HEADER_FILES})
 ELSE()
     add_executable(${PROJECT_NAME} ${SOURCES} ${HEADER_FILES})
 ENDIF()
@@ -43,5 +47,4 @@ ENDIF()
 IF(WIN32)
     add_definitions("-mconsole -mwindows")
 ENDIF()
-include_directories(${INCLUDES})
 target_link_libraries(${PROJECT_NAME} ${LIBS})
