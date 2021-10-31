@@ -71,7 +71,7 @@ void Bag<T>::grow() {
 
 template<typename T>
 void Bag<T>::ensure_capacity(uint32_t size) {
-    while (size > bag_capacity) {
+    while (size >= bag_capacity) {
         grow();
     }
 }
@@ -106,7 +106,7 @@ inline T& Bag<T>::get(uint32_t i) const{
 
 template<typename T>
 inline void Bag<T>::set(uint32_t i, T value) {
-    if (i > bag_capacity) grow(i * 2);
+    if (i >= bag_capacity) grow(i * 2);
     auto new_size = i + 1;
     if (new_size > data_size) data_size = new_size;
     data_ptr[i] = value;
