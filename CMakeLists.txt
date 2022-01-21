@@ -12,7 +12,7 @@ file(GLOB SOURCE_FILES "src/*.cpp" "src/*/*.cpp" "src/*/*/*.cpp" "src/*/*/*/*.cp
 find_package(OpenGL REQUIRED)
 find_package(SDL2 REQUIRED)
 find_package(DevIL REQUIRED)
-#find_package(Lua REQUIRED)
+find_package(Lua REQUIRED)
 
 set(SOURCES ${SOURCE_FILES})
 set(INCLUDES ${HEADER_FILES})
