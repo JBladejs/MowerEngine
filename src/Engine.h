@@ -15,8 +15,6 @@ private:
     SDL_Window *window;
     SDL_GLContext context;
     Camera *camera;
-    float screenWidth;
-    float screenHeight;
     bool running;
     int exitCode;
     Coordinator& ecs_coordinator;
@@ -27,21 +25,18 @@ private:
     void render();
     void quit();
 public:
+    float screenWidth;
+    float screenHeight;
     static InputProcessor *input;
-    ~Engine();
+
+    Engine();
+    virtual ~Engine();
     void start();
     int getExitCode() const;
 
-    //Singleton:
-private:
-    Engine();
-public:
-    static Engine& getInstance() {
-        static Engine instance;
-        return instance;
-    }
-    Engine(EntityManager const&) = delete;
-    void operator=(EntityManager const&) = delete;
+    virtual void onInit() {};
+    virtual void onUpdate() {};
+    virtual void onRender() {};
 };
 
 

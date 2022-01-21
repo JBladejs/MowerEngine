@@ -26,14 +26,16 @@ Engine::Engine(): ecs_coordinator(Coordinator::getInstance()) {
     context = nullptr;
     input = nullptr;
     //TODO: make it not hardcoded
-    screenWidth = 500.f;
-    screenHeight = 500.f;
+    screenWidth = 1280.f;
+    screenHeight =  720.f;
     exitCode = -1;
     running = false;
 }
 
+//TODO: add viewport
+//TODO: add error checking
+//    TODO: Find out the difference between matrix modes
 void Engine::initGL() const {
-    //TODO: add viewport
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     glOrtho(0.0, screenWidth, screenHeight, 0.0, 1.0, -1.0);
@@ -47,13 +49,9 @@ void Engine::initGL() const {
 
     //Enable blending
     glEnable(GL_BLEND);
-    //TODO: research depth test
-//    glEnable(GL_DEPTH_TEST);
+    glDisable(GL_DEPTH_TEST);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-    //TODO: add error checking
-
-//    TODO: Find out the difference between matrix modes
     ilInit();
     iluInit();
     ilClearColour(0, 0, 0, 0);
@@ -79,36 +77,44 @@ void Engine::start() {
     input = new InputProcessor();
     running = true;
 
+    onInit();
+
     //TODO: fix relative placement
 
-    auto& background = ecs_coordinator.createEntity();
-    background.addComponent<Position>({250.f, 250.f});
-    background.addComponent<Textured>({new Sprite("assets/crate.jpg")});
 
-    auto& player = ecs_coordinator.createEntity();
-    player.addComponent<Position>({250.f, 250.f});
-//    player.addComponent<Textured>({new Animation("assets/megaman.png", 5, 2, 15), CONSTANT, 100.f, 100.f});
-    player.addComponent<Textured>({new Sprite("assets/circle.png"), CONSTANT, 100.f, 100.f});
-    player.addComponent<CircleCollider>({0.f, 0.f, 50.f});
 
-    auto& circle = ecs_coordinator.createEntity();
-    circle.addComponent<Position>({250.f, 250.f});
-    circle.addComponent<Textured>({new Sprite("assets/circle.png"), CONSTANT, 50.f, 50.f});
-    circle.addComponent<CircleCollider>({0.f, 0.f, 25.f});
+//    auto& check = ecs_coordinator.createEntity();
+//    check.addComponent<Position>({250.f, 250.f});
+//    check.addComponent<Textured>({new Sprite("assets/circle2.png", true, 0x00FFFF)});
 
-    auto& square = ecs_coordinator.createEntity();
-    square.addComponent<Position>({400.f, 400.f});
-    square.addComponent<Textured>({new Sprite("assets/square.jpg"), CONSTANT, 85.f, 85.f});
-    square.addComponent<BoxCollider>({0.f, 0.f, 85.f, 85.f});
+//    auto& background = ecs_coordinator.createEntity();
+//    background.addComponent<Position>({250.f, 250.f});
+//    background.addComponent<Textured>({new Sprite("assets/crate.jpg")});
+//
+//    auto& player = ecs_coordinator.createEntity();
+//    player.addComponent<Position>({250.f, 250.f});
+////    player.addComponent<Textured>({new Animation("assets/megaman.png", 5, 2, 15), CONSTANT, 100.f, 100.f});
+//    player.addComponent<Textured>({new Sprite("assets/circle.png"), CONSTANT, 100.f, 100.f});
+//    player.addComponent<CircleCollider>({0.f, 0.f, 50.f});
+//
+//    auto& circle = ecs_coordinator.createEntity();
+//    circle.addComponent<Position>({250.f, 250.f});
+//    circle.addComponent<Textured>({new Sprite("assets/circle.png"), CONSTANT, 50.f, 50.f});
+//    circle.addComponent<CircleCollider>({0.f, 0.f, 25.f});
+//
+//    auto& square = ecs_coordinator.createEntity();
+//    square.addComponent<Position>({400.f, 400.f});
+//    square.addComponent<Textured>({new Sprite("assets/square.jpg"), CONSTANT, 85.f, 85.f});
+//    square.addComponent<BoxCollider>({0.f, 0.f, 85.f, 85.f});
 
-    input->map_key('w', 1);
-    input->map_key('s', 2);
-    input->map_key('a', 3);
-    input->map_key('d', 4);
+//    input->map_key('w', 1);
+//    input->map_key('s', 2);
+//    input->map_key('a', 3);
+//    input->map_key('d', 4);
 
-    auto handler = new TestInputHandler(player.getID());
+//    auto handler = new TestInputHandler(player.getID());
 
-    input->setHandler(handler);
+//    input->setHandler(handler);
 
     while (running) {
         render();
@@ -156,6 +162,7 @@ void Engine::update() {
 
     input->endProcessing();
     ecs_coordinator.update();
+    onUpdate();
     SDL_GL_SwapWindow(window);
 }
 
@@ -169,6 +176,7 @@ void Engine::render() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glEnable(GL_TEXTURE_2D);
     glLoadIdentity(); //TODO: Check functionality of this
+    onRender();
     glTranslatef(-camera->getX(), -camera->getY(), -camera->getZ());
     ecs_coordinator.render();
     //TODO: find out about glFlush

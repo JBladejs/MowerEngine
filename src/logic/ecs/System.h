@@ -9,8 +9,7 @@
 
 class System {
 public:
-    //TODO: change set to Bag
-   std::set<EntityID> entities{};
+    std::set<EntityID> entities{};
     virtual void update() {}
     virtual void render() {}
 };

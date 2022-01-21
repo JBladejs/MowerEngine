@@ -1,9 +1,8 @@
+
 #include "Engine.h"
 
-//TODO: try to convert as many pointers to values as possible
-
 int main(int argc, char *args[]) {
-    Engine engine = Engine::getInstance();
+    auto engine = Engine();
     engine.start();
     return engine.getExitCode();
 }

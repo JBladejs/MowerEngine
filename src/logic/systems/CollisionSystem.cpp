@@ -44,7 +44,7 @@ void CollisionSystem::update() {
 bool CollisionSystem::are_boxes_colliding(BoxCollider colliderA, BoxCollider colliderB) {
     float dx = std::abs(colliderA.x - colliderB.x);
     float dy = std::abs(colliderA.y - colliderB.y);
-    return dx <= (colliderA.w + colliderB.w) * .5f && dy < (colliderA.h + colliderB.h);
+    return dx <= (colliderA.w + colliderB.w) * .5f && dy <= (colliderA.h + colliderB.h) * .5f;
 }
 
 bool CollisionSystem::are_circles_colliding(CircleCollider colliderA, CircleCollider colliderB) {

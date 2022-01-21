@@ -24,7 +24,7 @@ private:
 public:
 //    TODO: add skipped sprite spaces
 //    TODO: consider making fps a float
-    Animation(const std::string &path, int columns, int rows, int speed);
+    Animation(const std::string &path, int columns, int rows, int speed, bool colorKeyed = false, uint32_t color = 0x000000);
 
     void update() override;
 
