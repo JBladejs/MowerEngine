@@ -1,3 +1,0 @@
-[submodule "externals/sol2"]
-	path = externals/sol2
-	url = git@github.com:ThePhD/sol2.git
