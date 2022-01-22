@@ -10,6 +10,7 @@
 #include "logic/systems/TexturingSystem.h"
 #include "graphics/texturing/Animation.h"
 #include "logic/systems/CollisionSystem.h"
+#include "logging/Log.h"
 #include<SDL2/SDL.h>
 #include<GL/gl.h>
 #include <IL/il.h>
@@ -69,7 +70,11 @@ void Engine::initSDL() {
 }
 
 void Engine::start() {
+    Log::init();
+    Log::write("Engine starting...");
+    Log::write("Initializing SDL2...");
     initSDL();
+    Log::write("Initializing OpenGL...");
     initGL();
     ecs_coordinator.registerComponent<Position>();
     TexturingSystem::initialize();
@@ -136,6 +141,7 @@ void Engine::quit() {
 }
 
 Engine::~Engine() {
+    Log::close();
     if (running) quit();
     delete input;
     input = nullptr;

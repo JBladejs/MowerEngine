@@ -44,6 +44,16 @@ set(LIBS
         ${ILU_LIBRARIES}
         ${LUA_LIBRARIES}
         )
+
+message(${CMAKE_BUILD_TYPE})
+IF(CMAKE_BUILD_TYPE MATCHES Debug)
+    set(TERM_LOGS ON)
+    message("Messages will be printed instead of logged.")
+ELSE()
+    set(TERM_LOGS OFF)
+    message("Messages will be logged.")
+ENDIF()
+
 include_directories(${INCLUDES})
 
 IF(AS_LIBRARY)
@@ -54,5 +64,9 @@ ENDIF()
 
 IF(WIN32)
     add_definitions("-mconsole -mwindows")
+ENDIF()
+
+IF(TERM_LOGS)
+    add_definitions(-DTERM_LOGS)
 ENDIF()
 target_link_libraries(${PROJECT_NAME} ${LIBS})
