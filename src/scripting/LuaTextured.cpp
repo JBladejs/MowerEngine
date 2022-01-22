@@ -2,7 +2,7 @@
 // Created by JJBla on 9/14/2021.
 //
 
-#include "LuaTextured.h"
+#include "LuaBindings.h"
 #include "../logic/components/Textured.h"
 
 void LuaTextured::bind(sol::state &lua) {

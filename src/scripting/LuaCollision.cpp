@@ -2,7 +2,7 @@
 // Created by JJBla on 9/14/2021.
 //
 
-#include "LuaCollision.h"
+#include "LuaBindings.h"
 #include "../logic/components/Collision.h"
 
 

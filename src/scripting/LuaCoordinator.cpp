@@ -2,7 +2,7 @@
 // Created by JJBla on 9/14/2021.
 //
 
-#include "LuaCoordinator.h"
+#include "LuaBindings.h"
 #include "../logic/ecs/Coordinator.h"
 
 

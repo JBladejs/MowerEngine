@@ -2,12 +2,12 @@
 // Created by JJBla on 9/14/2021.
 //
 
-#include "LuaCollider.h"
+#include "LuaBindings.h"
 #include "../logic/components/Collider.h"
 
 void LuaCollider::bind(sol::state& lua) {
     lua.new_usertype<BoxCollider>("BoxCollider",
-                                   "x", &BoxCollider::x,
+                                     "x", &BoxCollider::x,
                                    "y", &BoxCollider::y,
                                    "w", &BoxCollider::w,
                                    "h", &BoxCollider::h
