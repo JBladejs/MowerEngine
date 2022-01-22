@@ -17,9 +17,9 @@ void LuaEngine::init() {
     BIND(LuaCollider)
     BIND(LuaCollision)
     BIND(LuaCoordinator)
-    BIND(LuaEntity)
+//    BIND(LuaEntity)
     BIND(LuaPosition)
-    BIND(LuaSystem)
+//    BIND(LuaSystem)
     BIND(LuaTextured)
-    BIND(LuaTexturingSystem)
+//    BIND(LuaTexturingSystem)
 }

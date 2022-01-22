@@ -3,6 +3,7 @@
 //
 
 #include "LuaBindings.h"
+#include "../../logic/components/Position.h"
 
 void LuaPosition::bind(sol::state &lua) {
     lua.new_usertype<Position>("Position",
