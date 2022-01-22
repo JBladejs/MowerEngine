@@ -8,8 +8,8 @@
 #include <state.hpp>
 
 #define _BINDING_DECL(_name)            \
-        namespace _name {              \
-            void bind(sol::state& lua);  \
+        namespace _name {               \
+            void bind(sol::state& lua); \
         }
 
 _BINDING_DECL(LuaCollider)
