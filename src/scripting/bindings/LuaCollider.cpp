@@ -3,7 +3,7 @@
 //
 
 #include "LuaBindings.h"
-#include "../logic/components/Collider.h"
+#include "../../logic/components/Collider.h"
 
 void LuaCollider::bind(sol::state& lua) {
     lua.new_usertype<BoxCollider>("BoxCollider",

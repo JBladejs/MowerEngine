@@ -3,7 +3,7 @@
 //
 
 #include "LuaEngine.h"
-#include "LuaBindings.h"
+#include "bindings/LuaBindings.h"
 
 static sol::state* lua;
 

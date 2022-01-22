@@ -3,7 +3,7 @@
 //
 
 #include "LuaBindings.h"
-#include "../logic/ecs/Coordinator.h"
+#include "../../logic/ecs/Coordinator.h"
 
 
 void LuaCoordinator::bind(sol::state &lua) {

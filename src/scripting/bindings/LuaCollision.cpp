@@ -3,7 +3,7 @@
 //
 
 #include "LuaBindings.h"
-#include "../logic/components/Collision.h"
+#include "../../logic/components/Collision.h"
 
 
 void LuaCollision::bind(sol::state &lua) {
