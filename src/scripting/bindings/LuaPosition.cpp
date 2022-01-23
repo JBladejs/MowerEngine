@@ -7,6 +7,10 @@
 
 void LuaPosition::bind(sol::state &lua) {
     lua.new_usertype<Position>("Position",
+                               sol::call_constructor,
+                               sol::factories([](float x, float y) {
+                                   return Position { x, y };
+                               }),
                                "x", &Position::x,
                                "y", &Position::y);
 }
