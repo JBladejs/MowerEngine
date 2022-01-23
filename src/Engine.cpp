@@ -11,6 +11,7 @@
 #include "graphics/texturing/Animation.h"
 #include "logic/systems/CollisionSystem.h"
 #include "logging/Log.h"
+#include "scripting/LuaEngine.h"
 #include<SDL2/SDL.h>
 #include<GL/gl.h>
 #include <IL/il.h>
@@ -78,9 +79,10 @@ void Engine::start() {
     initGL();
     ecs_coordinator.registerComponent<Position>();
     TexturingSystem::initialize();
-    CollisionSystem::initialize();
+//    CollisionSystem::initialize();
     input = new InputProcessor();
     running = true;
+    LuaEngine::init();
 
     onInit();
 

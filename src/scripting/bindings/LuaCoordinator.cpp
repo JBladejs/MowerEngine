@@ -8,7 +8,10 @@
 
 void LuaCoordinator::bind(sol::state &lua) {
     lua.new_usertype<Coordinator>("Coordinator",
+        "createEntity", &Coordinator::createEntity);
 
+
+        /*
         "", &Coordinator::createEntity,
         "", &Coordinator::getEntity,
         "", &Coordinator::removeEntity,
@@ -27,4 +30,5 @@ void LuaCoordinator::bind(sol::state &lua) {
 //        "", &Coordinator::observeComponentType,
         "", &Coordinator::update,
         "", &Coordinator::render);
+         */
 }
